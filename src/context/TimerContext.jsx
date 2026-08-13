@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect, useRef, useMemo, useCallback } from 'react';
+import { API_BASE } from '../config/api';
 import { useApp } from './AppContext';
 import { generateFocusPlan, focusPlaylists, sanitizePlan } from '../data/focusData';
 
@@ -425,7 +426,7 @@ export function TimerProvider({ children }) {
   // Replanning session - merges completed tasks and reorganizes from new input using the AI Planning service
   const replanSession = useCallback(async (newInput) => {
     try {
-      const response = await fetch('http://localhost:3001/api/ai/df/plan', {
+      const response = await fetch(`${API_BASE}/api/ai/df/plan`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

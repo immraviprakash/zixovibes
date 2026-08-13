@@ -13,11 +13,11 @@ Zix'Ovibes is built around two intentionally distinct experiences:
     natural-language goals into structured focus plans, Pomodoro
     sessions, task checklists, and contextual music recommendations.
 
-The application uses a React/Vite frontend, an Express backend, Firebase
+The application uses a React/Vite frontend deployed on Netlify, an
+Express backend intended for deployment on Render, Firebase
 Authentication and Firestore, locally bundled music assets, and
 Groq-powered AI services. These architectural and feature claims were
 independently reviewed against the current implementation.
-fileciteturn14file4
 
 ## ✨ Features
 
@@ -150,16 +150,18 @@ Deep Focus planning uses Groq's LLM API, with `llama-3.3-70b-versatile`
 as the primary model. The backend also implements multi-key failover,
 cooldown tracking, and model fallback handling. fileciteturn14file16
 
-The major backend endpoints include:
+The backend API endpoints include:
 
 ``` text
-/api/auth/*
-/api/ai/chat
-/api/ai/df/plan
+POST /api/auth/check-username    — username availability check
+POST /api/auth/resolve-username  — resolve username to email (login)
+POST /api/auth/reserve-username  — reserve username on signup
+POST /api/ai/chat                — Classic Mode AI companion (Bro)
+POST /api/ai/df/plan             — Deep Focus planning and replanning
+POST /api/ai/history             — fetch conversation history
+POST /api/ai/clear               — clear conversation history
+GET  /api/health                 — health check
 ```
-
-Supporting AI history and health endpoints are also present in the
-backend. fileciteturn14file11
 
 ## ⏱️ Pomodoro Lifecycle
 
@@ -194,23 +196,30 @@ Zix'Ovibes is organized as two cooperating processes:
 
 ``` text
 Zix'Ovibes
-├── React + Vite Frontend
+├── React + Vite Frontend  [Netlify]
 │   ├── Classic Mode
 │   ├── Deep Focus Mode
 │   ├── AppContext
 │   ├── TimerContext
 │   └── HTML5 Audio
 │
-├── Express Backend
-│   ├── Authentication
-│   ├── Classic AI
-│   ├── Deep Focus AI
-│   └── Groq client/failover
+├── Express Backend  [Render — pending deployment]
+│   ├── Authentication endpoints
+│   ├── Classic AI (Bro)
+│   ├── Deep Focus AI + planning
+│   ├── Groq client / multi-key failover
+│   └── Firebase Admin SDK
 │
 └── Firebase
     ├── Authentication
-    └── Firestore
+    ├── Firestore
+    └── Storage
 ```
+
+The frontend communicates with the backend through a single configurable
+API base URL (`VITE_API_URL`). In development this defaults to
+`http://localhost:3001`. In production it is set as a Netlify environment
+variable pointing to the deployed Render backend service.
 
 ### AppContext
 
@@ -241,14 +250,16 @@ mode before playback actions execute. fileciteturn14file8
   Backend          Node.js + Express 5
   Authentication   Firebase Authentication
   Database         Cloud Firestore
+  Storage          Firebase Storage
   AI               Groq API
   Audio            HTML5 Audio API
   State            React Context
   Persistence      localStorage + Firestore
   Music            Locally bundled audio assets
+  Hosting          Netlify (frontend) · Render (backend)
 
 These technologies were independently verified against `package.json`
-and the implementation. fileciteturn14file0
+and the implementation.
 
 ## 📁 Project Structure
 
@@ -277,16 +288,18 @@ Zix'Ovibes/
 │
 ├── src/
 │   ├── components/
+│   ├── config/
+│   │   └── api.js           ← API base URL (reads VITE_API_URL)
 │   ├── context/
 │   │   ├── AppContext.jsx
 │   │   └── TimerContext.jsx
 │   ├── data/
 │   │   └── musicBrain.js
 │   ├── firebase/
-│   ├── services/
 │   ├── App.jsx
 │   └── main.jsx
 │
+├── .env.example             ← frontend env var reference
 ├── package.json
 ├── vite.config.js
 └── README.md
@@ -312,28 +325,41 @@ npm install
 
 ### Backend configuration
 
-Create:
+Create `backend/.env` using `backend/.env.example` as a variable-name
+reference. **Never commit real API keys, service-account credentials, or
+other secrets.**
 
-``` text
-backend/.env
-```
-
-Use `backend/.env.example` only as a variable-name reference.
-
-**Never commit real API keys, service-account credentials, or other
-secrets.**
-
-Example:
+Required backend variables (names only — no values here):
 
 ``` env
-GROQ_API_KEY=your_groq_api_key
-GROQ_API_KEY_1=optional_secondary_key
-GROQ_API_KEY_2=optional_secondary_key
-GROQ_API_KEY_3=optional_secondary_key
+GROQ_API_KEY
+GROQ_API_KEY_1
+GROQ_API_KEY_2
+GROQ_API_KEY_3
+GROQ_MODEL
+FIREBASE_PROJECT_ID
+FIREBASE_CLIENT_EMAIL
+FIREBASE_PRIVATE_KEY
+ALLOWED_ORIGINS
 ```
 
-Provide Firebase Admin credentials using the backend's supported secure
-configuration.
+`ALLOWED_ORIGINS` must be set to the deployed frontend URL(s) in
+production (comma-separated). The backend defaults to localhost origins
+when this variable is absent.
+
+### Frontend configuration
+
+Create a root `.env` file using `.env.example` as a reference (both are
+git-ignored).
+
+``` env
+VITE_API_URL=http://localhost:3001
+```
+
+`VITE_API_URL` is read at build time by Vite. When absent, the
+application falls back to `http://localhost:3001`. In production this
+variable is set as a Netlify environment variable pointing to the
+deployed Render backend.
 
 ### Run the backend
 
@@ -346,6 +372,10 @@ node backend/server.js
 ``` bash
 npm run dev
 ```
+
+Both processes must be running concurrently when using features that
+depend on backend services (AI companion, Deep Focus planning,
+authentication username handling).
 
 ### Production build
 
@@ -367,55 +397,81 @@ npm run process-music
 
 ## 🌐 Deployment
 
-The application has two deployable pieces:
+### Live Demo
 
-### Frontend
+The frontend is live at:
 
-The Vite frontend can be deployed to a static hosting platform such as
-Netlify, Vercel, Cloudflare Pages, or Firebase Hosting.
+**<https://zixovibes.netlify.app>**
 
-### Backend
-
-The Express backend requires a Node.js-capable host such as Railway,
-Render, Fly.io, or a VPS.
-
-Before deployment, replace development backend references to:
+### Production architecture
 
 ``` text
-http://localhost:3001
+GitHub (immraviprakash/zixovibes)
+  ├── → Netlify          React/Vite frontend
+  └── → Render           Express backend  [pending deployment]
 ```
 
-The current implementation contains backend references in frontend
-state/components including:
+The Netlify frontend communicates with the Render backend through the
+`VITE_API_URL` environment variable, which is set in Netlify's
+environment settings after the Render service is deployed.
+
+### Frontend — Netlify
+
+The Vite frontend is deployed on Netlify via the `main` branch. No build
+command changes are required; Netlify picks up `vite build` from
+`package.json`.
+
+Netlify environment variable required for production:
 
 ``` text
-AppContext.jsx
-TimerContext.jsx
-MoodInput.jsx
-FocusOnboarding.jsx
+VITE_API_URL=<Render backend URL>
 ```
 
-`TimerContext.jsx` is important because it contains the Deep Focus
-replanning request; omitting it can leave replanning pointed at the
-local development server. fileciteturn14file9
+### Backend — Render
 
-For a future production architecture, these URLs should be moved into
-environment-based configuration.
+Deploy the Express backend as a Render Web Service:
+
+| Setting | Value |
+| --- | --- |
+| Repository | `immraviprakash/zixovibes` |
+| Branch | `main` |
+| Root Directory | *(blank)* |
+| Build Command | `npm install` |
+| Start Command | `node backend/server.js` |
+
+Render environment variables required:
+
+``` text
+GROQ_API_KEY
+GROQ_API_KEY_1  (optional, failover)
+GROQ_API_KEY_2  (optional, failover)
+GROQ_API_KEY_3  (optional, failover)
+GROQ_MODEL      (optional, defaults to llama-3.3-70b-versatile)
+FIREBASE_PROJECT_ID
+FIREBASE_CLIENT_EMAIL
+FIREBASE_PRIVATE_KEY
+ALLOWED_ORIGINS=https://zixovibes.netlify.app
+```
+
+Do **not** set `PORT` on Render; it is injected automatically.
 
 ## 🔒 Security
 
-Before making the repository public:
+-   `.env` files are excluded from Git via `.gitignore`.
+-   Firebase Admin service-account JSON files are excluded from Git.
+-   Groq API keys and other secrets must not be committed.
+-   `backend/.env.example` contains variable names only — no values.
+-   Production secrets are configured through the hosting platform's
+    environment-variable system (Render for the backend, Netlify for the
+    frontend).
+-   Review Firebase Authentication and Firestore security rules before
+    opening the repository to the public.
 
--   Keep `.env` files ignored.
--   Never commit Firebase Admin service-account JSON.
--   Never commit Groq API keys.
--   Keep `backend/.env.example` limited to placeholders.
--   Review Firebase Authentication and Firestore security rules.
--   Replace hardcoded development backend URLs before deployment.
-
-**Important:** the independent README audit identified real-looking Groq
-keys in the existing `backend/.env.example`. Those credentials should be
-removed/revoked before a public GitHub push. fileciteturn14file13
+**Note on the Firebase web configuration:** the `firebase.js` client
+configuration (API key, project ID, etc.) is the standard client-side
+Firebase config intended for browser use. It is not a server secret and
+does not bypass Firebase security rules. Access control is enforced by
+Firebase Authentication and Firestore rules.
 
 ## 💾 Persistence
 
@@ -489,8 +545,9 @@ platform.
 
 Known limitations include:
 
--   Some backend URLs remain hardcoded and should be environment-driven
-    for production.
+-   Backend API URL (`VITE_API_URL`) must be set in Netlify's environment
+    settings once the Render backend is deployed; AI and auth features
+    will not function in production until that step is complete.
 -   The central `AppContext` has grown large and could eventually be
     decomposed into smaller domain-specific contexts/hooks.
 -   Browser timer scheduling can be affected by background-tab
@@ -510,7 +567,7 @@ architecture. fileciteturn14file3
 
 Potential future work:
 
--   Environment-based API configuration
+-   Stricter CORS policy per deployment environment
 -   Further state-layer decomposition
 -   Dedicated object storage/CDN for large audio libraries
 -   Automated test coverage and CI

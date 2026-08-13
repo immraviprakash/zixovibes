@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { API_BASE } from '../../../config/api';
 import { useApp } from '../../../context/AppContext';
 import { useTimer } from '../../../context/TimerContext';
 import { focusPlaylists, getRandomSubtitle, sanitizePlan } from '../../../data/focusData';
@@ -75,7 +76,7 @@ export default function FocusOnboarding() {
         ? `${input}\nClarification: ${clarificationResponse.trim()}`
         : input;
 
-      const response = await fetch('http://localhost:3001/api/ai/df/plan', {
+      const response = await fetch(`${API_BASE}/api/ai/df/plan`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

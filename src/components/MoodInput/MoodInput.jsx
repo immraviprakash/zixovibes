@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, memo } from 'react';
+import { API_BASE } from '../../config/api';
 import { useApp } from '../../context/AppContext';
 import { auth, db } from '../../firebase/firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
@@ -159,7 +160,7 @@ const MoodInput = memo(function MoodInput() {
     };
 
     try {
-      const response = await fetch('http://localhost:3001/api/ai/chat', {
+      const response = await fetch(`${API_BASE}/api/ai/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(structuredPayload),

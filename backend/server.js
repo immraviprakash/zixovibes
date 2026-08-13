@@ -12,8 +12,21 @@ dotenv.config({ path: path.join(import.meta.dirname, '.env') });
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+// In production, ALLOWED_ORIGINS should be set to the deployed frontend URL(s).
+// Example: ALLOWED_ORIGINS=https://zixovibes.netlify.app
+// Multiple origins can be comma-separated.
+const allowedOrigins = process.env.ALLOWED_ORIGINS
+  ? process.env.ALLOWED_ORIGINS.split(',').map(o => o.trim())
+  : ['http://localhost:5173', 'http://localhost:3000', 'http://localhost:4173'];
+
 app.use(cors({
-  origin: '*' // Allow all origins for simplicity in development workspace
+  origin: (origin, callback) => {
+    // Allow requests with no Origin header (curl, Render healthcheck, server-to-server)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+    callback(new Error(`CORS: origin '${origin}' not allowed`));
+  },
+  credentials: true
 }));
 app.use(express.json());
 
@@ -206,6 +219,6 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', uptime: process.uptime() });
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`[Zix'Ovibes Backend] Server listening on port ${PORT}`);
 });

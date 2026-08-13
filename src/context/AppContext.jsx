@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect, useCallback, useRef, useMemo } from 'react';
+import { API_BASE } from '../config/api';
 import { generateFocusPlan } from '../data/focusData';
 import { playlists } from '../data/mockData';
 import { analyzeTask, generatePlaylistForTask } from '../data/musicBrain';
@@ -2217,7 +2218,7 @@ export function AppProvider({ children }) {
     console.log("[AUTH TRACE] STEP 1: Pre-validating username uniqueness via backend for:", trimmedUsername);
     // 1. Pre-validate username availability via backend to avoid orphaned auth accounts
     try {
-      const checkRes = await fetch('http://localhost:3001/api/auth/check-username', {
+      const checkRes = await fetch(`${API_BASE}/api/auth/check-username`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -2277,7 +2278,7 @@ export function AppProvider({ children }) {
       console.log("[AUTH TRACE] STEP 4: Calling backend reserve-username for:", trimmedUsername);
       // 5. Reserve username in 'usernames' collection securely via backend
       try {
-        const reserveRes = await fetch('http://localhost:3001/api/auth/reserve-username', {
+        const reserveRes = await fetch(`${API_BASE}/api/auth/reserve-username`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -2386,7 +2387,7 @@ export function AppProvider({ children }) {
     if (!isEmail) {
       const usernameKey = trimmedIdentifier.toLowerCase();
       try {
-        const response = await fetch('http://localhost:3001/api/auth/resolve-username', {
+        const response = await fetch(`${API_BASE}/api/auth/resolve-username`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -2516,7 +2517,7 @@ export function AppProvider({ children }) {
     if (!isEmail) {
       const usernameKey = trimmedIdentifier.toLowerCase();
       try {
-        const response = await fetch('http://localhost:3001/api/auth/resolve-username', {
+        const response = await fetch(`${API_BASE}/api/auth/resolve-username`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
