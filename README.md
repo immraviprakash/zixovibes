@@ -6,10 +6,10 @@
 
 Zix'Ovibes is built around two intentionally distinct experiences:
 
--   **Classic Mode** --- a retro-inspired music environment centered
+-   **Classic Mode** — a retro-inspired music environment centered
     around a vinyl-style player, curated playlists, audio controls,
     favorites, and the AI music companion **Bro**.
--   **Deep Focus Mode** --- a productivity workspace that turns
+-   **Deep Focus Mode** — a productivity workspace that turns
     natural-language goals into structured focus plans, Pomodoro
     sessions, task checklists, and contextual music recommendations.
 
@@ -600,4 +600,4 @@ explicit license.
 
 ------------------------------------------------------------------------
 
-**Zix'Ovibes --- Music for the flow. Productivity for the focus.**
+**Zix'Ovibes — Music for the flow. Productivity for the focus.**
