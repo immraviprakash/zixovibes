@@ -1,0 +1,93 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #08080a;
+  padding: 24px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.card {
+  background: rgba(26, 26, 30, 0.85);
+  border: 1px solid rgba(201, 160, 124, 0.15);
+  border-radius: 16px;
+  padding: 40px;
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(12px);
+}
+
+.iconArea {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.warningIcon {
+  color: #dfbe66;
+  filter: drop-shadow(0 0 8px rgba(223, 190, 102, 0.4));
+}
+
+.title {
+  color: #ffffff;
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+
+.body {
+  color: #8a8580;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.reloadBtn {
+  background: linear-gradient(135deg, #dfbe66 0%, #b5943a 100%);
+  color: #08080a;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 12px 24px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(181, 148, 58, 0.25);
+}
+
+.reloadBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(181, 148, 58, 0.4);
+}
+
+.reloadBtn:active {
+  transform: translateY(0);
+}
+
+.resetBtn {
+  background: rgba(255, 255, 255, 0.03);
+  color: #c9a07c;
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: 1px solid rgba(201, 160, 124, 0.2);
+  transition: all 0.2s ease;
+}
+
+.resetBtn:hover {
+  background: rgba(201, 160, 124, 0.08);
+  border-color: rgba(201, 160, 124, 0.35);
+}
+
+.resetBtn:active {
+  background: rgba(201, 160, 124, 0.04);
+}

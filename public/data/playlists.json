@@ -1,0 +1,44 @@
+[
+  {
+    "id": "lofi",
+    "title": "Lo-Fi",
+    "cover": "/playlist-covers/lofi.jpg",
+    "description": "Relaxing beats for studying, coding and everyday focus."
+  },
+  {
+    "id": "jazz",
+    "title": "Jazz",
+    "cover": "/playlist-covers/jazz.jpg",
+    "description": "Warm café vibes and smooth evening sessions."
+  },
+  {
+    "id": "sleep",
+    "title": "Sleep",
+    "cover": "/playlist-covers/sleep.jpg",
+    "description": "Gentle sounds for restful nights."
+  },
+  {
+    "id": "focus",
+    "title": "Focus",
+    "cover": "/playlist-covers/focus.jpg",
+    "description": "Deep concentration and productivity."
+  },
+  {
+    "id": "relax",
+    "title": "Relax",
+    "cover": "/playlist-covers/relax.jpg",
+    "description": "Calm instrumental music to unwind."
+  },
+  {
+    "id": "ambience",
+    "title": "Ambience",
+    "cover": "/playlist-covers/ambience.jpg",
+    "description": "Environmental and atmospheric soundscapes."
+  },
+  {
+    "id": "rain",
+    "title": "Rain",
+    "cover": "/playlist-covers/rain.jpg",
+    "description": "Rainfall and storms for calm concentration."
+  }
+]

@@ -1,0 +1,1074 @@
+/* Focus Planner Workspace Panel — Notepad style expansion */
+
+/* Target parent container leftContentWrap to make it the positioning context */
+div[class*="leftContentWrap"] {
+  position: relative !important;
+}
+
+.panel {
+  width: 0;
+  opacity: 0;
+  pointer-events: none;
+  overflow: visible; /* Changed to visible for resize handles */
+  display: flex;
+  flex-direction: column;
+  position: absolute; /* Anchor to the parent leftContentWrap container */
+  bottom: 0;
+  right: 0;
+  max-height: 100%; /* Limit height relative to the parent workspace to prevent top-clipping */
+  transition: 
+    width 0.45s ease-in-out,
+    opacity 0.45s ease-in-out,
+    transform 0.45s ease-in-out,
+    border-color 0.45s ease-in-out,
+    height 0.15s ease-out; /* Smooth height transitions on quick-toggles */
+  background: #111112;
+  border: 1px solid transparent;
+  border-radius: 20px;
+  height: 450px; /* Default starting height */
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+  margin-left: 0;
+  transform: translate3d(384px, 0, 0) scale(0.92); /* starts collapsed, shifted behind right stack, and scaled down */
+  transform-origin: right center;
+  z-index: 150;
+}
+
+.panel.open {
+  width: 580px; /* Increased from 480px by ~20% */
+  opacity: 1;
+  pointer-events: auto;
+  border-color: #2a2a2c;
+  transform: translate3d(0, 0, 0) scale(1); /* expands and slides out into position */
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  flex: 1; /* Stretch vertically to fill the panel */
+  padding: 28px; /* Increased from 24px for extra breathing room */
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: 12px;
+  margin-bottom: 14px;
+  flex-shrink: 0;
+}
+
+.headerLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+
+.sessionSubtitle {
+  font-size: 0.72rem;
+  color: var(--df-text-secondary);
+  font-weight: 500;
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.counter {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--df-accent);
+  background: rgba(201, 160, 124, 0.1);
+  border: 1px solid rgba(201, 160, 124, 0.2);
+  padding: 3px 8px;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.closeBtn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.closeBtn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.scrollArea {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 6px;
+  margin-bottom: 14px;
+}
+
+/* Scroll Area Custom Scrollbar */
+.scrollArea::-webkit-scrollbar {
+  width: 4px;
+}
+.scrollArea::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+}
+.scrollArea::-webkit-scrollbar-thumb {
+  background: rgba(201, 160, 124, 0.25);
+  border-radius: 10px;
+  transition: background-color 0.25s ease;
+}
+.scrollArea::-webkit-scrollbar-thumb:hover {
+  background: rgba(201, 160, 124, 0.45);
+}
+.scrollArea::-webkit-scrollbar-thumb:active {
+  background: rgba(201, 160, 124, 0.6);
+}
+
+/* Completion Banner */
+.completedBanner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: rgba(110, 200, 122, 0.08);
+  border: 1px solid rgba(110, 200, 122, 0.15);
+  border-radius: 12px;
+  margin-bottom: 16px;
+  animation: fadeInBanner 0.4s ease forwards;
+}
+
+@keyframes fadeInBanner {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.completedCheck {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--df-success);
+  flex-shrink: 0;
+}
+
+.completedTexts {
+  display: flex;
+  flex-direction: column;
+}
+
+.completedTitle {
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.completedSubtitle {
+  font-size: 0.76rem;
+  color: var(--df-text-secondary);
+  margin: 0;
+}
+
+/* Task List */
+.taskList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Increased from 10px to let task cards breathe */
+}
+
+.emptyState {
+  font-size: 0.84rem;
+  color: var(--df-text-muted);
+  text-align: center;
+  padding: 24px 0;
+}
+
+.taskContainer {
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.01);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.taskContainer:hover {
+  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+.taskContainer.expanded {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.taskRow {
+  display: flex;
+  align-items: flex-start; /* Aligned to top for wrapping text */
+  gap: 14px;
+  padding: 14px 18px; /* Increased padding to let cards breathe */
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.taskRow:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.checkbox {
+  width: 20px; /* Increased from 18px */
+  height: 20px; /* Increased from 18px */
+  border-radius: 6px; /* Slightly more rounded */
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0d0d0f;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  background: transparent;
+  margin-top: 2px; /* Visual alignment with title text line-height */
+}
+
+.taskRow:hover .checkbox {
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+.completed .checkbox {
+  background: #ffffff;
+  border-color: #ffffff;
+  color: #0d0d0f;
+}
+
+/* Status-based Container Modifications */
+.taskInProgress {
+  background: rgba(201, 160, 124, 0.04) !important;
+  border: 1px solid rgba(201, 160, 124, 0.22) !important;
+}
+
+.taskInProgress:hover {
+  background: rgba(201, 160, 124, 0.08) !important;
+  border-color: rgba(201, 160, 124, 0.38) !important;
+}
+
+.taskCompleted {
+  opacity: 0.65;
+}
+
+.taskContentCol {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+}
+
+.taskTextRow {
+  display: flex;
+  align-items: center;
+}
+
+.taskText {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+  line-height: 1.4;
+  flex: 1;
+  transition: all 0.2s ease;
+  padding-right: 8px;
+}
+
+.completed .taskText {
+  text-decoration: line-through;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.taskDurationHint {
+  font-size: 0.74rem;
+  color: rgba(255, 255, 255, 0.45);
+  font-weight: 500;
+}
+
+.chipRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  height: 22px;
+  line-height: 20px;
+  padding: 0 10px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+}
+
+.categoryBadge {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.executionBadge {
+  background: rgba(201, 160, 124, 0.12);
+  border: 1px solid rgba(201, 160, 124, 0.25);
+  color: var(--df-accent, #c9a07c);
+}
+
+.statusBadge {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.statusReady, .statusPlanned {
+  background: rgba(59, 130, 246, 0.1);
+  border-color: rgba(59, 130, 246, 0.2);
+  color: #60a5fa;
+}
+
+.statusInProgress {
+  background: rgba(245, 158, 11, 0.12);
+  border-color: rgba(245, 158, 11, 0.25);
+  color: #fbbf24;
+}
+
+.statusCompleted {
+  background: rgba(34, 197, 94, 0.1);
+  border-color: rgba(34, 197, 94, 0.2);
+  color: #4ade80;
+}
+
+.deleteBtn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.35);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border-radius: 6px;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.2s ease;
+  margin-right: -4px;
+}
+
+.taskRow:hover .deleteBtn {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.deleteBtn:hover {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.toggleArrow {
+  font-size: 0.58rem;
+  color: rgba(255, 255, 255, 0.3);
+  transition: transform 0.3s ease;
+  user-select: none;
+}
+
+.arrowUp {
+  transform: rotate(180deg);
+  color: var(--df-accent);
+}
+
+/* Folder Inline expansion styles */
+.folderDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 4px 16px 16px 46px; /* indent to align text with checklist title */
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  background: rgba(0, 0, 0, 0.15);
+  animation: slideDownFolder 0.3s ease forwards;
+}
+
+@keyframes slideDownFolder {
+  from { opacity: 0; max-height: 0; }
+  to { opacity: 1; max-height: 500px; }
+}
+
+.detailsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.detailsLabel {
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: var(--df-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.detailsValueText {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* Breakdown steps in folder */
+.breakdownList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.breakdownItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.stepNum {
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.stepName {
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.65);
+  flex: 1;
+}
+
+.stepActive {
+  color: #ffffff;
+}
+
+.stepActive .stepNum {
+  color: var(--df-accent);
+}
+
+.stepActive .stepName {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.stepCompleted {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.stepCompleted .stepName {
+  text-decoration: line-through;
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.stepBadgeCompleted {
+  font-size: 0.75rem;
+  color: var(--df-success);
+  font-weight: 700;
+}
+
+.stepBadgeActive {
+  font-size: 0.58rem;
+  font-weight: 700;
+  color: var(--df-accent);
+  background: rgba(201, 160, 124, 0.15);
+  border: 1px solid rgba(201, 160, 124, 0.3);
+  padding: 1px 4px;
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+
+/* Actions Area at bottom */
+.actionsArea {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 14px;
+  flex-shrink: 0;
+}
+
+/* Manual Task form */
+.addTaskForm {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+
+.addTaskInput {
+  flex: 1;
+  background: rgba(8, 8, 10, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 8px 12px;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 0.8rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.addTaskInput:focus {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.addTaskBtn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.addTaskBtn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.addTaskBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* AI coach replan button and form */
+.replanTriggerBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px;
+  background: rgba(201, 160, 124, 0.02);
+  border: 1px solid rgba(201, 160, 124, 0.12);
+  border-radius: 10px;
+  color: var(--df-accent);
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.replanTriggerBtn:hover {
+  background: rgba(201, 160, 124, 0.06);
+  border-color: rgba(201, 160, 124, 0.25);
+  color: #ffffff;
+}
+
+.coachIcon {
+  flex-shrink: 0;
+}
+
+.replanForm {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 10px;
+  padding: 12px;
+  animation: slideDownReplan 0.3s ease forwards;
+}
+
+@keyframes slideDownReplan {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.replanTitle {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--df-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.replanTextarea {
+  width: 100%;
+  background: rgba(8, 8, 10, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 8px 10px;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  resize: none;
+  outline: none;
+  transition: all 0.2s ease;
+  /* Custom thin scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.16) rgba(15, 15, 18, 0.5);
+}
+
+.replanTextarea::-webkit-scrollbar {
+  width: 5px;
+}
+
+.replanTextarea::-webkit-scrollbar-track {
+  background: rgba(15, 15, 18, 0.5);
+  border-radius: 4px;
+}
+
+.replanTextarea::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 4px;
+}
+
+.replanTextarea::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.replanTextarea:focus {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.replanActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.replanCancelBtn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--df-text-secondary);
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.replanCancelBtn:hover {
+  background: rgba(255, 255, 255, 0.04);
+  color: #ffffff;
+}
+
+.replanConfirmBtn {
+  background: var(--df-accent);
+  border: none;
+  color: #0d0d0f;
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.replanConfirmBtn:hover:not(:disabled) {
+  background: #dfbe66;
+}
+
+.replanConfirmBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Unused notes styling removed */
+
+/* Manual Task Scheduling Custom Options */
+.taskControlsRow {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  padding-bottom: 14px;
+}
+
+.taskControlItem {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.controlLabel {
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 700;
+}
+
+.durationSelect {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  color: #ffffff;
+  padding: 8px 12px;
+  font-size: 0.78rem;
+  font-family: inherit;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.durationSelect:focus {
+  border-color: var(--df-accent);
+}
+
+/* Drag and Drop Ordering styles */
+.dragHandle {
+  cursor: grab;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.25);
+  padding: 4px;
+  margin-top: 2px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.dragHandle:hover {
+  color: rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.dragHandle:active {
+  cursor: grabbing;
+}
+
+.taskContainer.dragging {
+  opacity: 0.4;
+  border: 1px dashed var(--df-accent);
+}
+
+.taskContainer.dragOverAbove {
+  border-top: 2px solid var(--df-accent) !important;
+}
+
+.taskContainer.dragOverBelow {
+  border-bottom: 2px solid var(--df-accent) !important;
+}
+
+/* Responsive Notebook Overrides */
+@media (max-width: 1200px) {
+  .panel.open {
+    width: 420px;
+  }
+  .inner {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 900px) {
+  .panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    z-index: 20;
+    margin-left: 0;
+    transform: translate3d(-100%, 0, 0); /* slide in overlay from left */
+    transition: 
+      width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+      opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+      transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .panel.open {
+    width: 100%;
+    max-width: 420px;
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (max-width: 650px) {
+  .panel {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    height: 0;
+    opacity: 0;
+    transform: translate3d(0, 20px, 0); /* slide from bottom when stacked */
+    transition: 
+      height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+      opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+      transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .panel.open {
+    width: 100%;
+    max-width: 100%;
+    height: 440px;
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Task Info Layout and Badges */
+.taskContentCol {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  gap: 2px;
+  margin-right: 12px;
+}
+
+.taskTextRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.taskCategory {
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: rgba(201, 160, 124, 0.9);
+  background: rgba(201, 160, 124, 0.08);
+  border: 1px solid rgba(201, 160, 124, 0.15);
+  padding: 1px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.taskDurationHint {
+  font-size: 0.68rem;
+  color: var(--df-text-secondary);
+  opacity: 0.75;
+}
+
+.statusBadge {
+  font-size: 0.62rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 99px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  margin-right: 8px;
+  align-self: center;
+}
+
+.statusReady {
+  background: rgba(201, 160, 124, 0.08);
+  color: var(--df-accent);
+  border-color: rgba(201, 160, 124, 0.2);
+}
+
+.statusStartingSoon {
+  background: rgba(201, 160, 124, 0.12);
+  color: var(--df-accent);
+  border-color: rgba(201, 160, 124, 0.3);
+  box-shadow: 0 0 10px rgba(201, 160, 124, 0.1);
+}
+
+.statusInProgress {
+  background: rgba(46, 204, 113, 0.08);
+  color: #2ecc71;
+  border-color: rgba(46, 204, 113, 0.25);
+  box-shadow: 0 0 10px rgba(46, 204, 113, 0.1);
+}
+
+.statusCompleted {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--df-text-secondary);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.statusPlanned {
+  background: rgba(255, 255, 255, 0.02);
+  color: rgba(255, 255, 255, 0.4);
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+.statusDeferred {
+  background: rgba(241, 196, 15, 0.08);
+  color: #f1c40f;
+  border-color: rgba(241, 196, 15, 0.2);
+}
+
+.statusSkipped {
+  background: rgba(231, 76, 60, 0.08);
+  color: #e74c3c;
+  border-color: rgba(231, 76, 60, 0.2);
+}
+
+.statusCancelled {
+  background: rgba(149, 165, 166, 0.08);
+  color: #95a5a6;
+  border-color: rgba(149, 165, 166, 0.2);
+}
+
+/* Resizable panel enhancements */
+.resizeHandle {
+  position: absolute;
+  top: -5px;
+  left: 0;
+  right: 0;
+  height: 10px;
+  cursor: ns-resize;
+  z-index: 100;
+  transition: background-color 0.2s ease;
+  border-radius: 99px;
+}
+
+.resizeHandle:hover {
+  background-color: rgba(201, 160, 124, 0.45);
+  box-shadow: 0 0 8px rgba(201, 160, 124, 0.4);
+}
+
+.panelResizing {
+  transition: none !important;
+  z-index: 99 !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6) !important;
+}
+
+.expandBtn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  margin-right: 2px;
+}
+
+.expandBtn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* Custom Select Dropdown Styled for Deep Focus Theme */
+.customSelectWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.customSelectTrigger {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  color: #ffffff;
+  padding: 8px 12px;
+  font-size: 0.78rem;
+  font-family: inherit;
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: border-color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.customSelectTrigger:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.customSelectTrigger:focus {
+  border-color: var(--df-accent);
+  box-shadow: 0 0 0 1px var(--df-accent-glow-soft);
+}
+
+.customSelectArrow {
+  font-size: 0.6rem;
+  color: rgba(255, 255, 255, 0.4);
+  transition: transform 0.2s ease;
+  pointer-events: none;
+}
+
+.customSelectWrapperOpen .customSelectArrow {
+  transform: rotate(180deg);
+  color: var(--df-accent);
+}
+
+.customSelectOptions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 4px;
+  background: #111112;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+.customSelectOption {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 8px 12px;
+  font-size: 0.78rem;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.customSelectOption:hover {
+  background: rgba(201, 160, 124, 0.08);
+  color: var(--df-accent);
+}
+
+.customSelectOption.activeOption {
+  background: rgba(201, 160, 124, 0.12);
+  color: var(--df-accent);
+  font-weight: 600;
+}
+
+/* Floating Expanded Panel workspace positioning context constrained to leftContentWrap */
+.panel.expandedMode {
+  position: absolute !important;
+  z-index: 150 !important;
+}

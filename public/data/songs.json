@@ -1,0 +1,2904 @@
+[
+  {
+    "id": "lofi_001",
+    "title": "A Chill Day At The Beach",
+    "artist": "Nana",
+    "album": "A Chill Day At The Beach",
+    "playlist": "lofi",
+    "duration": 149,
+    "filename": "/music/lofi/A Chill Day At The Beach.mp3",
+    "cover": "/covers/lofi_001.jpg"
+  },
+  {
+    "id": "lofi_002",
+    "title": "A Night in Ginza",
+    "artist": "Chilled Cat",
+    "album": "Cherry Blossom",
+    "playlist": "lofi",
+    "duration": 149,
+    "filename": "/music/lofi/A Night in Ginza.mp3",
+    "cover": "/covers/lofi_002.jpg"
+  },
+  {
+    "id": "lofi_003",
+    "title": "A Peaceful Evening In Ewolyn Forest",
+    "artist": "Nana",
+    "album": "A Peaceful Evening In Ewolyn Forest",
+    "playlist": "lofi",
+    "duration": 156,
+    "filename": "/music/lofi/A Peaceful Evening In Ewolyn Forest.mp3",
+    "cover": "/covers/lofi_003.jpg"
+  },
+  {
+    "id": "lofi_004",
+    "title": "Amanita's Pond",
+    "artist": "MyceliumBug",
+    "album": "A Myco Journey",
+    "playlist": "lofi",
+    "duration": 102,
+    "filename": "/music/lofi/Amanita's Pond.mp3",
+    "cover": "/covers/lofi_004.jpg"
+  },
+  {
+    "id": "lofi_005",
+    "title": "August 17",
+    "artist": "Su-Zuum",
+    "album": "August 17",
+    "playlist": "lofi",
+    "duration": 119,
+    "filename": "/music/lofi/August 17.mp3",
+    "cover": "/covers/lofi_005.jpg"
+  },
+  {
+    "id": "lofi_006",
+    "title": "Autumn Leaves The World",
+    "artist": "Chilled Cat",
+    "album": "Autumn Leaves The World",
+    "playlist": "lofi",
+    "duration": 137,
+    "filename": "/music/lofi/Autumn Leaves The World.mp3",
+    "cover": "/covers/lofi_006.jpg"
+  },
+  {
+    "id": "lofi_007",
+    "title": "Bedtime",
+    "artist": "Sleepy Cat",
+    "album": "Cozy Dreams",
+    "playlist": "lofi",
+    "duration": 1826,
+    "filename": "/music/lofi/Bedtime.mp3",
+    "cover": "/covers/lofi_007.jpg"
+  },
+
+  {
+    "id": "lofi_009",
+    "title": "Bliss",
+    "artist": "lifeboat",
+    "album": "Bliss",
+    "playlist": "lofi",
+    "duration": 151,
+    "filename": "/music/lofi/Bliss.mp3",
+    "cover": "/covers/lofi_009.jpg"
+  },
+  {
+    "id": "lofi_010",
+    "title": "Chill Nights",
+    "artist": "Jazzy Cat",
+    "album": "Jazz Vibes",
+    "playlist": "lofi",
+    "duration": 124,
+    "filename": "/music/lofi/Chill Nights.mp3",
+    "cover": "/covers/lofi_010.jpg"
+  },
+  {
+    "id": "lofi_011",
+    "title": "Chum Bucket",
+    "artist": "kBeats",
+    "album": "Chum Bucket",
+    "playlist": "lofi",
+    "duration": 119,
+    "filename": "/music/lofi/Chum Bucket.mp3",
+    "cover": "/covers/lofi_011.jpg"
+  },
+  {
+    "id": "lofi_012",
+    "title": "Cityscape Serenade",
+    "artist": "Jazzy Cat",
+    "album": "Jazz Vibes",
+    "playlist": "lofi",
+    "duration": 124,
+    "filename": "/music/lofi/Cityscape Serenade.mp3",
+    "cover": "/covers/lofi_012.jpg"
+  },
+  {
+    "id": "lofi_013",
+    "title": "Clear Winter Sky",
+    "artist": "Chilled Cat",
+    "album": "Late Night Musings",
+    "playlist": "lofi",
+    "duration": 160,
+    "filename": "/music/lofi/Clear Winter Sky.mp3",
+    "cover": "/covers/lofi_013.jpg"
+  },
+  {
+    "id": "lofi_014",
+    "title": "Comfort In Solitude",
+    "artist": "J Fletch",
+    "album": "Comfort In Solitude",
+    "playlist": "lofi",
+    "duration": 92,
+    "filename": "/music/lofi/Comfort In Solitude.mp3",
+    "cover": "/covers/lofi_014.jpg"
+  },
+  {
+    "id": "lofi_015",
+    "title": "Cozy Afternoon",
+    "artist": "Jazzy Cat",
+    "album": "A Good Day",
+    "playlist": "lofi",
+    "duration": 164,
+    "filename": "/music/lofi/Cozy Afternoon.mp3",
+    "cover": "/covers/lofi_015.jpg"
+  },
+  {
+    "id": "lofi_016",
+    "title": "Crimson",
+    "artist": "Lonely Girl",
+    "album": "Crimson",
+    "playlist": "lofi",
+    "duration": 171,
+    "filename": "/music/lofi/Crimson.mp3",
+    "cover": "/covers/lofi_016.jpg"
+  },
+  {
+    "id": "lofi_017",
+    "title": "Crucero",
+    "artist": "lov sum",
+    "album": "Crucero",
+    "playlist": "lofi",
+    "duration": 127,
+    "filename": "/music/lofi/Crucero.mp3",
+    "cover": "/covers/lofi_017.jpg"
+  },
+  {
+    "id": "lofi_018",
+    "title": "Cruisin",
+    "artist": "Ol Wallace",
+    "album": "Cruisin",
+    "playlist": "lofi",
+    "duration": 120,
+    "filename": "/music/lofi/Cruisin.mp3",
+    "cover": "/covers/lofi_018.jpg"
+  },
+  {
+    "id": "lofi_019",
+    "title": "Daiko Drum",
+    "artist": "Chilled Cat",
+    "album": "Cherry Blossom",
+    "playlist": "lofi",
+    "duration": 168,
+    "filename": "/music/lofi/Daiko Drum.mp3",
+    "cover": "/covers/lofi_019.jpg"
+  },
+  {
+    "id": "lofi_020",
+    "title": "Daydreamer",
+    "artist": "Gyûki",
+    "album": "Spring Vibes 2023",
+    "playlist": "lofi",
+    "duration": 154,
+    "filename": "/music/lofi/Daydreamer.mp3",
+    "cover": "/covers/lofi_020.jpg"
+  },
+  {
+    "id": "lofi_021",
+    "title": "Dreamy",
+    "artist": "Sleepy Cat",
+    "album": "Cozy Dreams",
+    "playlist": "lofi",
+    "duration": 1837,
+    "filename": "/music/lofi/Dreamy.mp3",
+    "cover": "/covers/lofi_021.jpg"
+  },
+  {
+    "id": "lofi_022",
+    "title": "Drifting",
+    "artist": "Sleepy Cat",
+    "album": "Sleep Time Vol.2",
+    "playlist": "lofi",
+    "duration": 158,
+    "filename": "/music/lofi/Drifting.mp3",
+    "cover": "/covers/lofi_022.jpg"
+  },
+  {
+    "id": "lofi_023",
+    "title": "Endless Day",
+    "artist": "lst drm",
+    "album": "Part of the Soul",
+    "playlist": "lofi",
+    "duration": 143,
+    "filename": "/music/lofi/Endless Day.mp3",
+    "cover": "/covers/lofi_023.jpg"
+  },
+  {
+    "id": "lofi_024",
+    "title": "Endlessly",
+    "artist": "Sleepy Cat",
+    "album": "Sleep Time Vol.2",
+    "playlist": "lofi",
+    "duration": 180,
+    "filename": "/music/lofi/Endlessly.mp3",
+    "cover": "/covers/lofi_024.jpg"
+  },
+  {
+    "id": "lofi_025",
+    "title": "Evening Scents",
+    "artist": "Mujo",
+    "album": "Spiritual Voyage",
+    "playlist": "lofi",
+    "duration": 127,
+    "filename": "/music/lofi/Evening Scents.mp3",
+    "cover": "/covers/lofi_025.jpg"
+  },
+  {
+    "id": "lofi_026",
+    "title": "Feeling A Bit Down But It Is Ok - Lofi Jazz",
+    "artist": "Jazzy Cat",
+    "album": "Evening Musings",
+    "playlist": "lofi",
+    "duration": 160,
+    "filename": "/music/lofi/Feeling A Bit Down But It Is Ok - Lofi Jazz.mp3",
+    "cover": "/covers/lofi_026.jpg"
+  },
+  {
+    "id": "lofi_027",
+    "title": "Fresh",
+    "artist": "kBeats",
+    "album": "Fresh",
+    "playlist": "lofi",
+    "duration": 107,
+    "filename": "/music/lofi/Fresh.mp3",
+    "cover": "/covers/lofi_027.jpg"
+  },
+  {
+    "id": "lofi_028",
+    "title": "Gangster",
+    "artist": "kBeats",
+    "album": "Gangster",
+    "playlist": "lofi",
+    "duration": 109,
+    "filename": "/music/lofi/Gangster.mp3",
+    "cover": "/covers/lofi_028.jpg"
+  },
+  {
+    "id": "lofi_029",
+    "title": "Going Home After Summer Break",
+    "artist": "Tea Cup",
+    "album": "Going Home After Summer Break",
+    "playlist": "lofi",
+    "duration": 144,
+    "filename": "/music/lofi/Going Home After Summer Break.mp3",
+    "cover": "/covers/lofi_029.jpg"
+  },
+  {
+    "id": "lofi_030",
+    "title": "Gomen'nasai",
+    "artist": "Chilled Cat",
+    "album": "Uncle Iroh's Wisdom Vol.1",
+    "playlist": "lofi",
+    "duration": 79,
+    "filename": "/music/lofi/Gomen'nasai.mp3",
+    "cover": "/covers/lofi_030.jpg"
+  },
+  {
+    "id": "lofi_031",
+    "title": "Hajimemashite",
+    "artist": "kuroneko",
+    "album": "Ikigai",
+    "playlist": "lofi",
+    "duration": 188,
+    "filename": "/music/lofi/Hajimemashite.mp3",
+    "cover": "/covers/lofi_031.jpg"
+  },
+  {
+    "id": "lofi_032",
+    "title": "Hanami",
+    "artist": "Chilled Cat",
+    "album": "Spring Vibes 2021",
+    "playlist": "lofi",
+    "duration": 128,
+    "filename": "/music/lofi/Hanami.mp3",
+    "cover": "/covers/lofi_032.jpg"
+  },
+  {
+    "id": "lofi_033",
+    "title": "Hazy Evening",
+    "artist": "Sleepy Cat",
+    "album": "A Quiet Night In The Forest",
+    "playlist": "lofi",
+    "duration": 192,
+    "filename": "/music/lofi/Hazy Evening.mp3",
+    "cover": "/covers/lofi_033.jpg"
+  },
+  {
+    "id": "lofi_034",
+    "title": "higanbana",
+    "artist": "Su-Zuum",
+    "album": "higanbana",
+    "playlist": "lofi",
+    "duration": 152,
+    "filename": "/music/lofi/higanbana.mp3",
+    "cover": "/covers/lofi_034.jpg"
+  },
+  {
+    "id": "lofi_035",
+    "title": "I Am Lost And It Is Okay",
+    "artist": "Sleepy Cat",
+    "album": "Dreaming On The Sea",
+    "playlist": "lofi",
+    "duration": 180,
+    "filename": "/music/lofi/I Am Lost And It Is Okay.mp3",
+    "cover": "/covers/lofi_035.jpg"
+  },
+  {
+    "id": "lofi_036",
+    "title": "In the Deep Woods",
+    "artist": "moodie",
+    "album": "I Moved To Stardew Valley",
+    "playlist": "lofi",
+    "duration": 144,
+    "filename": "/music/lofi/In the Deep Woods.mp3",
+    "cover": "/covers/lofi_036.jpg"
+  },
+  {
+    "id": "lofi_037",
+    "title": "Island Breeze",
+    "artist": "Nana",
+    "album": "Fantasy Island",
+    "playlist": "lofi",
+    "duration": 122,
+    "filename": "/music/lofi/Island Breeze.mp3",
+    "cover": "/covers/lofi_037.jpg"
+  },
+  {
+    "id": "lofi_038",
+    "title": "kodoku to seihitsu",
+    "artist": "Su-Zuum",
+    "album": "Fall Vibes 2023",
+    "playlist": "lofi",
+    "duration": 149,
+    "filename": "/music/lofi/kodoku to seihitsu.mp3",
+    "cover": "/covers/lofi_038.jpg"
+  },
+  {
+    "id": "lofi_039",
+    "title": "Komorebi",
+    "artist": "kuroneko",
+    "album": "Ikigai",
+    "playlist": "lofi",
+    "duration": 150,
+    "filename": "/music/lofi/Komorebi.mp3",
+    "cover": "/covers/lofi_039.jpg"
+  },
+  {
+    "id": "lofi_040",
+    "title": "Lake Turquoise",
+    "artist": "Lonely Girl",
+    "album": "Lake Turquoise",
+    "playlist": "lofi",
+    "duration": 182,
+    "filename": "/music/lofi/Lake Turquoise.mp3",
+    "cover": "/covers/lofi_040.jpg"
+  },
+  {
+    "id": "lofi_041",
+    "title": "Lazy Afternoon",
+    "artist": "Jazzy Cat",
+    "album": "Jazz Vibes",
+    "playlist": "lofi",
+    "duration": 180,
+    "filename": "/music/lofi/Lazy Afternoon.mp3",
+    "cover": "/covers/lofi_041.jpg"
+  },
+  {
+    "id": "lofi_042",
+    "title": "Lazy River",
+    "artist": "Sleepy Cat",
+    "album": "A Quiet Night In The Forest",
+    "playlist": "lofi",
+    "duration": 159,
+    "filename": "/music/lofi/Lazy River.mp3",
+    "cover": "/covers/lofi_042.jpg"
+  },
+  {
+    "id": "lofi_043",
+    "title": "Leap Year",
+    "artist": "Chilled Cat",
+    "album": "Leap Year",
+    "playlist": "lofi",
+    "duration": 180,
+    "filename": "/music/lofi/Leap Year.mp3",
+    "cover": "/covers/lofi_043.jpg"
+  },
+  {
+    "id": "lofi_044",
+    "title": "Load Game",
+    "artist": "moodie",
+    "album": "I Moved To Stardew Valley",
+    "playlist": "lofi",
+    "duration": 129,
+    "filename": "/music/lofi/Load Game.mp3",
+    "cover": "/covers/lofi_044.jpg"
+  },
+  {
+    "id": "lofi_045",
+    "title": "Long Drive",
+    "artist": "Chilled Cat",
+    "album": "Long Drive",
+    "playlist": "lofi",
+    "duration": 144,
+    "filename": "/music/lofi/Long Drive.mp3",
+    "cover": "/covers/lofi_045.jpg"
+  },
+  {
+    "id": "lofi_046",
+    "title": "Lost At Sea",
+    "artist": "Adrift",
+    "album": "Lost At Sea",
+    "playlist": "lofi",
+    "duration": 1249,
+    "filename": "/music/lofi/Lost At Sea.mp3",
+    "cover": "/covers/lofi_046.jpg"
+  },
+  {
+    "id": "lofi_047",
+    "title": "Lost In Thought",
+    "artist": "Lonely Girl",
+    "album": "Lost In Thought",
+    "playlist": "lofi",
+    "duration": 158,
+    "filename": "/music/lofi/Lost In Thought.mp3",
+    "cover": "/covers/lofi_047.jpg"
+  },
+  {
+    "id": "lofi_048",
+    "title": "Magic Mushrooms",
+    "artist": "MyceliumBug",
+    "album": "A Myco Journey",
+    "playlist": "lofi",
+    "duration": 103,
+    "filename": "/music/lofi/Magic Mushrooms.mp3",
+    "cover": "/covers/lofi_048.jpg"
+  },
+  {
+    "id": "lofi_049",
+    "title": "Maidens Tale",
+    "artist": "jack rossell",
+    "album": "Maidens Tale",
+    "playlist": "lofi",
+    "duration": 100,
+    "filename": "/music/lofi/Maidens Tale.mp3",
+    "cover": "/covers/lofi_049.jpg"
+  },
+  {
+    "id": "lofi_050",
+    "title": "Mellow Evenings",
+    "artist": "Lonely Guy",
+    "album": "Mellow Evenings",
+    "playlist": "lofi",
+    "duration": 187,
+    "filename": "/music/lofi/Mellow Evenings.mp3",
+    "cover": "/covers/lofi_050.jpg"
+  },
+  {
+    "id": "lofi_051",
+    "title": "Misty Meadows",
+    "artist": "kBeats",
+    "album": "Misty Meadows",
+    "playlist": "lofi",
+    "duration": 180,
+    "filename": "/music/lofi/Misty Meadows.mp3",
+    "cover": "/covers/lofi_051.jpg"
+  },
+  {
+    "id": "lofi_052",
+    "title": "Moonlight Sky",
+    "artist": "Adrift",
+    "album": "Moments of Fantasy",
+    "playlist": "lofi",
+    "duration": 159,
+    "filename": "/music/lofi/Moonlight Sky.mp3",
+    "cover": "/covers/lofi_052.jpg"
+  },
+  {
+    "id": "lofi_053",
+    "title": "Morning Sun",
+    "artist": "Jonny Alias",
+    "album": "Spring Vibes 2024",
+    "playlist": "lofi",
+    "duration": 113,
+    "filename": "/music/lofi/Morning Sun.mp3",
+    "cover": "/covers/lofi_053.jpg"
+  },
+  {
+    "id": "lofi_054",
+    "title": "Mycorrhizal Synergy",
+    "artist": "MyceliumBug",
+    "album": "A Myco Journey",
+    "playlist": "lofi",
+    "duration": 114,
+    "filename": "/music/lofi/Mycorrhizal Synergy.mp3",
+    "cover": "/covers/lofi_054.jpg"
+  },
+  {
+    "id": "lofi_055",
+    "title": "Nap Time",
+    "artist": "Sleepy Cat",
+    "album": "Nap Time",
+    "playlist": "lofi",
+    "duration": 1309,
+    "filename": "/music/lofi/Nap Time.mp3",
+    "cover": "/covers/lofi_055.jpg"
+  },
+  {
+    "id": "lofi_056",
+    "title": "New Beginnings",
+    "artist": "Chilled Cat",
+    "album": "New Beginnings",
+    "playlist": "lofi",
+    "duration": 124,
+    "filename": "/music/lofi/New Beginnings.mp3",
+    "cover": "/covers/lofi_056.jpg"
+  },
+  {
+    "id": "lofi_057",
+    "title": "Night Market",
+    "artist": "moodie",
+    "album": "I Moved To Stardew Valley",
+    "playlist": "lofi",
+    "duration": 125,
+    "filename": "/music/lofi/Night Market.mp3",
+    "cover": "/covers/lofi_057.jpg"
+  },
+  {
+    "id": "lofi_058",
+    "title": "Night",
+    "artist": "Sleepy Cat",
+    "album": "Sleep Time Vol.2",
+    "playlist": "lofi",
+    "duration": 148,
+    "filename": "/music/lofi/Night.mp3",
+    "cover": "/covers/lofi_058.jpg"
+  },
+  {
+    "id": "lofi_059",
+    "title": "Okayama Sunset",
+    "artist": "Nana",
+    "album": "Okayama Sunset",
+    "playlist": "lofi",
+    "duration": 158,
+    "filename": "/music/lofi/Okayama Sunset.mp3",
+    "cover": "/covers/lofi_059.jpg"
+  },
+  {
+    "id": "lofi_060",
+    "title": "Paper Lanterns",
+    "artist": "Chilled Cat",
+    "album": "Cherry Blossom",
+    "playlist": "lofi",
+    "duration": 180,
+    "filename": "/music/lofi/Paper Lanterns.mp3",
+    "cover": "/covers/lofi_060.jpg"
+  },
+  {
+    "id": "lofi_061",
+    "title": "Pelican Town",
+    "artist": "moodie",
+    "album": "I Moved To Stardew Valley",
+    "playlist": "lofi",
+    "duration": 123,
+    "filename": "/music/lofi/Pelican Town.mp3",
+    "cover": "/covers/lofi_061.jpg"
+  },
+  {
+    "id": "lofi_062",
+    "title": "Plum Blossom",
+    "artist": "Spaniel Mac",
+    "album": "Plum Blossom Reverie",
+    "playlist": "lofi",
+    "duration": 180,
+    "filename": "/music/lofi/Plum Blossom.mp3",
+    "cover": "/covers/lofi_062.jpg"
+  },
+  {
+    "id": "lofi_063",
+    "title": "Presence",
+    "artist": "Charlee Nguyen",
+    "album": "Memories of May",
+    "playlist": "lofi",
+    "duration": 162,
+    "filename": "/music/lofi/Presence.mp3",
+    "cover": "/covers/lofi_063.jpg"
+  },
+  {
+    "id": "lofi_064",
+    "title": "Recurring Dream",
+    "artist": "Spaniel Mac",
+    "album": "Plum Blossom Reverie",
+    "playlist": "lofi",
+    "duration": 151,
+    "filename": "/music/lofi/Recurring Dream.mp3",
+    "cover": "/covers/lofi_064.jpg"
+  },
+  {
+    "id": "lofi_065",
+    "title": "Returning Birds",
+    "artist": "MyceliumBug",
+    "album": "Spring Vibes 2023",
+    "playlist": "lofi",
+    "duration": 166,
+    "filename": "/music/lofi/Returning Birds.mp3",
+    "cover": "/covers/lofi_065.jpg"
+  },
+  {
+    "id": "lofi_066",
+    "title": "Ronin",
+    "artist": "Chilled Cat",
+    "album": "Cherry Blossom",
+    "playlist": "lofi",
+    "duration": 168,
+    "filename": "/music/lofi/Ronin.mp3",
+    "cover": "/covers/lofi_066.jpg"
+  },
+  {
+    "id": "lofi_067",
+    "title": "Sakura",
+    "artist": "Chilled Cat",
+    "album": "Cherry Blossom",
+    "playlist": "lofi",
+    "duration": 149,
+    "filename": "/music/lofi/Sakura.mp3",
+    "cover": "/covers/lofi_067.jpg"
+  },
+  {
+    "id": "lofi_068",
+    "title": "Sands Sonata",
+    "artist": "Nana",
+    "album": "Fantasy Island",
+    "playlist": "lofi",
+    "duration": 122,
+    "filename": "/music/lofi/Sands Sonata.mp3",
+    "cover": "/covers/lofi_068.jpg"
+  },
+  {
+    "id": "lofi_069",
+    "title": "Saxophone Whispers",
+    "artist": "Jazzy Cat",
+    "album": "Jazz Vibes",
+    "playlist": "lofi",
+    "duration": 139,
+    "filename": "/music/lofi/Saxophone Whispers.mp3",
+    "cover": "/covers/lofi_069.jpg"
+  },
+  {
+    "id": "lofi_070",
+    "title": "Sky Village",
+    "artist": "Spaniel Mac",
+    "album": "Plum Blossom Reverie",
+    "playlist": "lofi",
+    "duration": 134,
+    "filename": "/music/lofi/Sky Village.mp3",
+    "cover": "/covers/lofi_070.jpg"
+  },
+  {
+    "id": "lofi_071",
+    "title": "Sleep Tight",
+    "artist": "Lonely Girl",
+    "album": "Winter Vibes 2021",
+    "playlist": "lofi",
+    "duration": 156,
+    "filename": "/music/lofi/Sleep Tight.mp3",
+    "cover": "/covers/lofi_071.jpg"
+  },
+  {
+    "id": "lofi_072",
+    "title": "Sleeping With The Nightlight On",
+    "artist": "Lonely Girl",
+    "album": "Sleeping With The Nightlight On",
+    "playlist": "lofi",
+    "duration": 192,
+    "filename": "/music/lofi/Sleeping With The Nightlight On.mp3",
+    "cover": "/covers/lofi_072.jpg"
+  },
+
+  {
+    "id": "lofi_074",
+    "title": "Sleepy Tale",
+    "artist": "Nana",
+    "album": "Sleepy Tale",
+    "playlist": "lofi",
+    "duration": 192,
+    "filename": "/music/lofi/Sleepy Tale.mp3",
+    "cover": "/covers/lofi_074.jpg"
+  },
+  {
+    "id": "lofi_075",
+    "title": "Smiling",
+    "artist": "Chilled Cat",
+    "album": "Late Night Musings",
+    "playlist": "lofi",
+    "duration": 149,
+    "filename": "/music/lofi/Smiling.mp3",
+    "cover": "/covers/lofi_075.jpg"
+  },
+  {
+    "id": "lofi_076",
+    "title": "Spring Morning",
+    "artist": "Chilled Cat",
+    "album": "Cherry Blossom",
+    "playlist": "lofi",
+    "duration": 168,
+    "filename": "/music/lofi/Spring Morning.mp3",
+    "cover": "/covers/lofi_076.jpg"
+  },
+  {
+    "id": "lofi_077",
+    "title": "Stay",
+    "artist": "Lonely Guy",
+    "album": "Stay",
+    "playlist": "lofi",
+    "duration": 220,
+    "filename": "/music/lofi/Stay.mp3",
+    "cover": "/covers/lofi_077.jpg"
+  },
+  {
+    "id": "lofi_078",
+    "title": "Sunday Afternoon",
+    "artist": "Jazzy Cat",
+    "album": "Sunday Afternoon",
+    "playlist": "lofi",
+    "duration": 145,
+    "filename": "/music/lofi/Sunday Afternoon.mp3",
+    "cover": "/covers/lofi_078.jpg"
+  },
+  {
+    "id": "lofi_079",
+    "title": "Sunsets",
+    "artist": "Oddability",
+    "album": "Sunsets",
+    "playlist": "lofi",
+    "duration": 104,
+    "filename": "/music/lofi/Sunsets.mp3",
+    "cover": "/covers/lofi_079.jpg"
+  },
+  {
+    "id": "lofi_080",
+    "title": "Sunshine Serenade",
+    "artist": "kBeats",
+    "album": "Sunshine Serenade",
+    "playlist": "lofi",
+    "duration": 120,
+    "filename": "/music/lofi/Sunshine Serenade.mp3",
+    "cover": "/covers/lofi_080.jpg"
+  },
+  {
+    "id": "lofi_081",
+    "title": "surf",
+    "artist": "ORANCHA",
+    "album": "surf",
+    "playlist": "lofi",
+    "duration": 480,
+    "filename": "/music/lofi/surf.mp3",
+    "cover": "/covers/lofi_081.jpg"
+  },
+  {
+    "id": "lofi_082",
+    "title": "The Empty",
+    "artist": "Sleepy Cat",
+    "album": "Sleep Time Vol.2",
+    "playlist": "lofi",
+    "duration": 158,
+    "filename": "/music/lofi/The Empty.mp3",
+    "cover": "/covers/lofi_082.jpg"
+  },
+  {
+    "id": "lofi_083",
+    "title": "Through",
+    "artist": "Sleepy Cat",
+    "album": "Sleep Time Vol.2",
+    "playlist": "lofi",
+    "duration": 180,
+    "filename": "/music/lofi/Through.mp3",
+    "cover": "/covers/lofi_083.jpg"
+  },
+  {
+    "id": "lofi_084",
+    "title": "Times",
+    "artist": "Sleepy Cat",
+    "album": "Sleep Time Vol.1",
+    "playlist": "lofi",
+    "duration": 559,
+    "filename": "/music/lofi/Times.mp3",
+    "cover": "/covers/lofi_084.jpg"
+  },
+  {
+    "id": "lofi_085",
+    "title": "Timestamp",
+    "artist": "bedroom lofi",
+    "album": "The Other Side",
+    "playlist": "lofi",
+    "duration": 180,
+    "filename": "/music/lofi/Timestamp.mp3",
+    "cover": "/covers/lofi_085.jpg"
+  },
+  {
+    "id": "lofi_086",
+    "title": "Ukiyo",
+    "artist": "kuroneko",
+    "album": "Ikigai",
+    "playlist": "lofi",
+    "duration": 182,
+    "filename": "/music/lofi/Ukiyo.mp3",
+    "cover": "/covers/lofi_086.jpg"
+  },
+  {
+    "id": "lofi_087",
+    "title": "Until Then",
+    "artist": "Soulone Beats",
+    "album": "Spring Vibes 2023",
+    "playlist": "lofi",
+    "duration": 129,
+    "filename": "/music/lofi/Until Then.mp3",
+    "cover": "/covers/lofi_087.jpg"
+  },
+  {
+    "id": "lofi_088",
+    "title": "Vitalize",
+    "artist": "bedroom lofi",
+    "album": "The Other Side",
+    "playlist": "lofi",
+    "duration": 119,
+    "filename": "/music/lofi/Vitalize.mp3",
+    "cover": "/covers/lofi_088.jpg"
+  },
+  {
+    "id": "lofi_089",
+    "title": "Waiting For You",
+    "artist": "Mahaji",
+    "album": "Waiting For You",
+    "playlist": "lofi",
+    "duration": 131,
+    "filename": "/music/lofi/Waiting For You.mp3",
+    "cover": "/covers/lofi_089.jpg"
+  },
+  {
+    "id": "lofi_090",
+    "title": "Walk Slower",
+    "artist": "Chilled Cat",
+    "album": "Underwater Garden",
+    "playlist": "lofi",
+    "duration": 233,
+    "filename": "/music/lofi/Walk Slower.mp3",
+    "cover": "/covers/lofi_090.jpg"
+  },
+  {
+    "id": "lofi_091",
+    "title": "Warm Silence",
+    "artist": "maeLstro",
+    "album": "Farewell, Poppy",
+    "playlist": "lofi",
+    "duration": 157,
+    "filename": "/music/lofi/Warm Silence.mp3",
+    "cover": "/covers/lofi_091.jpg"
+  },
+  {
+    "id": "lofi_092",
+    "title": "We're Going On An Ethereal Journey",
+    "artist": "Nana",
+    "album": "We're Going On An Ethereal Journey",
+    "playlist": "lofi",
+    "duration": 128,
+    "filename": "/music/lofi/We're Going On An Ethereal Journey.mp3",
+    "cover": "/covers/lofi_092.jpg"
+  },
+  {
+    "id": "lofi_093",
+    "title": "Winter (Nocturne of Ice)",
+    "artist": "moodie",
+    "album": "I Moved To Stardew Valley",
+    "playlist": "lofi",
+    "duration": 134,
+    "filename": "/music/lofi/Winter (Nocturne of Ice).mp3",
+    "cover": "/covers/lofi_093.jpg"
+  },
+  {
+    "id": "lofi_094",
+    "title": "Winter (The Wind Can Be Still)",
+    "artist": "moodie",
+    "album": "I Moved To Stardew Valley",
+    "playlist": "lofi",
+    "duration": 180,
+    "filename": "/music/lofi/Winter (The Wind Can Be Still).mp3",
+    "cover": "/covers/lofi_094.jpg"
+  },
+  {
+    "id": "lofi_095",
+    "title": "Winter Evening Open Window - Lofi Jazz",
+    "artist": "Jazzy Cat",
+    "album": "Evening Musings",
+    "playlist": "lofi",
+    "duration": 130,
+    "filename": "/music/lofi/Winter Evening Open Window - Lofi Jazz.mp3",
+    "cover": "/covers/lofi_095.jpg"
+  },
+  {
+    "id": "lofi_096",
+    "title": "Winters End",
+    "artist": "Lo-Fi Luke",
+    "album": "Winters End",
+    "playlist": "lofi",
+    "duration": 144,
+    "filename": "/music/lofi/Winters End.mp3",
+    "cover": "/covers/lofi_096.jpg"
+  },
+  {
+    "id": "jazz_001",
+    "title": "After The Rain",
+    "artist": "Sean Pearson",
+    "album": "After The Rain",
+    "playlist": "jazz",
+    "duration": 232,
+    "filename": "/music/jazz/After The Rain.mp3",
+    "cover": "/covers/jazz_001.jpg"
+  },
+  {
+    "id": "jazz_002",
+    "title": "Almost a Smile",
+    "artist": "Noel Duvall Trio",
+    "album": "Almost a Smile",
+    "playlist": "jazz",
+    "duration": 213,
+    "filename": "/music/jazz/Almost a Smile.mp3",
+    "cover": "/covers/jazz_002.jpg"
+  },
+  {
+    "id": "jazz_003",
+    "title": "Beyond The Stars",
+    "artist": "Levi Hollis",
+    "album": "Beyond The Stars",
+    "playlist": "jazz",
+    "duration": 304,
+    "filename": "/music/jazz/Beyond The Stars.mp3",
+    "cover": "/covers/jazz_003.jpg"
+  },
+  {
+    "id": "jazz_004",
+    "title": "Bubbles",
+    "artist": "Galeazzo",
+    "album": "Bubbles",
+    "playlist": "jazz",
+    "duration": 90,
+    "filename": "/music/jazz/Bubbles.mp3",
+    "cover": "/covers/jazz_004.jpg"
+  },
+  {
+    "id": "jazz_005",
+    "title": "Fairness",
+    "artist": "Fig and the Fam",
+    "album": "Fairness",
+    "playlist": "jazz",
+    "duration": 210,
+    "filename": "/music/jazz/Fairness.mp3",
+    "cover": "/covers/jazz_005.jpg"
+  },
+  {
+    "id": "jazz_006",
+    "title": "Hand over your pocket",
+    "artist": "Samuel Greene",
+    "album": "Hand over your pocket",
+    "playlist": "jazz",
+    "duration": 175,
+    "filename": "/music/jazz/Hand over your pocket.mp3",
+    "cover": "/covers/jazz_006.jpg"
+  },
+  {
+    "id": "jazz_007",
+    "title": "I'm Glad There Is You",
+    "artist": "Deer Groves",
+    "album": "I'm glad there is you",
+    "playlist": "jazz",
+    "duration": 230,
+    "filename": "/music/jazz/I'm Glad There Is You.mp3",
+    "cover": "/covers/jazz_007.jpg"
+  },
+  {
+    "id": "jazz_008",
+    "title": "Last Train Home",
+    "artist": "Levi Hollis",
+    "album": "Last Train Home",
+    "playlist": "jazz",
+    "duration": 286,
+    "filename": "/music/jazz/Last Train Home.mp3",
+    "cover": "/covers/jazz_008.jpg"
+  },
+  {
+    "id": "jazz_009",
+    "title": "Late Terminal",
+    "artist": "Belleville",
+    "album": "Late Terminal",
+    "playlist": "jazz",
+    "duration": 192,
+    "filename": "/music/jazz/Late Terminal.mp3",
+    "cover": "/covers/jazz_009.jpg"
+  },
+  {
+    "id": "jazz_010",
+    "title": "Later",
+    "artist": "Cole Peers trio",
+    "album": "Later",
+    "playlist": "jazz",
+    "duration": 197,
+    "filename": "/music/jazz/Later.mp3",
+    "cover": "/covers/jazz_010.jpg"
+  },
+  {
+    "id": "jazz_011",
+    "title": "Linen skies",
+    "artist": "Clifford Randall",
+    "album": "Linen skies",
+    "playlist": "jazz",
+    "duration": 174,
+    "filename": "/music/jazz/Linen skies.mp3",
+    "cover": "/covers/jazz_011.jpg"
+  },
+  {
+    "id": "jazz_012",
+    "title": "Lonely walk",
+    "artist": "Maurice Green",
+    "album": "Lonely walk",
+    "playlist": "jazz",
+    "duration": 205,
+    "filename": "/music/jazz/Lonely walk.mp3",
+    "cover": "/covers/jazz_012.jpg"
+  },
+  {
+    "id": "jazz_013",
+    "title": "Midnight Dialogue",
+    "artist": "The Soft Geometry",
+    "album": "Midnight Dialogue",
+    "playlist": "jazz",
+    "duration": 124,
+    "filename": "/music/jazz/Midnight Dialogue.mp3",
+    "cover": "/covers/jazz_013.jpg"
+  },
+  {
+    "id": "jazz_014",
+    "title": "Mirages",
+    "artist": "Isac Solo Trio",
+    "album": "Mirages",
+    "playlist": "jazz",
+    "duration": 220,
+    "filename": "/music/jazz/Mirages.mp3",
+    "cover": "/covers/jazz_014.jpg"
+  },
+  {
+    "id": "jazz_015",
+    "title": "Moving Forward",
+    "artist": "Moondust Collective",
+    "album": "Unknown Album",
+    "playlist": "jazz",
+    "duration": 215,
+    "filename": "/music/jazz/Moving Forward.mp3",
+    "cover": "/covers/jazz_015.jpg"
+  },
+  {
+    "id": "jazz_016",
+    "title": "My Road To You",
+    "artist": "Gail Cameron",
+    "album": "My Road to You",
+    "playlist": "jazz",
+    "duration": 235,
+    "filename": "/music/jazz/My Road To You.mp3",
+    "cover": "/covers/jazz_016.jpg"
+  },
+  {
+    "id": "jazz_017",
+    "title": "My side of the story",
+    "artist": "Soft Brush Touches",
+    "album": "My side of the story",
+    "playlist": "jazz",
+    "duration": 172,
+    "filename": "/music/jazz/My side of the story.mp3",
+    "cover": "/covers/jazz_017.jpg"
+  },
+  {
+    "id": "jazz_018",
+    "title": "Out Of Shape",
+    "artist": "Ben Lively",
+    "album": "Out Of Shape",
+    "playlist": "jazz",
+    "duration": 205,
+    "filename": "/music/jazz/Out Of Shape.mp3",
+    "cover": "/covers/jazz_018.jpg"
+  },
+  {
+    "id": "jazz_019",
+    "title": "Rainy Day Rhapsody",
+    "artist": "Nordic Swing",
+    "album": "Rainy Day Rhapsody",
+    "playlist": "jazz",
+    "duration": 131,
+    "filename": "/music/jazz/Rainy Day Rhapsody.mp3",
+    "cover": "/covers/jazz_019.jpg"
+  },
+  {
+    "id": "jazz_020",
+    "title": "Sincerely",
+    "artist": "Trio in Transit",
+    "album": "Sincerely",
+    "playlist": "jazz",
+    "duration": 203,
+    "filename": "/music/jazz/Sincerely.mp3",
+    "cover": "/covers/jazz_020.jpg"
+  },
+  {
+    "id": "jazz_021",
+    "title": "Soft Gaze",
+    "artist": "Benjamin Davies",
+    "album": "Soft Gaze",
+    "playlist": "jazz",
+    "duration": 231,
+    "filename": "/music/jazz/Soft Gaze.mp3",
+    "cover": "/covers/jazz_021.jpg"
+  },
+  {
+    "id": "jazz_022",
+    "title": "Still Here",
+    "artist": "Benjamine Leroy Quartet",
+    "album": "Still Here",
+    "playlist": "jazz",
+    "duration": 207,
+    "filename": "/music/jazz/Still Here.mp3",
+    "cover": "/covers/jazz_022.jpg"
+  },
+  {
+    "id": "jazz_023",
+    "title": "Sunday Drift",
+    "artist": "Osmond Beliér",
+    "album": "Sunday Drift",
+    "playlist": "jazz",
+    "duration": 199,
+    "filename": "/music/jazz/Sunday Drift.mp3",
+    "cover": "/covers/jazz_023.jpg"
+  },
+  {
+    "id": "jazz_024",
+    "title": "Sunday Feeling",
+    "artist": "Eden Trio",
+    "album": "Sunday Feeling",
+    "playlist": "jazz",
+    "duration": 222,
+    "filename": "/music/jazz/Sunday Feeling.mp3",
+    "cover": "/covers/jazz_024.jpg"
+  },
+  {
+    "id": "jazz_025",
+    "title": "The Arrival",
+    "artist": "High North Trio",
+    "album": "The Arrival",
+    "playlist": "jazz",
+    "duration": 152,
+    "filename": "/music/jazz/The Arrival.mp3",
+    "cover": "/covers/jazz_025.jpg"
+  },
+  {
+    "id": "jazz_026",
+    "title": "The Still Sea",
+    "artist": "The Sweetgreens",
+    "album": "The Still Sea",
+    "playlist": "jazz",
+    "duration": 180,
+    "filename": "/music/jazz/The Still Sea.mp3",
+    "cover": "/covers/jazz_026.jpg"
+  },
+  {
+    "id": "jazz_027",
+    "title": "The Way It Was",
+    "artist": "Ballroom Jazz Collective",
+    "album": "The Way It Was",
+    "playlist": "jazz",
+    "duration": 218,
+    "filename": "/music/jazz/The Way It Was.mp3",
+    "cover": "/covers/jazz_027.jpg"
+  },
+  {
+    "id": "jazz_028",
+    "title": "Undone by Repetition",
+    "artist": "Tate Jackson Trio",
+    "album": "Undone by Repetition",
+    "playlist": "jazz",
+    "duration": 220,
+    "filename": "/music/jazz/Undone by Repetition.mp3",
+    "cover": "/covers/jazz_028.jpg"
+  },
+  {
+    "id": "jazz_029",
+    "title": "Urban Oasis",
+    "artist": "Nighthawks Revisited",
+    "album": "Urban Oasis",
+    "playlist": "jazz",
+    "duration": 1495,
+    "filename": "/music/jazz/Urban Oasis.mp3",
+    "cover": "/covers/jazz_029.jpg"
+  },
+  {
+    "id": "jazz_030",
+    "title": "Windowseat waltz",
+    "artist": "Tanner King Trio",
+    "album": "Windowseat waltz",
+    "playlist": "jazz",
+    "duration": 138,
+    "filename": "/music/jazz/Windowseat waltz.mp3",
+    "cover": "/covers/jazz_030.jpg"
+  },
+  {
+    "id": "sleep_001",
+    "title": "A New Chapter",
+    "artist": "Syfjaður",
+    "album": "Unknown Album",
+    "playlist": "sleep",
+    "duration": 178,
+    "filename": "/music/sleep/A New Chapter.mp3",
+    "cover": "/covers/sleep_001.jpg"
+  },
+  {
+    "id": "sleep_002",
+    "title": "Afloat",
+    "artist": "Mirrorglow",
+    "album": "Unknown Album",
+    "playlist": "sleep",
+    "duration": 152,
+    "filename": "/music/sleep/Afloat.mp3",
+    "cover": "/covers/sleep_002.jpg"
+  },
+  {
+    "id": "sleep_003",
+    "title": "Alleviation",
+    "artist": "Noctivelle",
+    "album": "Alleviation",
+    "playlist": "sleep",
+    "duration": 120,
+    "filename": "/music/sleep/Alleviation.mp3",
+    "cover": "/covers/sleep_003.jpg"
+  },
+  {
+    "id": "sleep_004",
+    "title": "Calm Current",
+    "artist": "Marble Sky",
+    "album": "Unknown Album",
+    "playlist": "sleep",
+    "duration": 163,
+    "filename": "/music/sleep/Calm Current.mp3",
+    "cover": "/covers/sleep_004.jpg"
+  },
+  {
+    "id": "sleep_005",
+    "title": "Clarify",
+    "artist": "Vau Dio",
+    "album": "Clarify",
+    "playlist": "sleep",
+    "duration": 132,
+    "filename": "/music/sleep/Clarify.mp3",
+    "cover": "/covers/sleep_005.jpg"
+  },
+  {
+    "id": "sleep_006",
+    "title": "Continental Exhaust",
+    "artist": "Kichiro Acone",
+    "album": "Unknown Album",
+    "playlist": "sleep",
+    "duration": 138,
+    "filename": "/music/sleep/Continental Exhaust.mp3",
+    "cover": "/covers/sleep_006.jpg"
+  },
+  {
+    "id": "sleep_007",
+    "title": "Ember",
+    "artist": "Moon Whisperer",
+    "album": "Unknown Album",
+    "playlist": "sleep",
+    "duration": 141,
+    "filename": "/music/sleep/Ember.mp3",
+    "cover": "/covers/sleep_007.jpg"
+  },
+  {
+    "id": "sleep_008",
+    "title": "Eternal",
+    "artist": "Nebula Somni",
+    "album": "Unknown Album",
+    "playlist": "sleep",
+    "duration": 152,
+    "filename": "/music/sleep/Eternal.mp3",
+    "cover": "/covers/sleep_008.jpg"
+  },
+  {
+    "id": "sleep_009",
+    "title": "Gentle Air",
+    "artist": "August Cole",
+    "album": "Unknown Album",
+    "playlist": "sleep",
+    "duration": 149,
+    "filename": "/music/sleep/Gentle Air.mp3",
+    "cover": "/covers/sleep_009.jpg"
+  },
+  {
+    "id": "sleep_010",
+    "title": "Gradient",
+    "artist": "Vinyardo",
+    "album": "Gradient",
+    "playlist": "sleep",
+    "duration": 151,
+    "filename": "/music/sleep/Gradient.mp3",
+    "cover": "/covers/sleep_010.jpg"
+  },
+  {
+    "id": "sleep_011",
+    "title": "Hikari",
+    "artist": "Ava Mills",
+    "album": "Hikari",
+    "playlist": "sleep",
+    "duration": 173,
+    "filename": "/music/sleep/Hikari.mp3",
+    "cover": "/playlist-covers/sleep.jpg"
+  },
+  {
+    "id": "sleep_012",
+    "title": "Into the Quiet",
+    "artist": "Stellar Voyager",
+    "album": "Unknown Album",
+    "playlist": "sleep",
+    "duration": 127,
+    "filename": "/music/sleep/Into the Quiet.mp3",
+    "cover": "/covers/sleep_012.jpg"
+  },
+  {
+    "id": "sleep_013",
+    "title": "Meridian Sky",
+    "artist": "James Madley",
+    "album": "Unknown Album",
+    "playlist": "sleep",
+    "duration": 147,
+    "filename": "/music/sleep/Meridian Sky.mp3",
+    "cover": "/covers/sleep_013.jpg"
+  },
+  {
+    "id": "sleep_014",
+    "title": "Mirya",
+    "artist": "Lóni Alma",
+    "album": "Mirya",
+    "playlist": "sleep",
+    "duration": 142,
+    "filename": "/music/sleep/Mirya.mp3",
+    "cover": "/covers/sleep_014.jpg"
+  },
+  {
+    "id": "sleep_015",
+    "title": "Nocturne",
+    "artist": "Calmative",
+    "album": "Unknown Album",
+    "playlist": "sleep",
+    "duration": 133,
+    "filename": "/music/sleep/Nocturne.mp3",
+    "cover": "/covers/sleep_015.jpg"
+  },
+  {
+    "id": "sleep_016",
+    "title": "Opening",
+    "artist": "Sky Sailor",
+    "album": "Unknown Album",
+    "playlist": "sleep",
+    "duration": 365,
+    "filename": "/music/sleep/Opening.mp3",
+    "cover": "/covers/sleep_016.jpg"
+  },
+  {
+    "id": "sleep_017",
+    "title": "Panacea",
+    "artist": "Benjin Blund",
+    "album": "Panacea",
+    "playlist": "sleep",
+    "duration": 171,
+    "filename": "/music/sleep/Panacea.mp3",
+    "cover": "/covers/sleep_017.jpg"
+  },
+  {
+    "id": "sleep_018",
+    "title": "Pathways",
+    "artist": "Atmosfeel",
+    "album": "Unknown Album",
+    "playlist": "sleep",
+    "duration": 174,
+    "filename": "/music/sleep/Pathways.mp3",
+    "cover": "/covers/sleep_018.jpg"
+  },
+  {
+    "id": "sleep_019",
+    "title": "Principles",
+    "artist": "Domi Nova",
+    "album": "Principles",
+    "playlist": "sleep",
+    "duration": 157,
+    "filename": "/music/sleep/Principles.mp3",
+    "cover": "/playlist-covers/sleep.jpg"
+  },
+  {
+    "id": "sleep_020",
+    "title": "Purpose",
+    "artist": "Dominum Nominum",
+    "album": "Unknown Album",
+    "playlist": "sleep",
+    "duration": 168,
+    "filename": "/music/sleep/Purpose.mp3",
+    "cover": "/covers/sleep_020.jpg"
+  },
+  {
+    "id": "sleep_021",
+    "title": "Regimens",
+    "artist": "Solenotte",
+    "album": "Unknown Album",
+    "playlist": "sleep",
+    "duration": 166,
+    "filename": "/music/sleep/Regimens.mp3",
+    "cover": "/covers/sleep_021.jpg"
+  },
+  {
+    "id": "sleep_022",
+    "title": "Rituals",
+    "artist": "Aurora Chamber",
+    "album": "Unknown Album",
+    "playlist": "sleep",
+    "duration": 171,
+    "filename": "/music/sleep/Rituals.mp3",
+    "cover": "/covers/sleep_022.jpg"
+  },
+  {
+    "id": "sleep_023",
+    "title": "Saffron Dusk",
+    "artist": "Monte Aria",
+    "album": "Saffron Dusk",
+    "playlist": "sleep",
+    "duration": 167,
+    "filename": "/music/sleep/Saffron Dusk.mp3",
+    "cover": "/covers/sleep_023.jpg"
+  },
+  {
+    "id": "sleep_024",
+    "title": "Serenity Stream",
+    "artist": "Phillipe Cloé",
+    "album": "Serenity Stream",
+    "playlist": "sleep",
+    "duration": 156,
+    "filename": "/music/sleep/Serenity Stream.mp3",
+    "cover": "/covers/sleep_024.jpg"
+  },
+  {
+    "id": "sleep_025",
+    "title": "Silence Between Suns",
+    "artist": "Kichiro Acone",
+    "album": "Silence Between Suns",
+    "playlist": "sleep",
+    "duration": 162,
+    "filename": "/music/sleep/Silence Between Suns.mp3",
+    "cover": "/covers/sleep_025.jpg"
+  },
+  {
+    "id": "sleep_026",
+    "title": "Sun Silence",
+    "artist": "Stella Solstice",
+    "album": "Unknown Album",
+    "playlist": "sleep",
+    "duration": 151,
+    "filename": "/music/sleep/Sun Silence.mp3",
+    "cover": "/covers/sleep_026.jpg"
+  },
+  {
+    "id": "sleep_027",
+    "title": "The Stillpoint Between Waves",
+    "artist": "Elunara Mare",
+    "album": "Unknown Album",
+    "playlist": "sleep",
+    "duration": 185,
+    "filename": "/music/sleep/The Stillpoint Between Waves.mp3",
+    "cover": "/covers/sleep_027.jpg"
+  },
+  {
+    "id": "sleep_028",
+    "title": "Until the Sky Opens",
+    "artist": "Somnolentia",
+    "album": "Unknown Album",
+    "playlist": "sleep",
+    "duration": 149,
+    "filename": "/music/sleep/Until the Sky Opens.mp3",
+    "cover": "/covers/sleep_028.jpg"
+  },
+  {
+    "id": "sleep_029",
+    "title": "Vivid colors",
+    "artist": "Ljusnan",
+    "album": "Vivid colors",
+    "playlist": "sleep",
+    "duration": 157,
+    "filename": "/music/sleep/Vivid colors.mp3",
+    "cover": "/covers/sleep_029.jpg"
+  },
+  {
+    "id": "sleep_030",
+    "title": "You, Me, and Time",
+    "artist": "The Endity",
+    "album": "Unknown Album",
+    "playlist": "sleep",
+    "duration": 169,
+    "filename": "/music/sleep/You, Me, and Time.mp3",
+    "cover": "/covers/sleep_030.jpg"
+  },
+  {
+    "id": "focus_001",
+    "title": "Above All",
+    "artist": "Inzano",
+    "album": "Above All",
+    "playlist": "focus",
+    "duration": 150,
+    "filename": "/music/focus/Above All.mp3",
+    "cover": "/covers/focus_001.jpg"
+  },
+  {
+    "id": "focus_002",
+    "title": "Anytime",
+    "artist": "Teyio River",
+    "album": "Anytime",
+    "playlist": "focus",
+    "duration": 130,
+    "filename": "/music/focus/Anytime.mp3",
+    "cover": "/covers/focus_002.jpg"
+  },
+  {
+    "id": "focus_003",
+    "title": "Arena",
+    "artist": "Ember Nova",
+    "album": "Arena",
+    "playlist": "focus",
+    "duration": 166,
+    "filename": "/music/focus/Arena.mp3",
+    "cover": "/covers/focus_003.jpg"
+  },
+  {
+    "id": "focus_004",
+    "title": "Before the Break",
+    "artist": "leony",
+    "album": "Unknown Album",
+    "playlist": "focus",
+    "duration": 131,
+    "filename": "/music/focus/Before the Break.mp3",
+    "cover": "/covers/focus_004.jpg"
+  },
+  {
+    "id": "focus_005",
+    "title": "Berlin",
+    "artist": "Nelson Robert",
+    "album": "Berlin",
+    "playlist": "focus",
+    "duration": 140,
+    "filename": "/music/focus/Berlin.mp3",
+    "cover": "/covers/focus_005.jpg"
+  },
+  {
+    "id": "focus_006",
+    "title": "Clarity",
+    "artist": "Detinu",
+    "album": "Unknown Album",
+    "playlist": "focus",
+    "duration": 147,
+    "filename": "/music/focus/Clarity.mp3",
+    "cover": "/covers/focus_006.jpg"
+  },
+  {
+    "id": "focus_007",
+    "title": "Complex",
+    "artist": "QuietBay",
+    "album": "Unknown Album",
+    "playlist": "focus",
+    "duration": 143,
+    "filename": "/music/focus/Complex.mp3",
+    "cover": "/covers/focus_007.jpg"
+  },
+  {
+    "id": "focus_008",
+    "title": "Early",
+    "artist": "Alex Blackwood",
+    "album": "Early",
+    "playlist": "focus",
+    "duration": 138,
+    "filename": "/music/focus/Early.mp3",
+    "cover": "/covers/focus_008.jpg"
+  },
+  {
+    "id": "focus_009",
+    "title": "Echo Branches",
+    "artist": "Astral Voyager",
+    "album": "Unknown Album",
+    "playlist": "focus",
+    "duration": 146,
+    "filename": "/music/focus/Echo Branches.mp3",
+    "cover": "/covers/focus_009.jpg"
+  },
+  {
+    "id": "focus_010",
+    "title": "Encouraged",
+    "artist": "Njordr",
+    "album": "Encouraged",
+    "playlist": "focus",
+    "duration": 135,
+    "filename": "/music/focus/Encouraged.mp3",
+    "cover": "/covers/focus_010.jpg"
+  },
+  {
+    "id": "focus_011",
+    "title": "Exorae",
+    "artist": "Lumen Atlas",
+    "album": "Unknown Album",
+    "playlist": "focus",
+    "duration": 118,
+    "filename": "/music/focus/Exorae.mp3",
+    "cover": "/covers/focus_011.jpg"
+  },
+  {
+    "id": "focus_012",
+    "title": "Fool Me Twice",
+    "artist": "Foster Zeta",
+    "album": "Fool Me Twice",
+    "playlist": "focus",
+    "duration": 136,
+    "filename": "/music/focus/Fool Me Twice.mp3",
+    "cover": "/covers/focus_012.jpg"
+  },
+  {
+    "id": "focus_013",
+    "title": "Heatwave",
+    "artist": "Atlas",
+    "album": "Heatwave",
+    "playlist": "focus",
+    "duration": 140,
+    "filename": "/music/focus/Heatwave.mp3",
+    "cover": "/covers/focus_013.jpg"
+  },
+  {
+    "id": "focus_014",
+    "title": "Hidden Treasure",
+    "artist": "Starstrum",
+    "album": "Hidden Treasure",
+    "playlist": "focus",
+    "duration": 137,
+    "filename": "/music/focus/Hidden Treasure.mp3",
+    "cover": "/covers/focus_014.jpg"
+  },
+  {
+    "id": "focus_015",
+    "title": "hollow river",
+    "artist": "kinshū_91",
+    "album": "hollow river",
+    "playlist": "focus",
+    "duration": 150,
+    "filename": "/music/focus/hollow river.mp3",
+    "cover": "/covers/focus_015.jpg"
+  },
+  {
+    "id": "focus_016",
+    "title": "Inner Altitude",
+    "artist": "Aron Luna",
+    "album": "Inner Altitude",
+    "playlist": "focus",
+    "duration": 140,
+    "filename": "/music/focus/Inner Altitude.mp3",
+    "cover": "/covers/focus_016.jpg"
+  },
+  {
+    "id": "focus_017",
+    "title": "Lifted",
+    "artist": "From Somewhere Quiet",
+    "album": "Unknown Album",
+    "playlist": "focus",
+    "duration": 127,
+    "filename": "/music/focus/Lifted.mp3",
+    "cover": "/covers/focus_017.jpg"
+  },
+  {
+    "id": "focus_018",
+    "title": "Long Distance",
+    "artist": "NOMA",
+    "album": "Long Distance",
+    "playlist": "focus",
+    "duration": 150,
+    "filename": "/music/focus/Long Distance.mp3",
+    "cover": "/covers/focus_018.jpg"
+  },
+  {
+    "id": "focus_019",
+    "title": "Look No Further",
+    "artist": "Teyio River",
+    "album": "Unknown Album",
+    "playlist": "focus",
+    "duration": 136,
+    "filename": "/music/focus/Look No Further.mp3",
+    "cover": "/covers/focus_019.jpg"
+  },
+  {
+    "id": "focus_020",
+    "title": "Magnetic Stillness",
+    "artist": "novi quiet",
+    "album": "Magnetic Stillness",
+    "playlist": "focus",
+    "duration": 135,
+    "filename": "/music/focus/Magnetic Stillness.mp3",
+    "cover": "/covers/focus_020.jpg"
+  },
+  {
+    "id": "focus_021",
+    "title": "Manegen",
+    "artist": "Casper Ilian",
+    "album": "Unknown Album",
+    "playlist": "focus",
+    "duration": 138,
+    "filename": "/music/focus/Manegen.mp3",
+    "cover": "/covers/focus_021.jpg"
+  },
+  {
+    "id": "focus_022",
+    "title": "Memories",
+    "artist": "Echoes of Embers",
+    "album": "Memories",
+    "playlist": "focus",
+    "duration": 125,
+    "filename": "/music/focus/Memories.mp3",
+    "cover": "/covers/focus_022.jpg"
+  },
+  {
+    "id": "focus_023",
+    "title": "Moonlight",
+    "artist": "Sounds of Ellinia",
+    "album": "Moonlight",
+    "playlist": "focus",
+    "duration": 134,
+    "filename": "/music/focus/Moonlight.mp3",
+    "cover": "/covers/focus_023.jpg"
+  },
+  {
+    "id": "focus_024",
+    "title": "More",
+    "artist": "Veda Orion",
+    "album": "More",
+    "playlist": "focus",
+    "duration": 142,
+    "filename": "/music/focus/More.mp3",
+    "cover": "/covers/focus_024.jpg"
+  },
+  {
+    "id": "focus_025",
+    "title": "Near to Home",
+    "artist": "Perseus",
+    "album": "Near to Home",
+    "playlist": "focus",
+    "duration": 148,
+    "filename": "/music/focus/Near to Home.mp3",
+    "cover": "/covers/focus_025.jpg"
+  },
+  {
+    "id": "focus_026",
+    "title": "Nebula in Bloom",
+    "artist": "Sleeping Atlas",
+    "album": "Nebula in Bloom",
+    "playlist": "focus",
+    "duration": 124,
+    "filename": "/music/focus/Nebula in Bloom.mp3",
+    "cover": "/covers/focus_026.jpg"
+  },
+  {
+    "id": "focus_027",
+    "title": "never better",
+    "artist": "City-Stuck",
+    "album": "never better",
+    "playlist": "focus",
+    "duration": 121,
+    "filename": "/music/focus/never better.mp3",
+    "cover": "/covers/focus_027.jpg"
+  },
+  {
+    "id": "focus_028",
+    "title": "Night owl",
+    "artist": "oerra",
+    "album": "Night owl",
+    "playlist": "focus",
+    "duration": 143,
+    "filename": "/music/focus/Night owl.mp3",
+    "cover": "/covers/focus_028.jpg"
+  },
+  {
+    "id": "focus_029",
+    "title": "No Limits",
+    "artist": "The Still Hour",
+    "album": "No Limits",
+    "playlist": "focus",
+    "duration": 133,
+    "filename": "/music/focus/No Limits.mp3",
+    "cover": "/covers/focus_029.jpg"
+  },
+  {
+    "id": "focus_030",
+    "title": "Noir",
+    "artist": "Far & Beyond",
+    "album": "Noir",
+    "playlist": "focus",
+    "duration": 140,
+    "filename": "/music/focus/Noir.mp3",
+    "cover": "/covers/focus_030.jpg"
+  },
+  {
+    "id": "focus_031",
+    "title": "ocean dreams",
+    "artist": "bluescape",
+    "album": "Unknown Album",
+    "playlist": "focus",
+    "duration": 149,
+    "filename": "/music/focus/ocean dreams.mp3",
+    "cover": "/covers/focus_031.jpg"
+  },
+  {
+    "id": "focus_032",
+    "title": "Out of Reach",
+    "artist": "Koma",
+    "album": "Unknown Album",
+    "playlist": "focus",
+    "duration": 129,
+    "filename": "/music/focus/Out of Reach.mp3",
+    "cover": "/covers/focus_032.jpg"
+  },
+  {
+    "id": "focus_033",
+    "title": "Over",
+    "artist": "Atlas Dusk",
+    "album": "Unknown Album",
+    "playlist": "focus",
+    "duration": 141,
+    "filename": "/music/focus/Over.mp3",
+    "cover": "/covers/focus_033.jpg"
+  },
+  {
+    "id": "focus_034",
+    "title": "Pinehurst",
+    "artist": "Mossaeon",
+    "album": "Unknown Album",
+    "playlist": "focus",
+    "duration": 148,
+    "filename": "/music/focus/Pinehurst.mp3",
+    "cover": "/covers/focus_034.jpg"
+  },
+  {
+    "id": "focus_035",
+    "title": "Pluto",
+    "artist": "Milk E Way",
+    "album": "Unknown Album",
+    "playlist": "focus",
+    "duration": 147,
+    "filename": "/music/focus/Pluto.mp3",
+    "cover": "/covers/focus_035.jpg"
+  },
+  {
+    "id": "focus_036",
+    "title": "Present Memory",
+    "artist": "Køsk Skriner",
+    "album": "Present Memory",
+    "playlist": "focus",
+    "duration": 156,
+    "filename": "/music/focus/Present Memory.mp3",
+    "cover": "/covers/focus_036.jpg"
+  },
+  {
+    "id": "focus_037",
+    "title": "Quiet Axis",
+    "artist": "novi quiet",
+    "album": "Quiet Axis",
+    "playlist": "focus",
+    "duration": 128,
+    "filename": "/music/focus/Quiet Axis.mp3",
+    "cover": "/covers/focus_037.jpg"
+  },
+  {
+    "id": "focus_038",
+    "title": "Relevance",
+    "artist": "Noah Moon",
+    "album": "Relevance",
+    "playlist": "focus",
+    "duration": 144,
+    "filename": "/music/focus/Relevance.mp3",
+    "cover": "/covers/focus_038.jpg"
+  },
+  {
+    "id": "focus_039",
+    "title": "Silk Tone",
+    "artist": "Eden",
+    "album": "Silk Tone",
+    "playlist": "focus",
+    "duration": 163,
+    "filename": "/music/focus/Silk Tone.mp3",
+    "cover": "/covers/focus_039.jpg"
+  },
+  {
+    "id": "focus_040",
+    "title": "Soft Breeze",
+    "artist": "Änge",
+    "album": "Soft Breeze",
+    "playlist": "focus",
+    "duration": 148,
+    "filename": "/music/focus/Soft Breeze.mp3",
+    "cover": "/covers/focus_040.jpg"
+  },
+  {
+    "id": "focus_041",
+    "title": "Solar Mass",
+    "artist": "Rhyaene",
+    "album": "Solar Mass",
+    "playlist": "focus",
+    "duration": 126,
+    "filename": "/music/focus/Solar Mass.mp3",
+    "cover": "/covers/focus_041.jpg"
+  },
+  {
+    "id": "focus_042",
+    "title": "Starbloom",
+    "artist": "August Sands",
+    "album": "Starbloom",
+    "playlist": "focus",
+    "duration": 141,
+    "filename": "/music/focus/Starbloom.mp3",
+    "cover": "/covers/focus_042.jpg"
+  },
+  {
+    "id": "focus_043",
+    "title": "Telescope",
+    "artist": "The Aiko",
+    "album": "Unknown Album",
+    "playlist": "focus",
+    "duration": 127,
+    "filename": "/music/focus/Telescope.mp3",
+    "cover": "/covers/focus_043.jpg"
+  },
+  {
+    "id": "focus_044",
+    "title": "the long way home",
+    "artist": "Fred Russ",
+    "album": "Unknown Album",
+    "playlist": "focus",
+    "duration": 120,
+    "filename": "/music/focus/the long way home.mp3",
+    "cover": "/covers/focus_044.jpg"
+  },
+  {
+    "id": "focus_045",
+    "title": "The Present",
+    "artist": "Cherries & Daydreams",
+    "album": "The Present",
+    "playlist": "focus",
+    "duration": 137,
+    "filename": "/music/focus/The Present.mp3",
+    "cover": "/covers/focus_045.jpg"
+  },
+  {
+    "id": "focus_046",
+    "title": "tiny window",
+    "artist": "Ólafur Apollo",
+    "album": "tiny window",
+    "playlist": "focus",
+    "duration": 141,
+    "filename": "/music/focus/tiny window.mp3",
+    "cover": "/covers/focus_046.jpg"
+  },
+  {
+    "id": "focus_047",
+    "title": "transformer",
+    "artist": "Love Palmer",
+    "album": "Unknown Album",
+    "playlist": "focus",
+    "duration": 139,
+    "filename": "/music/focus/transformer.mp3",
+    "cover": "/covers/focus_047.jpg"
+  },
+  {
+    "id": "focus_048",
+    "title": "Void",
+    "artist": "Lush Hush",
+    "album": "Unknown Album",
+    "playlist": "focus",
+    "duration": 151,
+    "filename": "/music/focus/Void.mp3",
+    "cover": "/covers/focus_048.jpg"
+  },
+  {
+    "id": "focus_049",
+    "title": "winter animals",
+    "artist": "Lierre",
+    "album": "Unknown Album",
+    "playlist": "focus",
+    "duration": 153,
+    "filename": "/music/focus/winter animals.mp3",
+    "cover": "/covers/focus_049.jpg"
+  },
+  {
+    "id": "relax_001",
+    "title": "Aligned",
+    "artist": "Dronia",
+    "album": "Unknown Album",
+    "playlist": "relax",
+    "duration": 153,
+    "filename": "/music/relax/Aligned.mp3",
+    "cover": "/covers/relax_001.jpg"
+  },
+  {
+    "id": "relax_002",
+    "title": "Aphelion",
+    "artist": "Aetheria Solara",
+    "album": "Aphelion",
+    "playlist": "relax",
+    "duration": 179,
+    "filename": "/music/relax/Aphelion.mp3",
+    "cover": "/covers/relax_002.jpg"
+  },
+  {
+    "id": "relax_003",
+    "title": "Asterix Field",
+    "artist": "Sonic Serenity",
+    "album": "Unknown Album",
+    "playlist": "relax",
+    "duration": 171,
+    "filename": "/music/relax/Asterix Field.mp3",
+    "cover": "/covers/relax_003.jpg"
+  },
+  {
+    "id": "relax_004",
+    "title": "Calm Horizon",
+    "artist": "Somnifera",
+    "album": "Calm Horizon",
+    "playlist": "relax",
+    "duration": 143,
+    "filename": "/music/relax/Calm Horizon.mp3",
+    "cover": "/covers/relax_004.jpg"
+  },
+  {
+    "id": "relax_005",
+    "title": "Effimero",
+    "artist": "Nebula Somni",
+    "album": "Effimero",
+    "playlist": "relax",
+    "duration": 142,
+    "filename": "/music/relax/Effimero.mp3",
+    "cover": "/covers/relax_005.jpg"
+  },
+  {
+    "id": "relax_006",
+    "title": "Evermore",
+    "artist": "Orchestrate the Universe",
+    "album": "Evermore",
+    "playlist": "relax",
+    "duration": 144,
+    "filename": "/music/relax/Evermore.mp3",
+    "cover": "/covers/relax_006.jpg"
+  },
+  {
+    "id": "relax_007",
+    "title": "Gaia",
+    "artist": "Oliver Ólafsson",
+    "album": "Gaia",
+    "playlist": "relax",
+    "duration": 148,
+    "filename": "/music/relax/Gaia.mp3",
+    "cover": "/covers/relax_007.jpg"
+  },
+  {
+    "id": "relax_008",
+    "title": "Gentle Foster",
+    "artist": "Claddagh Glas",
+    "album": "Unknown Album",
+    "playlist": "relax",
+    "duration": 147,
+    "filename": "/music/relax/Gentle Foster.mp3",
+    "cover": "/covers/relax_008.jpg"
+  },
+  {
+    "id": "relax_009",
+    "title": "Haven",
+    "artist": "Paia Mooni",
+    "album": "Haven",
+    "playlist": "relax",
+    "duration": 172,
+    "filename": "/music/relax/Haven.mp3",
+    "cover": "/covers/relax_009.jpg"
+  },
+  {
+    "id": "relax_010",
+    "title": "Holding on to You",
+    "artist": "Stellar Stones",
+    "album": "Holding on to You",
+    "playlist": "relax",
+    "duration": 127,
+    "filename": "/music/relax/Holding on to You.mp3",
+    "cover": "/covers/relax_010.jpg"
+  },
+  {
+    "id": "relax_011",
+    "title": "In Quiet Admirations",
+    "artist": "Noni Ammin",
+    "album": "Unknown Album",
+    "playlist": "relax",
+    "duration": 119,
+    "filename": "/music/relax/In Quiet Admirations.mp3",
+    "cover": "/covers/relax_011.jpg"
+  },
+  {
+    "id": "relax_012",
+    "title": "lighter",
+    "artist": "Obdormiam",
+    "album": "lighter",
+    "playlist": "relax",
+    "duration": 152,
+    "filename": "/music/relax/lighter.mp3",
+    "cover": "/covers/relax_012.jpg"
+  },
+  {
+    "id": "relax_013",
+    "title": "Liminal",
+    "artist": "EMIKO",
+    "album": "Liminal",
+    "playlist": "relax",
+    "duration": 146,
+    "filename": "/music/relax/Liminal.mp3",
+    "cover": "/covers/relax_013.jpg"
+  },
+  {
+    "id": "relax_014",
+    "title": "Lioraen",
+    "artist": "Embershine Air",
+    "album": "Unknown Album",
+    "playlist": "relax",
+    "duration": 169,
+    "filename": "/music/relax/Lioraen.mp3",
+    "cover": "/covers/relax_014.jpg"
+  },
+  {
+    "id": "relax_015",
+    "title": "Meadow Dreams",
+    "artist": "Blundstoft",
+    "album": "Unknown Album",
+    "playlist": "relax",
+    "duration": 134,
+    "filename": "/music/relax/Meadow Dreams.mp3",
+    "cover": "/covers/relax_015.jpg"
+  },
+  {
+    "id": "relax_016",
+    "title": "Mellow",
+    "artist": "The Inner Room",
+    "album": "Unknown Album",
+    "playlist": "relax",
+    "duration": 391,
+    "filename": "/music/relax/Mellow.mp3",
+    "cover": "/covers/relax_016.jpg"
+  },
+  {
+    "id": "relax_017",
+    "title": "Memory Palace",
+    "artist": "Lucent Fields",
+    "album": "Unknown Album",
+    "playlist": "relax",
+    "duration": 154,
+    "filename": "/music/relax/Memory Palace.mp3",
+    "cover": "/covers/relax_017.jpg"
+  },
+  {
+    "id": "relax_018",
+    "title": "Meridian",
+    "artist": "Ziraphine",
+    "album": "Meridian",
+    "playlist": "relax",
+    "duration": 285,
+    "filename": "/music/relax/Meridian.mp3",
+    "cover": "/covers/relax_018.jpg"
+  },
+  {
+    "id": "relax_019",
+    "title": "Nebel",
+    "artist": "Mystisse",
+    "album": "Nebel",
+    "playlist": "relax",
+    "duration": 165,
+    "filename": "/music/relax/Nebel.mp3",
+    "cover": "/covers/relax_019.jpg"
+  },
+  {
+    "id": "relax_020",
+    "title": "Nocturnal",
+    "artist": "Forsintha",
+    "album": "Nocturnal",
+    "playlist": "relax",
+    "duration": 149,
+    "filename": "/music/relax/Nocturnal.mp3",
+    "cover": "/covers/relax_020.jpg"
+  },
+  {
+    "id": "relax_021",
+    "title": "Polygon",
+    "artist": "Midnight Mind",
+    "album": "Polygon",
+    "playlist": "relax",
+    "duration": 149,
+    "filename": "/music/relax/Polygon.mp3",
+    "cover": "/covers/relax_021.jpg"
+  },
+  {
+    "id": "relax_022",
+    "title": "Prepere for Landing",
+    "artist": "Lasant",
+    "album": "Unknown Album",
+    "playlist": "relax",
+    "duration": 162,
+    "filename": "/music/relax/Prepere for Landing.mp3",
+    "cover": "/covers/relax_022.jpg"
+  },
+  {
+    "id": "relax_023",
+    "title": "Quiet Phase",
+    "artist": "Aquaimo",
+    "album": "Unknown Album",
+    "playlist": "relax",
+    "duration": 140,
+    "filename": "/music/relax/Quiet Phase.mp3",
+    "cover": "/covers/relax_023.jpg"
+  },
+  {
+    "id": "relax_024",
+    "title": "Resounding Hymn",
+    "artist": "Warmth of Muba",
+    "album": "Resounding Hymn",
+    "playlist": "relax",
+    "duration": 149,
+    "filename": "/music/relax/Resounding Hymn.mp3",
+    "cover": "/covers/relax_024.jpg"
+  },
+  {
+    "id": "relax_025",
+    "title": "Soft Glow",
+    "artist": "Chasing Storms",
+    "album": "Soft Glow",
+    "playlist": "relax",
+    "duration": 161,
+    "filename": "/music/relax/Soft Glow.mp3",
+    "cover": "/covers/relax_025.jpg"
+  },
+  {
+    "id": "relax_026",
+    "title": "Softness",
+    "artist": "Quiet Tones",
+    "album": "Unknown Album",
+    "playlist": "relax",
+    "duration": 131,
+    "filename": "/music/relax/Softness.mp3",
+    "cover": "/covers/relax_026.jpg"
+  },
+  {
+    "id": "relax_027",
+    "title": "Sóra",
+    "artist": "Lóni Alma",
+    "album": "Sóra",
+    "playlist": "relax",
+    "duration": 142,
+    "filename": "/music/relax/Sóra.mp3",
+    "cover": "/covers/relax_027.jpg"
+  },
+  {
+    "id": "relax_028",
+    "title": "Timeless",
+    "artist": "EMIKO",
+    "album": "Timeless",
+    "playlist": "relax",
+    "duration": 143,
+    "filename": "/music/relax/Timeless.mp3",
+    "cover": "/covers/relax_028.jpg"
+  },
+  {
+    "id": "relax_029",
+    "title": "To the Moment",
+    "artist": "Lonely Silence",
+    "album": "Unknown Album",
+    "playlist": "relax",
+    "duration": 132,
+    "filename": "/music/relax/To the Moment.mp3",
+    "cover": "/covers/relax_029.jpg"
+  },
+  {
+    "id": "relax_030",
+    "title": "Weightless Light",
+    "artist": "Warmth of Muba",
+    "album": "Unknown Album",
+    "playlist": "relax",
+    "duration": 148,
+    "filename": "/music/relax/Weightless Light.mp3",
+    "cover": "/covers/relax_030.jpg"
+  },
+  {
+    "id": "ambience_001",
+    "title": "a letter i never sent",
+    "artist": "Twenty2Echoes",
+    "album": "Unknown Album",
+    "playlist": "ambience",
+    "duration": 100,
+    "filename": "/music/ambience/a letter i never sent.mp3",
+    "cover": "/covers/ambience_001.jpg"
+  },
+  {
+    "id": "ambience_002",
+    "title": "afterdark.",
+    "artist": "pandora., chillwithme, cødy",
+    "album": "afterdark.",
+    "playlist": "ambience",
+    "duration": 93,
+    "filename": "/music/ambience/afterdark.mp3",
+    "cover": "/covers/ambience_002.jpg"
+  },
+  {
+    "id": "ambience_003",
+    "title": "blur",
+    "artist": "distvnt",
+    "album": "Unknown Album",
+    "playlist": "ambience",
+    "duration": 126,
+    "filename": "/music/ambience/blur.mp3",
+    "cover": "/covers/ambience_003.jpg"
+  },
+  {
+    "id": "ambience_004",
+    "title": "comfort chain - Ambient",
+    "artist": "Inan, pandora.",
+    "album": "comfort chain (Ambient)",
+    "playlist": "ambience",
+    "duration": 84,
+    "filename": "/music/ambience/comfort chain - Ambient.mp3",
+    "cover": "/covers/ambience_004.jpg"
+  },
+  {
+    "id": "ambience_005",
+    "title": "dreamplace - slowed",
+    "artist": "SanelliX",
+    "album": "Unknown Album",
+    "playlist": "ambience",
+    "duration": 123,
+    "filename": "/music/ambience/dreamplace - slowed.mp3",
+    "cover": "/covers/ambience_005.jpg"
+  },
+  {
+    "id": "ambience_006",
+    "title": "dreamplace",
+    "artist": "SanelliX",
+    "album": "Unknown Album",
+    "playlist": "ambience",
+    "duration": 108,
+    "filename": "/music/ambience/dreamplace.mp3",
+    "cover": "/covers/ambience_006.jpg"
+  },
+  {
+    "id": "ambience_007",
+    "title": "eziosfamily.",
+    "artist": "pandora., chillwithme, cødy",
+    "album": "eziosfamily.",
+    "playlist": "ambience",
+    "duration": 96,
+    "filename": "/music/ambience/eziosfamily.mp3",
+    "cover": "/covers/ambience_007.jpg"
+  },
+  {
+    "id": "ambience_008",
+    "title": "feels like us - slowed",
+    "artist": "Inan",
+    "album": "Unknown Album",
+    "playlist": "ambience",
+    "duration": 110,
+    "filename": "/music/ambience/feels like us - slowed.mp3",
+    "cover": "/covers/ambience_008.jpg"
+  },
+  {
+    "id": "ambience_009",
+    "title": "feels like us - sped up",
+    "artist": "Inan",
+    "album": "Unknown Album",
+    "playlist": "ambience",
+    "duration": 98,
+    "filename": "/music/ambience/feels like us - sped up.mp3",
+    "cover": "/covers/ambience_009.jpg"
+  },
+  {
+    "id": "ambience_010",
+    "title": "feels like us - TikTok",
+    "artist": "Inan",
+    "album": "Unknown Album",
+    "playlist": "ambience",
+    "duration": 119,
+    "filename": "/music/ambience/feels like us - TikTok.mp3",
+    "cover": "/covers/ambience_010.jpg"
+  },
+  {
+    "id": "ambience_011",
+    "title": "feels like us",
+    "artist": "Inan",
+    "album": "Unknown Album",
+    "playlist": "ambience",
+    "duration": 235,
+    "filename": "/music/ambience/feels like us.mp3",
+    "cover": "/covers/ambience_011.jpg"
+  },
+  {
+    "id": "ambience_012",
+    "title": "find you",
+    "artist": "distvnt",
+    "album": "Unknown Album",
+    "playlist": "ambience",
+    "duration": 96,
+    "filename": "/music/ambience/find you.mp3",
+    "cover": "/covers/ambience_012.jpg"
+  },
+  {
+    "id": "ambience_013",
+    "title": "girl",
+    "artist": "SpoonBeats",
+    "album": "Unknown Album",
+    "playlist": "ambience",
+    "duration": 135,
+    "filename": "/music/ambience/girl.mp3",
+    "cover": "/covers/ambience_013.jpg"
+  },
+  {
+    "id": "ambience_014",
+    "title": "i could be the one - Ambient",
+    "artist": "Inan, pandora.",
+    "album": "i could be the one - Ambient (remixes) [Ambient remixes]",
+    "playlist": "ambience",
+    "duration": 85,
+    "filename": "/music/ambience/i could be the one - Ambient.mp3",
+    "cover": "/covers/ambience_014.jpg"
+  },
+  {
+    "id": "ambience_015",
+    "title": "interstellar.",
+    "artist": "pandora., chillwithme, cødy",
+    "album": "daydream.",
+    "playlist": "ambience",
+    "duration": 98,
+    "filename": "/music/ambience/interstellar.mp3",
+    "cover": "/covers/ambience_015.jpg"
+  },
+  {
+    "id": "ambience_016",
+    "title": "jocelyn flores (Ambient) - sped up",
+    "artist": "pandora.",
+    "album": "Unknown Album",
+    "playlist": "ambience",
+    "duration": 62,
+    "filename": "/music/ambience/jocelyn flores (Ambient) - sped up.mp3",
+    "cover": "/covers/ambience_016.jpg"
+  },
+  {
+    "id": "ambience_017",
+    "title": "jocelyn flores (Ambient)",
+    "artist": "pandora.",
+    "album": "Unknown Album",
+    "playlist": "ambience",
+    "duration": 128,
+    "filename": "/music/ambience/jocelyn flores (Ambient).mp3",
+    "cover": "/covers/ambience_017.jpg"
+  },
+  {
+    "id": "ambience_018",
+    "title": "laleconparticulere.",
+    "artist": "pandora., chillwithme, cødy",
+    "album": "laleconparticulere.",
+    "playlist": "ambience",
+    "duration": 63,
+    "filename": "/music/ambience/laleconparticulere.mp3",
+    "cover": "/covers/ambience_018.jpg"
+  },
+  {
+    "id": "ambience_019",
+    "title": "Memory Reboot - Ambient",
+    "artist": "pandora., chillwithme, cødy",
+    "album": "Memory Reboot (Ambient)",
+    "playlist": "ambience",
+    "duration": 76,
+    "filename": "/music/ambience/Memory Reboot - Ambient.mp3",
+    "cover": "/covers/ambience_019.jpg"
+  },
+  {
+    "id": "ambience_020",
+    "title": "paradox - slowed",
+    "artist": "distvnt",
+    "album": "Unknown Album",
+    "playlist": "ambience",
+    "duration": 121,
+    "filename": "/music/ambience/paradox - slowed.mp3",
+    "cover": "/covers/ambience_020.jpg"
+  },
+  {
+    "id": "ambience_021",
+    "title": "paradox",
+    "artist": "distvnt",
+    "album": "Unknown Album",
+    "playlist": "ambience",
+    "duration": 121,
+    "filename": "/music/ambience/paradox.mp3",
+    "cover": "/covers/ambience_021.jpg"
+  },
+  {
+    "id": "ambience_022",
+    "title": "promise",
+    "artist": "Distant Fog",
+    "album": "Unknown Album",
+    "playlist": "ambience",
+    "duration": 116,
+    "filename": "/music/ambience/promise.mp3",
+    "cover": "/covers/ambience_022.jpg"
+  },
+  {
+    "id": "ambience_023",
+    "title": "snowfall",
+    "artist": "Øneheart, reidenshi",
+    "album": "snowfall",
+    "playlist": "ambience",
+    "duration": 124,
+    "filename": "/music/ambience/snowfall.mp3",
+    "cover": "/covers/ambience_023.jpg"
+  },
+  {
+    "id": "ambience_024",
+    "title": "supernova",
+    "artist": "pandora.",
+    "album": "Unknown Album",
+    "playlist": "ambience",
+    "duration": 329,
+    "filename": "/music/ambience/supernova.mp3",
+    "cover": "/covers/ambience_024.jpg"
+  },
+  {
+    "id": "ambience_025",
+    "title": "theperfectgirl.",
+    "artist": "pandora., chillwithme, cødy",
+    "album": "theperfectgirl.",
+    "playlist": "ambience",
+    "duration": 106,
+    "filename": "/music/ambience/theperfectgirl.mp3",
+    "cover": "/covers/ambience_025.jpg"
+  },
+  {
+    "id": "ambience_026",
+    "title": "wave after wave - Slowed",
+    "artist": "Inan",
+    "album": "Unknown Album",
+    "playlist": "ambience",
+    "duration": 89,
+    "filename": "/music/ambience/wave after wave - Slowed.mp3",
+    "cover": "/covers/ambience_026.jpg"
+  },
+  {
+    "id": "ambience_027",
+    "title": "wave after wave - Sped Up",
+    "artist": "Inan",
+    "album": "Unknown Album",
+    "playlist": "ambience",
+    "duration": 81,
+    "filename": "/music/ambience/wave after wave - Sped Up.mp3",
+    "cover": "/covers/ambience_027.jpg"
+  },
+  {
+    "id": "ambience_028",
+    "title": "wave after wave - Tiktok",
+    "artist": "Inan",
+    "album": "Unknown Album",
+    "playlist": "ambience",
+    "duration": 100,
+    "filename": "/music/ambience/wave after wave - Tiktok.mp3",
+    "cover": "/covers/ambience_028.jpg"
+  },
+  {
+    "id": "ambience_029",
+    "title": "wave after wave",
+    "artist": "Inan",
+    "album": "Unknown Album",
+    "playlist": "ambience",
+    "duration": 85,
+    "filename": "/music/ambience/wave after wave.mp3",
+    "cover": "/covers/ambience_029.jpg"
+  },
+  {
+    "id": "rain_001",
+    "title": "Amanhecer Azul",
+    "artist": "Nebulvia",
+    "album": "Unknown Album",
+    "playlist": "rain",
+    "duration": 124,
+    "filename": "/music/rain/Amanhecer Azul.mp3",
+    "cover": "/playlist-covers/rain.jpg"
+  },
+  {
+    "id": "rain_002",
+    "title": "Azul E Cinza",
+    "artist": "Nebulvia",
+    "album": "Unknown Album",
+    "playlist": "rain",
+    "duration": 122,
+    "filename": "/music/rain/Azul E Cinza.mp3",
+    "cover": "/covers/rain_002.jpg"
+  },
+  {
+    "id": "rain_003",
+    "title": "Beauty Landscape",
+    "artist": "Losty Lane",
+    "album": "Unknown Album",
+    "playlist": "rain",
+    "duration": 121,
+    "filename": "/music/rain/Beauty Landscape.mp3",
+    "cover": "/covers/rain_003.jpg"
+  },
+  {
+    "id": "rain_004",
+    "title": "Calm Window Rain",
+    "artist": "Pluvetone",
+    "album": "Unknown Album",
+    "playlist": "rain",
+    "duration": 125,
+    "filename": "/music/rain/Calm Window Rain.mp3",
+    "cover": "/covers/rain_004.jpg"
+  },
+  {
+    "id": "rain_005",
+    "title": "Calmy Rain",
+    "artist": "Losty Lane",
+    "album": "Unknown Album",
+    "playlist": "rain",
+    "duration": 121,
+    "filename": "/music/rain/Calmy Rain.mp3",
+    "cover": "/covers/rain_005.jpg"
+  },
+  {
+    "id": "rain_006",
+    "title": "Chuva Suave Para Dormir",
+    "artist": "Nebulvia",
+    "album": "Unknown Album",
+    "playlist": "rain",
+    "duration": 120,
+    "filename": "/music/rain/Chuva Suave Para Dormir.mp3",
+    "cover": "/covers/rain_006.jpg"
+  },
+  {
+    "id": "rain_007",
+    "title": "Dia Lluvioso",
+    "artist": "Pluvex",
+    "album": "Unknown Album",
+    "playlist": "rain",
+    "duration": 121,
+    "filename": "/music/rain/Dia Lluvioso.mp3",
+    "cover": "/covers/rain_007.jpg"
+  },
+  {
+    "id": "rain_008",
+    "title": "Estudiar Lluvia De Fondo",
+    "artist": "Pluvex",
+    "album": "Unknown Album",
+    "playlist": "rain",
+    "duration": 122,
+    "filename": "/music/rain/Estudiar Lluvia De Fondo.mp3",
+    "cover": "/covers/rain_008.jpg"
+  },
+  {
+    "id": "rain_009",
+    "title": "Gentle Pure Rain",
+    "artist": "Pluvetone",
+    "album": "Unknown Album",
+    "playlist": "rain",
+    "duration": 126,
+    "filename": "/music/rain/Gentle Pure Rain.mp3",
+    "cover": "/covers/rain_009.jpg"
+  },
+  {
+    "id": "rain_010",
+    "title": "Gentle Rain (Loopable)",
+    "artist": "Losty Lane",
+    "album": "Unknown Album",
+    "playlist": "rain",
+    "duration": 124,
+    "filename": "/music/rain/Gentle Rain (Loopable).mp3",
+    "cover": "/covers/rain_010.jpg"
+  },
+  {
+    "id": "rain_011",
+    "title": "Leer Y Memorizar",
+    "artist": "Pluvex",
+    "album": "Unknown Album",
+    "playlist": "rain",
+    "duration": 126,
+    "filename": "/music/rain/Leer Y Memorizar.mp3",
+    "cover": "/covers/rain_011.jpg"
+  },
+  {
+    "id": "rain_012",
+    "title": "Llueve en la ventana",
+    "artist": "Pluvex",
+    "album": "Unknown Album",
+    "playlist": "rain",
+    "duration": 125,
+    "filename": "/music/rain/Llueve en la ventana.mp3",
+    "cover": "/covers/rain_012.jpg"
+  },
+  {
+    "id": "rain_013",
+    "title": "Lluvia Suave",
+    "artist": "Pluvetone",
+    "album": "Unknown Album",
+    "playlist": "rain",
+    "duration": 126,
+    "filename": "/music/rain/Lluvia Suave.mp3",
+    "cover": "/covers/rain_013.jpg"
+  },
+  {
+    "id": "rain_014",
+    "title": "Moody Rain",
+    "artist": "Pluvetone",
+    "album": "Unknown Album",
+    "playlist": "rain",
+    "duration": 121,
+    "filename": "/music/rain/Moody Rain.mp3",
+    "cover": "/covers/rain_014.jpg"
+  },
+  {
+    "id": "rain_015",
+    "title": "Música De Chuva",
+    "artist": "Nebulvia",
+    "album": "Unknown Album",
+    "playlist": "rain",
+    "duration": 124,
+    "filename": "/music/rain/Música De Chuva.mp3",
+    "cover": "/covers/rain_015.jpg"
+  },
+  {
+    "id": "rain_016",
+    "title": "Nature Calm Rain",
+    "artist": "Losty Lane",
+    "album": "Unknown Album",
+    "playlist": "rain",
+    "duration": 122,
+    "filename": "/music/rain/Nature Calm Rain.mp3",
+    "cover": "/covers/rain_016.jpg"
+  },
+  {
+    "id": "rain_017",
+    "title": "Night Calm Rain",
+    "artist": "Losty Lane",
+    "album": "Unknown Album",
+    "playlist": "rain",
+    "duration": 124,
+    "filename": "/music/rain/Night Calm Rain.mp3",
+    "cover": "/covers/rain_017.jpg"
+  },
+  {
+    "id": "rain_018",
+    "title": "Pure Calm Rain",
+    "artist": "Pluvetone",
+    "album": "Unknown Album",
+    "playlist": "rain",
+    "duration": 127,
+    "filename": "/music/rain/Pure Calm Rain.mp3",
+    "cover": "/covers/rain_018.jpg"
+  },
+  {
+    "id": "rain_019",
+    "title": "Pure Soft Sound",
+    "artist": "Pluvetone",
+    "album": "Unknown Album",
+    "playlist": "rain",
+    "duration": 123,
+    "filename": "/music/rain/Pure Soft Sound.mp3",
+    "cover": "/covers/rain_019.jpg"
+  },
+  {
+    "id": "rain_020",
+    "title": "Quiet Rain",
+    "artist": "Pluvetone",
+    "album": "Unknown Album",
+    "playlist": "rain",
+    "duration": 127,
+    "filename": "/music/rain/Quiet Rain.mp3",
+    "cover": "/covers/rain_020.jpg"
+  },
+  {
+    "id": "rain_021",
+    "title": "Rainy Calm State",
+    "artist": "Pluvetone",
+    "album": "Unknown Album",
+    "playlist": "rain",
+    "duration": 128,
+    "filename": "/music/rain/Rainy Calm State.mp3",
+    "cover": "/covers/rain_021.jpg"
+  },
+  {
+    "id": "rain_022",
+    "title": "Relax Modern Rain",
+    "artist": "Pluvetone",
+    "album": "Unknown Album",
+    "playlist": "rain",
+    "duration": 127,
+    "filename": "/music/rain/Relax Modern Rain.mp3",
+    "cover": "/covers/rain_022.jpg"
+  },
+  {
+    "id": "rain_023",
+    "title": "Roof Rain",
+    "artist": "Pluvetone",
+    "album": "Unknown Album",
+    "playlist": "rain",
+    "duration": 122,
+    "filename": "/music/rain/Roof Rain.mp3",
+    "cover": "/covers/rain_023.jpg"
+  },
+  {
+    "id": "rain_024",
+    "title": "Sim",
+    "artist": "Nebulvia",
+    "album": "Unknown Album",
+    "playlist": "rain",
+    "duration": 120,
+    "filename": "/music/rain/Sim.mp3",
+    "cover": "/covers/rain_024.jpg"
+  },
+  {
+    "id": "rain_025",
+    "title": "Soft Rain (Loopable)",
+    "artist": "Pluvetone",
+    "album": "Unknown Album",
+    "playlist": "rain",
+    "duration": 121,
+    "filename": "/music/rain/Soft Rain (Loopable).mp3",
+    "cover": "/covers/rain_025.jpg"
+  },
+  {
+    "id": "rain_026",
+    "title": "Soft Rain",
+    "artist": "Pluvetone",
+    "album": "Unknown Album",
+    "playlist": "rain",
+    "duration": 126,
+    "filename": "/music/rain/Soft Rain.mp3",
+    "cover": "/covers/rain_026.jpg"
+  },
+  {
+    "id": "rain_027",
+    "title": "Som De Gotas",
+    "artist": "Nebulvia",
+    "album": "Unknown Album",
+    "playlist": "rain",
+    "duration": 122,
+    "filename": "/music/rain/Som De Gotas.mp3",
+    "cover": "/covers/rain_027.jpg"
+  },
+  {
+    "id": "rain_028",
+    "title": "Tempestade Moderada",
+    "artist": "Nebulvia",
+    "album": "Unknown Album",
+    "playlist": "rain",
+    "duration": 124,
+    "filename": "/music/rain/Tempestade Moderada.mp3",
+    "cover": "/covers/rain_028.jpg"
+  }
+]

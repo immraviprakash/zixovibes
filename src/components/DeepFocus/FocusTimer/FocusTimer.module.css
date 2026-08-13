@@ -1,0 +1,647 @@
+/* Focus Timer — Premium Rebuilt Hero Widget styling */
+
+.card {
+  position: relative;
+  background: var(--df-bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 24px;
+  padding: 32px 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  overflow: visible; /* Make settings popover visible */
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  z-index: 10;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+}
+
+.card:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.55);
+}
+
+/* Pulse border glow when running */
+.pulseGlow {
+  position: absolute;
+  inset: -1px;
+  border-radius: 24px;
+  background: transparent;
+  border: 2px solid var(--df-accent);
+  opacity: 0;
+  animation: pulse 2s ease-in-out infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 0.3; }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hourglassIcon {
+  color: var(--df-accent);
+}
+
+.label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--df-text-primary);
+  letter-spacing: 0.3px;
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+}
+
+.iconBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: rgba(255, 255, 255, 0.4);
+  transition: all 0.2s ease;
+  background: transparent;
+}
+
+.iconBtn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.iconBtnActive {
+  color: var(--df-accent) !important;
+  background: var(--df-accent-glow-soft) !important;
+}
+
+.iconBtnDisabled {
+  opacity: 0.45;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+/* Settings Dropdown Popover */
+.settingsDropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 180px;
+  background: #141418;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 12px;
+  z-index: 100;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.settingsTitle {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--df-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.settingsOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.settingsOpt {
+  width: 100%;
+  text-align: left;
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: transparent;
+}
+
+.settingsOpt:hover {
+  background: rgba(255, 255, 255, 0.04);
+  color: #ffffff;
+}
+
+.settingsOptActive {
+  background: var(--df-accent-glow-soft) !important;
+  color: var(--df-accent) !important;
+  font-weight: 600;
+}
+
+/* Time Clocks */
+.time {
+  font-family: 'Poppins', sans-serif;
+  font-size: 5.6rem;
+  font-weight: 700;
+  color: var(--df-text-primary);
+  letter-spacing: 1px;
+  line-height: 1;
+  margin: 16px 0;
+  transition: color 0.3s ease;
+  user-select: none;
+  animation: contentFadeIn 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.breakTimeColor {
+  color: var(--df-text-primary) !important;
+  text-shadow: 0 0 30px var(--df-timer-glow);
+}
+
+/* Active Step Details */
+.activeStepContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 2px;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.activeStepLabel {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--df-accent);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.activeStepVal {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--df-text-primary);
+  line-height: 1.3;
+}
+
+.activeStepTask {
+  font-size: 0.8rem;
+  color: var(--df-text-secondary);
+  font-style: italic;
+}
+
+/* Controls */
+.controls {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-top: 12px;
+  animation: contentFadeIn 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.btn {
+  width: 100%;
+  max-width: 260px;
+  padding: 16px 36px;
+  border-radius: 30px;
+  background: var(--df-text-primary);
+  color: var(--df-bg-primary);
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  border: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.btn:hover {
+  background: #ffffff;
+  box-shadow: 0 6px 25px rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+.breakBtnStyle {
+  background: var(--df-success);
+  color: #0d0d0f;
+  box-shadow: 0 4px 15px rgba(110, 200, 122, 0.25);
+}
+
+.breakBtnStyle:hover {
+  background: #84df90;
+  box-shadow: 0 6px 25px rgba(110, 200, 122, 0.35);
+}
+
+/* Upcoming Tracker Box */
+.upcomingTracker {
+  margin-top: 20px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.01);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  text-align: left;
+}
+
+.upcomingLabel {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--df-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.upcomingValue {
+  font-size: 0.72rem;
+  color: var(--df-text-muted);
+  font-weight: 500;
+}
+
+.upcomingName {
+  font-size: 0.82rem;
+  color: var(--df-text-primary);
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Completion Overlay Modal */
+.overlayModal {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 8, 10, 0.95);
+  border-radius: 24px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: modalIn 0.4s ease forwards;
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.modalCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  gap: 12px;
+}
+
+.modalSuccessIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(110, 200, 122, 0.1);
+  border: 1px solid rgba(110, 200, 122, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--df-success);
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.modalHeading {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--df-text-primary);
+  letter-spacing: -0.2px;
+}
+
+.modalText {
+  font-size: 0.82rem;
+  color: var(--df-text-secondary);
+  line-height: 1.5;
+}
+
+.modalNextSession {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 10px;
+  padding: 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: center;
+}
+
+.modalNextLabel {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--df-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.modalNextName {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--df-text-primary);
+}
+
+.modalNextTask {
+  font-size: 0.72rem;
+  color: var(--df-text-secondary);
+  font-style: italic;
+}
+
+.modalActions {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  margin-top: 4px;
+}
+
+.modalStartBreakBtn {
+  flex: 1.3;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: var(--df-text-primary);
+  color: var(--df-bg-primary);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.modalStartBreakBtn:hover {
+  background: #ffffff;
+}
+
+.modalContinueBtn {
+  flex: 1;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--df-text-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.modalContinueBtn:hover {
+  background: rgba(255, 255, 255, 0.04);
+  color: #ffffff;
+}
+
+.breakSuccessIcon {
+  color: var(--df-accent) !important;
+  background: var(--df-accent-glow-soft) !important;
+  border-color: var(--df-border) !important;
+}
+
+.modalInput {
+  width: 100%;
+  max-width: 180px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--df-text-primary);
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  text-align: center;
+  outline: none;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.modalInput:focus {
+  border-color: var(--df-accent);
+  box-shadow: 0 0 10px rgba(201, 160, 124, 0.2);
+}
+
+.modalInput::-webkit-outer-spin-button,
+.modalInput::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.modalInput[type=number] {
+  -moz-appearance: textfield;
+}
+
+.modalError {
+  font-size: 0.72rem;
+  color: #ef4444;
+  margin-top: -4px;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* Responsive overrides for Focus Timer */
+@media (max-width: 1200px) {
+  .card {
+    padding: 24px 28px;
+    gap: 8px;
+  }
+  .time {
+    font-size: 4.5rem;
+    margin: 12px 0;
+  }
+  .btn {
+    padding: 12px 28px;
+    font-size: 0.9rem;
+  }
+  .activeStepVal {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .card {
+    padding: 16px 20px;
+    gap: 6px;
+    border-radius: 18px;
+  }
+  .time {
+    font-size: 3.2rem;
+    margin: 8px 0;
+  }
+  .btn {
+    padding: 10px 20px;
+    font-size: 0.82rem;
+  }
+  .activeStepVal {
+    font-size: 0.88rem;
+  }
+  .label {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 650px) {
+  .card {
+    padding: 20px 24px;
+    gap: 10px;
+    border-radius: 20px;
+  }
+  .time {
+    font-size: 3.5rem;
+    margin: 10px 0;
+  }
+  .btn {
+    padding: 12px 24px;
+    font-size: 0.88rem;
+  }
+  .activeStepVal {
+    font-size: 0.95rem;
+  }
+}
+
+.completionContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 12px;
+  animation: contentFadeIn 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes contentFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .time,
+  .controls,
+  .completionContainer {
+    animation: contentFadeOnly 0.35s ease forwards;
+  }
+  @keyframes contentFadeOnly {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+}
+
+.completionHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.completionTitle {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 6px 0;
+  text-align: center;
+}
+
+.completionSubtitle {
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+  text-align: center;
+}
+
+.completionActions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.goldBtn {
+  width: 100%;
+  max-width: 280px;
+  padding: 14px 24px;
+  background: var(--df-text-primary);
+  border: none;
+  border-radius: 30px;
+  color: var(--df-bg-primary);
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.goldBtn:hover {
+  background: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 25px rgba(255, 255, 255, 0.25);
+}
+
+.secondaryBtn {
+  width: 100%;
+  max-width: 280px;
+  padding: 14px 24px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 30px;
+  color: var(--df-text-primary);
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.secondaryBtn:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+.completionSvg {
+  color: var(--df-accent);
+  margin-bottom: 8px;
+}
+
+.planCompleteSvg {
+  color: var(--df-success, #6ec87a);
+  filter: drop-shadow(0 0 10px rgba(110, 200, 122, 0.3));
+  margin-bottom: 8px;
+}

@@ -1,0 +1,459 @@
+/* =============================================
+   PLAYLIST BROWSER CONTAINER
+   ============================================= */
+.playlistBrowser {
+  display: flex;
+  width: 100%;
+  transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.playlistBrowser.expanded {
+  gap: 32px;
+  height: calc(100vh - 280px); /* Fill the viewport height minus header/spacing */
+}
+
+/* =============================================
+   PLAYLIST STACK / GRID WRAPPER
+   ============================================= */
+.playlistStack {
+  position: relative;
+  width: 100%;
+  max-width: 740px; /* Accommodate grid mode up to 3 columns nicely */
+  height: 100%; /* Sized dynamically inside parent scroll layout */
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex-shrink: 0;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+  transition: max-width 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  padding-right: 60px; /* space for vinyl reveal */
+  box-sizing: border-box;
+}
+
+.playlistStack::-webkit-scrollbar {
+  display: none; /* Chrome/Safari/Webkit */
+}
+
+.playlistBrowser.expanded .playlistStack {
+  max-width: 300px; /* Constrained column layout in expanded detail mode */
+  padding-right: 62px; /* space for vinyl reveal, leaving 238px content width */
+}
+
+.cardsContainer {
+  position: relative;
+  width: 100%;
+  padding-bottom: 20px; /* Reduced to match normal flow layout */
+  box-sizing: border-box;
+  transition: height 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* =============================================
+   CARD DEFINITIONS (Size remains 100% identical)
+   ============================================= */
+.card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 180px;
+  height: 220px;
+  cursor: pointer;
+  transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1),
+              opacity 0.6s ease;
+}
+
+.cardInner {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .cardInner {
+  transform: translateY(-4px);
+}
+
+.playlistBrowser.expanded .card:hover .cardInner {
+  transform: scale(1.02);
+}
+
+/* =============================================
+   SMALL PLAYLIST VINYL REVEAL (STATIC PEEK)
+   ============================================= */
+.vinylPeek {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  overflow: hidden;
+  z-index: 0;
+  opacity: 0;
+  /* When collapsing, let the panel slide in before hiding the vinyl */
+  transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) 0.15s,
+              opacity 0.4s ease 0.15s;
+}
+
+.activeVinyl {
+  right: -52px;
+  opacity: 0.95;
+  /* When expanding, slide the vinyl out immediately */
+  transition: right 0.5s cubic-bezier(0.25, 0.8, 0.25, 1) 0s,
+              opacity 0.5s ease 0s;
+}
+
+.playingVinyl {
+  right: -28px; /* partially revealed when collapsed but active/playing */
+  opacity: 0.95;
+  transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+              opacity 0.4s ease;
+}
+
+.vinylPeekImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* =============================================
+   ARTWORK WRAPPER
+   ============================================= */
+.artworkWrap {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  border-radius: 14px;
+  overflow: hidden;
+  z-index: 1;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.45);
+  border: 1px solid transparent;
+  transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+}
+
+.card:hover .artworkWrap {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5),
+              0 0 20px rgba(201, 168, 76, 0.12);
+}
+
+.activeCard .artworkWrap {
+  border-color: rgba(201, 168, 76, 0.45);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6),
+              0 0 16px rgba(201, 168, 76, 0.3);
+}
+
+.artwork {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  user-select: none;
+}
+
+.cardTitle {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  text-align: center;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.detailPanel {
+  width: 0;
+  height: calc(100% - 100px); /* Stop above the bottom AI prompt */
+  opacity: 0;
+  margin-left: 0;
+  padding: 24px 0; /* Padding-left/right is zero when collapsed to avoid layout pops */
+  border: 1px solid transparent;
+  background: rgba(20, 15, 10, 0);
+  border-radius: 18px;
+  overflow: hidden;
+  pointer-events: none;
+  box-sizing: border-box;
+  margin-bottom: 100px; /* Clear AI mood panel */
+  box-shadow: none;
+  transform: translateY(var(--unfold-y, 0px)) scaleY(0.05);
+  transform-origin: top left;
+  /* Staggered transition when collapsing */
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1) 0s,
+              width 0.5s cubic-bezier(0.25, 1, 0.5, 1) 0s,
+              opacity 0.4s ease 0s,
+              margin-left 0.5s cubic-bezier(0.25, 1, 0.5, 1) 0s,
+              background-color 0.5s ease 0s,
+              border-color 0.5s ease 0s,
+              padding 0.5s ease 0s;
+}
+
+.detailPanelActive {
+  width: 460px;
+  opacity: 1;
+  margin-left: 32px;
+  padding: 24px;
+  background: rgba(20, 15, 10, 0.4);
+  border: 1px solid rgba(223, 190, 102, 0.12);
+  pointer-events: auto;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45),
+              inset 0 1px 1px rgba(255, 255, 255, 0.04);
+  transform: translateY(0) scaleY(1);
+  /* Expand animation triggered with slight delay */
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1) 0.15s,
+              width 0.6s cubic-bezier(0.25, 1, 0.5, 1) 0.15s,
+              opacity 0.6s ease 0.15s,
+              margin-left 0.6s cubic-bezier(0.25, 1, 0.5, 1) 0.15s,
+              background-color 0.6s ease 0.15s,
+              border-color 0.6s ease 0.15s,
+              padding 0.6s ease 0.15s;
+}
+
+.panelContent {
+  width: 412px; /* detailPanelActive width 460px - 48px padding */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- Panel Header Layout --- */
+.panelHeader {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+  margin-bottom: 12px;
+}
+
+.panelCover {
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+.panelMeta {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.panelTitleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.panelTitle {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-family: 'Playfair Display', serif;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.panelDesc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+  margin: 0 0 12px 0;
+  flex-shrink: 0;
+}
+
+.panelActions {
+  display: flex;
+  gap: 8px;
+}
+
+.actionBtn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(223, 190, 102, 0.15);
+  color: var(--text-secondary);
+  border-radius: 20px;
+  padding: 5px 11px;
+  font-size: 0.76rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.actionBtn:hover {
+  background: rgba(223, 190, 102, 0.08);
+  border-color: var(--gold);
+  color: var(--gold);
+  transform: translateY(-1px);
+}
+
+.favoriteActive {
+  background: rgba(201, 168, 76, 0.12);
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+/* =============================================
+   INDEPENDENT SCROLLABLE SONG LIST
+   ============================================= */
+.songsList {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-top: 4px;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+.songsList::-webkit-scrollbar {
+  display: none; /* Chrome/Safari/Webkit */
+}
+
+.songRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.01);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  flex-shrink: 0;
+}
+
+.songRow:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.04);
+  transform: translateX(3px);
+}
+
+.activeSongRow {
+  background: rgba(201, 168, 76, 0.08);
+  border-color: rgba(201, 168, 76, 0.15);
+}
+
+.songLeft {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.songIndex {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  width: 18px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.songDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.songTitle {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.activeSongRow .songTitle {
+  color: var(--gold);
+}
+
+.songArtist {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+}
+
+.songDuration {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  margin-left: 12px;
+}
+
+/* Playing indicator animation */
+.playingIndicator {
+  display: flex;
+  align-items: flex-end;
+  gap: 2.5px;
+  width: 12px;
+  height: 10px;
+  margin: 0 auto;
+}
+
+.playingIndicator span {
+  width: 2.5px;
+  background: var(--gold);
+  border-radius: 0.5px;
+}
+
+.bar1 { height: 100%; animation: bounce 0.6s ease infinite alternate; }
+.bar2 { height: 40%; animation: bounce 0.4s ease infinite alternate 0.1s; }
+.bar3 { height: 75%; animation: bounce 0.8s ease infinite alternate 0.2s; }
+
+@keyframes bounce {
+  from { height: 20%; }
+  to { height: 100%; }
+}
+
+/* =============================================
+   NO RESULTS / FALLBACKS
+   ============================================= */
+.noResults {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 180px;
+  padding: 40px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.noResultsTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--gold-light);
+  margin-bottom: 8px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.noResultsSubtitle {
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.45);
+  font-family: inherit;
+}
+
+/* =============================================
+   HIGHLIGHTED SONG ROW
+   ============================================= */
+.highlightedSongRow {
+  animation: highlightPulse 2s ease;
+  border-color: rgba(201, 168, 76, 0.5) !important;
+  background: rgba(201, 168, 76, 0.15) !important;
+}
+
+@keyframes highlightPulse {
+  0% { box-shadow: 0 0 0px rgba(201, 168, 76, 0); }
+  30% { box-shadow: 0 0 15px rgba(201, 168, 76, 0.4); }
+  100% { box-shadow: 0 0 0px rgba(201, 168, 76, 0); }
+}

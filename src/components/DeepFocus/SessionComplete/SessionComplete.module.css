@@ -1,0 +1,155 @@
+/* Session Complete Screen — Premium Rebuilt styling */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(8, 8, 10, 0.9);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.card {
+  background: var(--df-bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 28px;
+  padding: 44px 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  max-width: 480px;
+  width: 90vw;
+  animation: slideUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.successIcon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(110, 200, 122, 0.1);
+  border: 1px solid rgba(110, 200, 122, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--df-success);
+}
+
+.heading {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--df-text-primary);
+  letter-spacing: -0.3px;
+}
+
+.stats {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  padding: 16px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.9rem;
+  color: var(--df-text-primary);
+  font-weight: 500;
+}
+
+.checkmark {
+  color: var(--df-success);
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.message {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 0.92rem;
+  color: var(--df-text-secondary);
+  text-align: center;
+  line-height: 1.6;
+}
+
+.actions {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.outlineBtn {
+  flex: 1;
+  padding: 14px 20px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--df-text-primary);
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  white-space: nowrap;
+}
+
+.outlineBtn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.exitBtn {
+  border-color: rgba(201, 160, 124, 0.2);
+  color: var(--df-accent);
+}
+
+.exitBtn:hover {
+  border-color: var(--df-accent);
+  background: rgba(201, 160, 124, 0.05);
+  color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .card {
+    padding: 32px 24px;
+  }
+  .heading {
+    font-size: 1.4rem;
+  }
+  .actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+}

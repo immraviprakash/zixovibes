@@ -1,0 +1,208 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeIn 0.25s ease forwards;
+}
+
+.card {
+  width: 100%;
+  max-width: 400px;
+  background: #121215;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65);
+  box-sizing: border-box;
+  animation: scaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.warningIcon {
+  color: #dfbe66; /* warm gold accent warning */
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(223, 190, 102, 0.06);
+  border: 1.5px solid rgba(223, 190, 102, 0.25);
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(223, 190, 102, 0.08);
+}
+
+.title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 10px 0;
+  letter-spacing: -0.3px;
+}
+
+.body {
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0 0 28px 0;
+  line-height: 1.5;
+}
+
+.checkboxContainer {
+  margin: 0 0 24px 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  text-align: left;
+}
+
+.checkboxInput {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.02);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  flex-shrink: 0;
+  margin: 0;
+}
+
+.checkboxInput:checked {
+  background: var(--df-accent, #c9a07c);
+  border-color: var(--df-accent, #c9a07c);
+}
+
+.checkboxInput:checked::after {
+  content: '✓';
+  color: #0c0c0e;
+  font-size: 0.72rem;
+  font-weight: 700;
+  position: absolute;
+}
+
+.checkboxInput:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.checkboxText {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.4;
+}
+
+.helperText {
+  font-size: 0.74rem;
+  color: #dfbe66; /* gold-yellow warning color for soft premium deletion warning */
+  opacity: 0.85;
+  text-align: left;
+  line-height: 1.35;
+  padding-left: 26px; /* align with label text */
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.stayBtn {
+  width: 100%;
+  height: 48px;
+  background: #ffffff;
+  border: none;
+  border-radius: 24px;
+  color: #0c0c0e;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.86rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.15);
+}
+
+.stayBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.25);
+  background: #fdfdfd;
+}
+
+.stayBtn:active {
+  transform: translateY(0);
+}
+
+.exitBtn {
+  width: 100%;
+  height: 44px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 22px;
+  color: rgba(255, 255, 255, 0.5);
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.exitBtn:hover {
+  border-color: rgba(239, 68, 68, 0.4);
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.04);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.92); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.neutralExitBtn {
+  width: 100%;
+  height: 44px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 22px;
+  color: rgba(255, 255, 255, 0.5);
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.neutralExitBtn:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.04);
+}

@@ -1,0 +1,1617 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 48px;
+  position: relative;
+  z-index: 200;
+}
+
+/* --- Branding --- */
+.branding {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex: 0 0 auto;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--gold);
+  background: rgba(201, 168, 76, 0.08);
+  flex-shrink: 0;
+}
+
+.logoImg {
+  height: 42px;
+  width: auto;
+  object-fit: contain;
+  opacity: 1;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+  user-select: none;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1.5px solid var(--gold);
+  border-radius: 35px;
+  width: 300px;
+  height: 70px;
+  background: rgba(201, 168, 76, 0.04);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: width 0.35s cubic-bezier(0.25, 1, 0.5, 1),
+              background-color 0.35s ease,
+              box-shadow 0.35s ease,
+              gap 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.navBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  color: var(--gold);
+  transition: all 0.3s ease;
+}
+
+.navBtn:hover {
+  background: rgba(201, 168, 76, 0.15);
+  color: var(--gold-light);
+  transform: scale(1.08);
+}
+
+/* --- Mode Switch --- */
+.modeSwitch {
+  display: flex;
+  gap: 0;
+  width: 280px;
+  height: 48px;
+  border-radius: 999px;
+  padding: 4px;
+  overflow: hidden;
+  border: 1.5px solid var(--gold);
+  background: rgba(15, 10, 5, 0.7);
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  transition: border-color 0.4s ease, background-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.modeBtn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 1.8px;
+  border: none;
+  color: var(--gold-light);
+  background: transparent;
+  border-radius: 999px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modeBtn.active {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+  color: #0f0a05;
+  box-shadow: 0 2px 10px rgba(201, 168, 76, 0.25);
+  font-weight: 700;
+}
+
+.modeBtn:not(.active):hover {
+  background: rgba(201, 168, 76, 0.08);
+}
+
+@media (max-width: 1024px) {
+  .header {
+    padding: 16px 24px;
+  }
+  .logoImg {
+    height: 40px;
+  }
+  .nav {
+    width: 240px;
+    height: 55px;
+  }
+  .modeSwitch {
+    width: 240px;
+    height: 50px;
+  }
+  .modeBtn {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    padding: 14px 16px;
+  }
+  .nav {
+    position: static;
+    transform: none;
+    width: 220px;
+    height: 50px;
+    order: 3;
+  }
+  .branding { order: 1; }
+  .modeSwitch { order: 2; width: 200px; height: 45px; }
+}
+
+/* ==========================================
+   DEEP FOCUS MODE HEADER VARIANTS
+   ========================================== */
+
+.logoArea {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.tagline {
+  font-size: 0.65rem;
+  font-weight: 400;
+  color: var(--df-accent);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+/* Deep Focus nav pill — mirrors Classic Mode geometry & layout */
+.navDf {
+  border: 1.5px solid #2A2F36 !important;
+  background: rgba(18, 18, 22, 0.75) !important;
+  width: 300px !important;
+  height: 70px !important;
+  border-radius: 35px !important;
+  gap: 8px !important;
+  padding: 0 !important;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+  transition: width 0.35s cubic-bezier(0.25, 1, 0.5, 1),
+              background-color 0.35s ease,
+              box-shadow 0.35s ease,
+              gap 0.35s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+
+/* Deep Focus search active state */
+.navDf.searchActive {
+  width: 440px !important;
+  gap: 16px !important;
+  background: rgba(15, 17, 21, 0.75) !important; /* Semi-transparent #0F1115 smoked glass */
+  border-color: #2A2F36 !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5) !important;
+}
+
+.navBtnDf {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 46px !important;
+  height: 46px !important;
+  border-radius: 50% !important;
+  color: #A1A6B0 !important; /* Muted secondary text color */
+  transition: all 0.3s ease !important;
+  background: transparent !important;
+  transform: none !important;
+}
+
+.navBtnDf svg {
+  width: 24px !important;
+  height: 24px !important;
+}
+
+.navBtnDf:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #F5F5F7 !important; /* Primary text color on hover */
+  transform: scale(1.08) !important;
+}
+
+/* Disable hover circular background when search is active to match Spotify layout */
+.searchActive .searchIconBtn.navBtnDf:hover {
+  background: transparent !important;
+  transform: none !important;
+}
+
+.activeNavDf {
+  color: #F5F5F7 !important; /* Highlight Home when active */
+}
+
+.searchInputDf {
+  color: #F5F5F7 !important;
+}
+
+.searchInputDf::placeholder {
+  color: #A1A6B0 !important;
+  opacity: 1 !important;
+}
+
+/* Favorites Dropdown in Deep Focus Mode */
+.favoritesDropdownDf {
+  border-color: #2A2F36 !important;
+}
+
+.favDropdownInnerDf {
+  background: #0B0B12 !important;
+  border-radius: 19px !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6) !important;
+}
+
+.favSectionTitleDf {
+  color: #A1A6B0 !important;
+}
+
+.emptyFavTextDf {
+  color: rgba(161, 166, 176, 0.6) !important;
+}
+
+.favItemDf {
+  color: #F5F5F7 !important;
+}
+
+.favItemDf:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+.favNameDf {
+  color: #F5F5F7 !important;
+}
+
+.favSongNameDf {
+  color: #F5F5F7 !important;
+}
+
+.favArtistDf {
+  color: #A1A6B0 !important;
+}
+
+.favDividerDf {
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Deep Focus avatar */
+.avatarDf {
+  border-color: #ffffff !important;
+  color: #ffffff !important;
+  background: transparent !important;
+}
+
+/* Deep Focus active mode button */
+.activeDf,
+.deepFocus .modeBtn.activeDf {
+  background: linear-gradient(180deg, #f1f1f1, #d9d9d9) !important;
+  color: #09090b !important;
+  box-shadow: 0 2px 12px rgba(255, 255, 255, 0.15) !important;
+  font-weight: 700 !important;
+  text-shadow: none !important;
+}
+
+/* Deep Focus mode switch styling */
+.deepFocus .modeSwitch {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  background: #000000 !important;
+  border-radius: 999px !important;
+}
+
+.deepFocus .modeBtn {
+  color: rgba(255, 255, 255, 0.45) !important;
+  background: transparent !important;
+  border-radius: 999px !important;
+}
+
+.deepFocus .modeBtn:hover {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+.deepFocus .modeBtn:not(.active):not(.activeDf):hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* --- Profile Dropdown & Modal Hub Styles --- */
+
+/* Avatar Button Reset & Hover */
+button.avatar {
+  background: rgba(201, 168, 76, 0.08);
+  border: 2px solid var(--gold);
+  cursor: pointer;
+  outline: none;
+  font-family: inherit;
+  transition: all 0.25s ease;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button.avatar:hover:not(.disabled) {
+  background: rgba(201, 168, 76, 0.18);
+  border-color: var(--gold-light);
+  box-shadow: 0 0 12px var(--gold-glow-soft);
+}
+
+button.avatar.disabled {
+  cursor: default;
+}
+
+.avatarContainer {
+  position: relative;
+  z-index: 210;
+}
+
+/* Fullscreen Lampshade Overlay */
+.lampshadeOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  z-index: 190;
+  opacity: 0;
+  animation: overlayFadeIn 200ms ease-out forwards;
+}
+
+.lampshadeOverlay.fadeOut {
+  animation: overlayFadeOut 180ms ease-in forwards;
+}
+
+@keyframes overlayFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes overlayFadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* Profile Dropdown Menu Card */
+.dropdownMenu {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 0;
+  z-index: 220;
+  width: 220px;
+  border: 1.5px solid rgba(232, 212, 139, 0.45);
+  border-radius: 20px;
+  box-shadow: 
+    0 15px 35px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(201, 168, 76, 0.1);
+  transform-origin: top left;
+  animation: dropdownOpen 220ms ease-out forwards;
+  opacity: 0;
+  overflow: visible; /* Cards stack over/under without overflow clipping */
+}
+
+.dropdownInner {
+  position: relative;
+  z-index: 2;
+  transition: opacity 150ms ease-out;
+  pointer-events: auto;
+  opacity: 1;
+  background: linear-gradient(135deg, rgba(201, 168, 76, 1) 0%, rgba(160, 133, 48, 1) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 19px;
+  padding: 16px 0;
+}
+
+.dropdownMenu.hasActiveCard .dropdownInner {
+  pointer-events: none;
+  opacity: 0;
+}
+
+.dropdownMenu.fadeOut {
+  animation: dropdownClose 180ms ease-in forwards;
+}
+
+@keyframes dropdownOpen {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes dropdownClose {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+.dropdownHeader {
+  padding: 4px 20px 8px;
+  text-align: center;
+}
+
+.username {
+  display: block;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.95);
+  letter-spacing: -0.2px;
+}
+
+.divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.12);
+  margin: 6px 0;
+  width: 100%;
+}
+
+.menuItem {
+  display: block;
+  width: 100%;
+  padding: 11px 20px;
+  text-align: left;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 0.88rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.menuItem:hover {
+  background: rgba(90, 72, 22, 0.9);
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.menuItem:focus-visible {
+  outline: none;
+  background: rgba(90, 72, 22, 0.9);
+  color: rgba(255, 255, 255, 0.95);
+}
+
+/* --- Floating Card Styles --- */
+.floatingCard {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  width: 320px;
+  /* Solid gradient to completely cover dropdown beneath */
+  background: linear-gradient(135deg, rgba(201, 168, 76, 1) 0%, rgba(160, 133, 48, 1) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1.5px solid rgba(232, 212, 139, 0.45);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 
+    0 15px 35px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(201, 168, 76, 0.1);
+  transform-origin: left top;
+  animation: cardFadeIn 180ms ease-out forwards;
+  box-sizing: border-box;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  outline: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+  padding: 0;
+  z-index: 10;
+}
+
+.closeBtn:hover {
+  color: var(--gold-light);
+  transform: scale(1.15);
+}
+
+.closeBtn:focus-visible {
+  color: var(--gold-light);
+  outline: none;
+}
+
+.floatingCard.collapsing {
+  z-index: 1 !important; /* Falls behind .dropdownInner during collapse */
+  animation: cardFolderCollapseNew 500ms cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cardFolderCollapseNew {
+  0% {
+    transform: translateX(0) scale(1);
+    filter: brightness(1);
+    box-shadow: 
+      0 15px 35px rgba(0, 0, 0, 0.5),
+      0 0 20px rgba(201, 168, 76, 0.1);
+    border-radius: 20px;
+  }
+  /* Step 1: Moves slightly right (anticipation) */
+  20% {
+    transform: translateX(25px) scale(1.01);
+    filter: brightness(1);
+    box-shadow: 
+      0 18px 40px rgba(0, 0, 0, 0.55),
+      0 0 25px rgba(201, 168, 76, 0.12);
+    border-radius: 20px;
+  }
+  /* Step 2-6: Retreats left, shrinks, and slides behind dropdown, losing light (brightness), deepening shadows, and scaling up border-radius to preserve visual shape alignment */
+  100% {
+    transform: translateX(0) scale(var(--target-scale-x, 0.68), var(--target-scale-y, 0.8));
+    filter: brightness(0.78);
+    box-shadow: 
+      0 5px 15px rgba(0, 0, 0, 0.6),
+      0 0 10px rgba(201, 168, 76, 0.05);
+    border-radius: calc(19px / var(--target-scale-x, 0.68)) / calc(19px / var(--target-scale-y, 0.8));
+  }
+}
+
+/* Smooth content transition within the card container */
+.cardContentWrapper {
+  animation: contentFadeIn 180ms ease-out forwards;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@keyframes contentFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Card Header */
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  width: 100%;
+}
+
+.cardTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--gold-light);
+  letter-spacing: -0.2px;
+}
+
+/* Active State in Dropdown Menu */
+.activeMenuItem {
+  background: rgba(90, 72, 22, 0.9) !important;
+  color: rgba(255, 255, 255, 0.95) !important;
+}
+
+/* Profile Section Content */
+.profileSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+
+.largeAvatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(201, 168, 76, 0.12);
+  border: 2px solid var(--gold);
+  color: var(--gold);
+  font-size: 1.6rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 15px rgba(201, 168, 76, 0.1);
+}
+
+.nameDisplayBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.profileName {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.editLinkBtn {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--gold-light);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 2px 8px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.editLinkBtn:hover {
+  background: rgba(201, 168, 76, 0.1);
+  color: #ffffff;
+}
+
+/* Dynamic Inline Name Input Styling */
+.nameEditBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.nameInput {
+  width: 80%;
+  padding: 6px 12px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(201, 168, 76, 0.4);
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.nameInput:focus {
+  border-color: var(--gold-light);
+  box-shadow: 0 0 8px rgba(201, 168, 76, 0.2);
+}
+
+.editActions {
+  display: flex;
+  gap: 8px;
+}
+
+.saveBtn,
+.cancelBtn {
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.saveBtn {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+  color: #0f0a05;
+}
+
+.saveBtn:hover {
+  box-shadow: 0 2px 8px rgba(201, 168, 76, 0.3);
+}
+
+.cancelBtn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.cancelBtn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+}
+
+/* Detail Rows */
+.profileDetailsQuiet {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  padding: 8px 16px;
+}
+
+.detailRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.detailRow:not(:last-child) {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.detailLabel {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.detailVal {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+}
+
+.detailsToggleBtn {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.6);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.detailsToggleBtn:hover {
+  color: var(--gold-light);
+}
+
+.expandedDetails {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  padding: 8px 16px;
+  animation: contentFadeIn 200ms ease-out forwards;
+}
+
+/* Recently Played Section Content */
+.recentSection {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.recentScroll {
+  max-height: 170px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+/* Custom thin scrollbars for recent activity list */
+.recentScroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+.recentScroll::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+.recentScroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 4px;
+}
+
+.recentScroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.trackList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.trackRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 8px 12px;
+  background: transparent;
+  border: none;
+  border-radius: 12px;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.trackRow:hover {
+  background: rgba(90, 72, 22, 0.9);
+}
+
+.trackThumb {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.trackMeta {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.trackName {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.trackArtist {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.5);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.trackTime {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.4);
+  flex-shrink: 0;
+}
+
+/* Settings Section Content */
+.settingsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.settingItemQuiet {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.settingLabelQuiet {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--gold-light);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.aboutCardQuiet {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.aboutVersionQuiet {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.aboutTextQuiet {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.45;
+}
+
+/* Accordion Quiet */
+.accordionQuiet {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.accordionItemQuiet {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.accordionHeaderQuiet {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.accordionHeaderQuiet:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.accordionBodyQuiet {
+  padding: 0 14px 10px;
+  font-size: 0.74rem;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.4;
+  text-align: left;
+}
+
+/* Logout Button Quiet */
+.logoutBtnClassic {
+  width: 100%;
+  padding: 10px;
+  background: transparent;
+  border: 1px solid rgba(232, 212, 139, 0.4);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.82rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 4px;
+}
+
+.logoutBtnClassic:hover {
+  background: rgba(90, 72, 22, 0.9);
+  border-color: rgba(232, 212, 139, 0.75);
+}
+
+/* Inline Logout Confirmation */
+.logoutConfirmationInline {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px dashed rgba(201, 168, 76, 0.25);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  animation: contentFadeIn 200ms ease-out forwards;
+}
+
+.confirmTextQuiet {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.4;
+}
+
+.confirmActionsInline {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+
+.cancelLogoutBtnInline {
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  font-weight: 600;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cancelLogoutBtnInline:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+}
+
+.confirmLogoutBtnInline {
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+  color: #0f0a05;
+  border: none;
+  font-weight: 600;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.confirmLogoutBtnInline:hover {
+  box-shadow: 0 2px 8px rgba(201, 168, 76, 0.3);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .floatingCard {
+    left: 0;
+    top: calc(100% + 12px);
+    width: 280px;
+    z-index: 230;
+  }
+}
+
+/* --- Classic Mode Navigation Refinements --- */
+.nav.searchActive {
+  width: 440px;
+  gap: 16px;
+  background: rgba(15, 10, 5, 0.65) !important; /* Premium smoked glass effect (reduced opacity by ~30%) */
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.4),
+    0 0 15px rgba(201, 168, 76, 0.1);
+}
+
+/* Disable hover circular background when search is active to match Spotify layout */
+.searchActive .searchIconBtn:hover {
+  background: transparent !important;
+  transform: none !important;
+}
+
+.searchWrapper {
+  display: flex;
+  align-items: center;
+  position: relative; /* Anchor search dropdown */
+}
+
+.searchDropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  width: 100%;
+  min-width: 280px;
+  max-height: 380px;
+  background: rgba(20, 15, 10, 0.7);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(223, 190, 102, 0.15);
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.65);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  animation: dropdownFadeIn 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.searchDropdown::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes dropdownFadeIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.searchResultRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 0;
+}
+
+.searchResultRow:hover {
+  background: rgba(223, 190, 102, 0.08);
+  border-color: rgba(223, 190, 102, 0.15);
+  transform: translateX(2px);
+}
+
+.searchResultThumb {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.searchResultMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+  text-align: left;
+}
+
+.searchResultTitle {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.searchResultArtist {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.searchResultPlaylist {
+  font-size: 0.62rem;
+  color: var(--gold-light);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.searchEmptyState {
+  padding: 20px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.searchInput,
+.searchInput:focus,
+.searchInput:active {
+  width: 0;
+  opacity: 0;
+  padding: 0;
+  margin: 0;
+  border: none !important;
+  background: transparent !important;
+  color: var(--gold-light);
+  font-family: inherit;
+  font-size: 0.9rem;
+  outline: none !important;
+  box-shadow: none !important;
+  transition: width 0.35s cubic-bezier(0.25, 1, 0.5, 1),
+              opacity 0.25s ease,
+              margin-left 0.35s ease;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.searchInput.expanded,
+.searchInput.expanded:focus,
+.searchInput.expanded:active {
+  width: 240px; /* Expanded for a wider, Spotify-aligned look and feel */
+  opacity: 1;
+  margin-left: 12px;
+  pointer-events: auto;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.favoritesContainer {
+  position: relative;
+}
+
+/* Favorites Dropdown - matches Profile Dropdown styling */
+.favoritesDropdown {
+  position: absolute;
+  top: calc(100% + 16px);
+  right: -10px; /* Align connected to the right side of the Heart icon container */
+  z-index: 220;
+  width: 250px;
+  border: 1.5px solid rgba(232, 212, 139, 0.45);
+  border-radius: 20px;
+  box-shadow: 
+    0 15px 35px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(201, 168, 76, 0.1);
+  transform-origin: top right;
+  animation: dropdownOpen 220ms ease-out forwards;
+  overflow: hidden;
+}
+
+.favDropdownInner {
+  background: linear-gradient(135deg, rgba(201, 168, 76, 1) 0%, rgba(160, 133, 48, 1) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 19px;
+  padding: 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.favSection {
+  display: flex;
+  flex-direction: column;
+  padding: 0 12px;
+}
+
+.favSongsScroll {
+  max-height: 170px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+/* Custom thin scrollbars */
+.favSongsScroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+.favSongsScroll::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+.favSongsScroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 4px;
+}
+
+.favSongsScroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.favSectionTitle {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+  padding-left: 8px;
+}
+
+.emptyFavText {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.45);
+  padding: 8px;
+  font-style: italic;
+}
+
+.favItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 8px;
+  background: transparent;
+  border: none;
+  border-radius: 10px;
+  text-align: left;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.95);
+  transition: background-color 0.2s ease;
+}
+
+.favItem:hover {
+  background: rgba(90, 72, 22, 0.9);
+}
+
+.favThumb {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.favName {
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.favMeta {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.favSongName {
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.favArtist {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.6);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.favDivider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.12);
+  margin: 0;
+}
+
+/* ==========================================================================
+   DEEP FOCUS PROFILE DROPDOWN & FLOATING CARD ACCENT OVERRIDES
+   ========================================================================== */
+
+/* Dropdown Menu Container in Deep Focus */
+.dropdownMenuDf {
+  border-color: #2A2F36 !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5) !important;
+}
+
+.dropdownInnerDf {
+  background: linear-gradient(135deg, #1A1C22 0%, #0E1014 100%) !important;
+  border-radius: 19px !important;
+}
+
+/* Dropdown User Info Text Colors */
+.dropdownInnerDf .username {
+  color: #F5F5F7 !important;
+}
+
+.dropdownInnerDf .divider {
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Menu items inside dropdown */
+.dropdownInnerDf .menuItem {
+  color: #A1A6B0 !important;
+}
+
+.dropdownInnerDf .menuItem:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: #F5F5F7 !important;
+}
+
+.dropdownInnerDf .menuItem:focus-visible {
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: #F5F5F7 !important;
+}
+
+/* Floating Card Modal (Profile, Activity, Settings) in Deep Focus */
+.floatingCardDf {
+  background: linear-gradient(135deg, #1A1C22 0%, #0E1014 100%) !important;
+  border-color: #2A2F36 !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5) !important;
+}
+
+.floatingCardDf .closeBtn {
+  color: #A1A6B0 !important;
+}
+
+.floatingCardDf .closeBtn:hover {
+  color: #F5F5F7 !important;
+}
+
+.floatingCardDf .cardTitle {
+  color: #F5F5F7 !important;
+}
+
+.floatingCardDf .cardHeader {
+  border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Profile Details in Deep Focus */
+.floatingCardDf .largeAvatar {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: #2A2F36 !important;
+  color: #F5F5F7 !important;
+  box-shadow: none !important;
+}
+
+.floatingCardDf .profileName {
+  color: #F5F5F7 !important;
+}
+
+.floatingCardDf .editLinkBtn {
+  color: var(--df-accent) !important;
+}
+
+.floatingCardDf .editLinkBtn:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: #ffffff !important;
+}
+
+.floatingCardDf .nameInput {
+  background: rgba(0, 0, 0, 0.4) !important;
+  border-color: #2A2F36 !important;
+  color: #ffffff !important;
+}
+
+.floatingCardDf .nameInput:focus {
+  border-color: var(--df-accent) !important;
+  box-shadow: 0 0 8px rgba(201, 160, 124, 0.2) !important;
+}
+
+.floatingCardDf .saveBtn {
+  background: linear-gradient(135deg, var(--df-accent) 0%, var(--df-accent-dark) 100%) !important;
+  color: #0d0d0f !important;
+}
+
+.floatingCardDf .saveBtn:hover {
+  box-shadow: 0 2px 8px rgba(201, 160, 124, 0.3) !important;
+}
+
+.floatingCardDf .cancelBtn {
+  border-color: rgba(255, 255, 255, 0.15) !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.floatingCardDf .profileDetailsQuiet {
+  background: rgba(0, 0, 0, 0.2) !important;
+}
+
+.floatingCardDf .profileDetailsQuiet .detailRow {
+  border-bottom-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+.floatingCardDf .detailLabel {
+  color: #A1A6B0 !important;
+}
+
+.floatingCardDf .detailVal {
+  color: #F5F5F7 !important;
+}
+
+.floatingCardDf .detailsToggleBtn {
+  color: #A1A6B0 !important;
+}
+
+.floatingCardDf .detailsToggleBtn:hover {
+  color: #F5F5F7 !important;
+}
+
+.floatingCardDf .expandedDetails {
+  background: rgba(0, 0, 0, 0.25) !important;
+}
+
+.floatingCardDf .expandedDetails .detailRow {
+  border-bottom-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Productivity Focus History List items */
+.historyRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  text-align: left;
+}
+
+.historyMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.historyTitle {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #F5F5F7;
+}
+
+.historyDetails {
+  font-size: 0.72rem;
+  color: #A1A6B0;
+}
+
+.historyDate {
+  font-size: 0.72rem;
+  color: rgba(161, 166, 176, 0.6);
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* Settings Elements in Deep Focus */
+.floatingCardDf .settingLabelQuiet {
+  color: var(--df-accent) !important;
+}
+
+.floatingCardDf .aboutCardQuiet {
+  background: rgba(0, 0, 0, 0.2) !important;
+}
+
+.floatingCardDf .aboutVersionQuiet {
+  color: #F5F5F7 !important;
+}
+
+.floatingCardDf .aboutTextQuiet {
+  color: #A1A6B0 !important;
+}
+
+.floatingCardDf .accordionItemQuiet {
+  background: rgba(0, 0, 0, 0.2) !important;
+}
+
+.floatingCardDf .accordionHeaderQuiet {
+  color: #F5F5F7 !important;
+}
+
+.floatingCardDf .accordionHeaderQuiet:hover {
+  background: rgba(255, 255, 255, 0.02) !important;
+}
+
+.floatingCardDf .accordionBodyQuiet {
+  color: #A1A6B0 !important;
+}
+
+.floatingCardDf .logoutBtnClassic {
+  border-color: #2A2F36 !important;
+  color: #F5F5F7 !important;
+}
+
+.floatingCardDf .logoutBtnClassic:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: #3A3F46 !important;
+}
+
+.floatingCardDf .logoutConfirmationInline {
+  background: rgba(0, 0, 0, 0.2) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.floatingCardDf .confirmTextQuiet {
+  color: #A1A6B0 !important;
+}
+
+.floatingCardDf .cancelLogoutBtnInline {
+  border-color: rgba(255, 255, 255, 0.15) !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.floatingCardDf .confirmLogoutBtnInline {
+  background: linear-gradient(135deg, var(--df-accent) 0%, var(--df-accent-dark) 100%) !important;
+  color: #0d0d0f !important;
+}
+
+
+

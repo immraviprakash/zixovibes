@@ -1,0 +1,965 @@
+/* ═══════════════════════════════════════════════════
+   Zix'Ovibes — Premium Authentication Experience
+   Golden Metallic Vinyl & Luxury Cinematic Composition
+   ═══════════════════════════════════════════════════ */
+
+/* ── Container: Full-screen immersive backdrop ── */
+.authContainer {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  animation: authFadeIn 0.5s ease forwards;
+  pointer-events: auto;
+}
+
+/* Wood background layer */
+.authBg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
+/* Dark cinematic overlay with subtle warmth - lifted darkness so wood grain is warmer & visible */
+.authBgOverlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 85% 65% at 50% 45%, rgba(45, 32, 18, 0.44) 0%, rgba(16, 11, 6, 0.78) 100%);
+  z-index: 1;
+}
+
+/* Cursor-following ambient warm illumination */
+.ambientGlow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(
+    550px circle at var(--glow-x, 50%) var(--glow-y, 50%),
+    rgba(212, 175, 55, 0.12) 0%,
+    rgba(180, 135, 60, 0.05) 40%,
+    transparent 80%
+  );
+  opacity: var(--glow-opacity, 0);
+  transition: opacity 0.4s ease;
+}
+
+/* Soft vignette for cinematic depth */
+.authVignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 45%, rgba(0, 0, 0, 0.38) 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* ── Close button ── */
+.closeBtn {
+  position: fixed;
+  top: 28px;
+  right: 32px;
+  z-index: 920;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  color: rgba(255, 255, 255, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.closeBtn:hover {
+  color: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: scale(1.06);
+}
+
+.closeBtn:active {
+  transform: scale(0.96);
+}
+
+/* ── Main layout: spacious luxury two-part composition ── */
+.authLayout {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 1360px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40px 90px;
+  box-sizing: border-box;
+  gap: 60px;
+}
+
+/* ── Left: Brand & Golden Vinyl atmospheric panel ── */
+.brandPanel {
+  flex: 0 1 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  user-select: none;
+  -webkit-user-select: none;
+  animation: authSlideLeft 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 0;
+  max-width: 520px;
+}
+
+/* Brand header cluster */
+.brandCluster {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.brandLogo {
+  width: 200px;
+  max-width: 100%;
+  height: auto;
+  max-height: 80px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 14px rgba(212, 175, 55, 0.45));
+  pointer-events: none;
+  -webkit-user-drag: none;
+  margin-bottom: 2px;
+}
+
+.brandTagline {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: rgba(212, 175, 55, 0.85);
+  text-transform: uppercase;
+}
+
+/* ── Golden Vinyl Stage (Substantially larger) ── */
+.vinylStage {
+  position: relative;
+  width: 370px;
+  height: 370px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Atmospheric radial warmth glow behind vinyl */
+.vinylGlow {
+  position: absolute;
+  width: 330px;
+  height: 330px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.16) 0%, rgba(160, 120, 50, 0.06) 45%, transparent 70%);
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+.vinylOuter {
+  position: relative;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 25px 70px rgba(0, 0, 0, 0.8),
+    0 10px 30px rgba(0, 0, 0, 0.55);
+}
+
+.vinylDisc {
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  background: #08080a;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  clip-path: circle(50% at 50% 50%);
+  -webkit-clip-path: circle(50% at 50% 50%);
+}
+
+.vinylDiscImg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  pointer-events: none;
+  -webkit-user-drag: none;
+}
+
+/* Enhanced outer gold rim */
+.vinylRimGlow {
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(212, 175, 55, 0.35);
+  box-shadow:
+    inset 0 0 12px rgba(212, 175, 55, 0.2),
+    0 0 20px rgba(201, 168, 76, 0.18);
+  pointer-events: none;
+}
+
+/* Gentle, smooth continuous vinyl rotation */
+.spinning {
+  animation: spinDisc 40s linear infinite;
+}
+
+/* Center disc record label */
+.vinylCenterLabel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 104px;
+  height: 104px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  gap: 3px;
+}
+
+.vinylFaviconMark {
+  width: 44px;
+  height: 38px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.7));
+  opacity: 0.9;
+}
+
+.vinylLabelBrand {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.54rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #1a1208;
+  text-shadow: 0 1px 2px rgba(255, 235, 175, 0.4);
+  text-transform: uppercase;
+  margin-top: -1px;
+}
+
+/* Brand quote beneath vinyl */
+.brandQuote {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.35);
+  font-weight: 400;
+  letter-spacing: 0.3px;
+  text-align: center;
+  font-style: italic;
+  max-width: 280px;
+  line-height: 1.5;
+}
+
+/* ── Right: Form panel (Anchored on the right) ── */
+.formPanel {
+  flex: 0 0 430px;
+  min-width: 340px;
+  max-width: 440px;
+  margin-left: auto;
+  background: rgba(18, 14, 10, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+  padding: 40px 38px;
+  box-sizing: border-box;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.6),
+    0 0 1px rgba(255, 255, 255, 0.05);
+  animation: authSlideRight 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 0;
+  overflow-y: auto;
+  max-height: calc(100vh - 80px);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(201, 168, 76, 0.2) transparent;
+}
+
+.formPanel::-webkit-scrollbar {
+  width: 4px;
+}
+
+.formPanel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.formPanel::-webkit-scrollbar-thumb {
+  background: rgba(201, 168, 76, 0.15);
+  border-radius: 4px;
+}
+
+/* ── Form content ── */
+.formBody {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Tab transition wrapper */
+.formContent {
+  animation: authContentFade 0.3s ease forwards;
+}
+
+.authTitle {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.65rem;
+  font-weight: 700;
+  margin: 0 0 6px 0;
+  color: #f5efe6;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+
+.authSubtitle {
+  font-size: 0.84rem;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0 0 28px 0;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+/* ── Input groups ── */
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+.inputLabel {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.45);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 0 14px;
+  box-sizing: border-box;
+  height: 48px;
+  transition: all 0.25s ease;
+}
+
+.inputWrapper:focus-within {
+  border-color: rgba(201, 168, 76, 0.5);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.08);
+}
+
+.inputWrapperError {
+  border-color: rgba(220, 70, 70, 0.6) !important;
+  background: rgba(220, 70, 70, 0.04);
+}
+
+.inputIcon {
+  color: rgba(255, 255, 255, 0.25);
+  flex-shrink: 0;
+  margin-right: 10px;
+  transition: color 0.25s ease;
+}
+
+.inputWrapper:focus-within .inputIcon {
+  color: rgba(201, 168, 76, 0.6);
+}
+
+.textInput {
+  flex: 1;
+  font-size: 0.88rem;
+  color: #f5efe6;
+  height: 100%;
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none !important;
+  font-family: inherit;
+  letter-spacing: 0.2px;
+}
+
+.textInput:focus,
+.textInput:focus-visible {
+  outline: none !important;
+  outline-offset: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.textInput::placeholder {
+  color: rgba(255, 255, 255, 0.2);
+  font-weight: 400;
+}
+
+/* Password visibility toggle */
+.eyeBtn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+  flex-shrink: 0;
+  outline: none !important;
+}
+
+.eyeBtn:focus,
+.eyeBtn:focus-visible {
+  outline: none !important;
+  outline-offset: 0 !important;
+}
+
+.eyeBtn:hover {
+  color: rgba(201, 168, 76, 0.7);
+}
+
+/* Field errors */
+.fieldError {
+  font-size: 0.72rem;
+  color: #e05555;
+  font-weight: 500;
+  padding-left: 2px;
+}
+
+/* ── Form row: checkbox + forgot ── */
+.formRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  width: 100%;
+  font-size: 0.8rem;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.45);
+  font-weight: 500;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: color 0.2s ease;
+}
+
+.checkboxLabel:hover {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.checkboxInput {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.03);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.checkboxInput:checked {
+  background: rgba(201, 168, 76, 0.85);
+  border-color: rgba(201, 168, 76, 0.85);
+}
+
+.checkboxInput:checked::after {
+  content: "✓";
+  color: #ffffff;
+  font-size: 0.6rem;
+  font-weight: 800;
+  position: absolute;
+}
+
+.forgotLink {
+  color: rgba(201, 168, 76, 0.7);
+  font-weight: 600;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 0.78rem;
+  transition: color 0.2s ease;
+  white-space: nowrap;
+}
+
+.forgotLink:hover {
+  color: rgba(201, 168, 76, 1);
+}
+
+/* ── Submit error ── */
+.submitError {
+  color: #e05555;
+  font-size: 0.78rem;
+  margin-bottom: 14px;
+  text-align: center;
+  font-weight: 500;
+  padding: 10px 14px;
+  background: rgba(220, 70, 70, 0.06);
+  border: 1px solid rgba(220, 70, 70, 0.12);
+  border-radius: 8px;
+  line-height: 1.4;
+}
+
+/* ── Submit success ── */
+.submitSuccess {
+  color: #55d688;
+  font-size: 0.8rem;
+  margin-bottom: 16px;
+  text-align: center;
+  font-weight: 500;
+  padding: 12px 14px;
+  background: rgba(85, 214, 136, 0.08);
+  border: 1px solid rgba(85, 214, 136, 0.2);
+  border-radius: 8px;
+  line-height: 1.45;
+}
+
+/* ── Submit button ── */
+.submitBtn {
+  width: 100%;
+  height: 50px;
+  background: linear-gradient(135deg, #c9a84c 0%, #a08530 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 4px 16px rgba(201, 168, 76, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  margin-bottom: 22px;
+  position: relative;
+  overflow: hidden;
+}
+
+.submitBtn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.submitBtn:hover:not(:disabled) {
+  box-shadow:
+    0 6px 24px rgba(201, 168, 76, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+.submitBtn:hover:not(:disabled)::before {
+  opacity: 1;
+}
+
+.submitBtn:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(201, 168, 76, 0.15);
+}
+
+.submitBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Spinner */
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  border-top-color: #ffffff;
+  animation: spin 0.7s linear infinite;
+}
+
+/* ── Tab switch footer ── */
+.switchTabBlock {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.35);
+  font-weight: 400;
+}
+
+.switchTabBtn {
+  color: rgba(201, 168, 76, 0.8);
+  font-weight: 600;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 2px 4px;
+  font-size: 0.82rem;
+  transition: color 0.2s ease;
+}
+
+.switchTabBtn:hover {
+  color: rgba(201, 168, 76, 1);
+}
+
+/* ── Divider line ── */
+.divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.06);
+  margin: 0 0 22px 0;
+}
+
+/* ═══════════════════════════════════════════════════
+   Animations
+   ═══════════════════════════════════════════════════ */
+
+@keyframes authFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes authSlideLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes authSlideRight {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes authContentFade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spinDisc {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ═══════════════════════════════════════════════════
+   Responsive Design
+   ═══════════════════════════════════════════════════ */
+
+/* Large desktops / Laptops */
+@media (max-width: 1200px) {
+  .authLayout {
+    padding: 36px 50px;
+    gap: 40px;
+  }
+
+  .brandLogo {
+    width: 160px;
+    max-height: 65px;
+  }
+
+  .vinylStage {
+    width: 310px;
+    height: 310px;
+  }
+
+  .vinylOuter,
+  .vinylDisc {
+    width: 300px;
+    height: 300px;
+  }
+
+  .vinylCenterLabel {
+    width: 86px;
+    height: 86px;
+  }
+
+  .vinylFaviconMark {
+    width: 36px;
+    height: 32px;
+  }
+
+  .vinylLabelBrand {
+    font-size: 0.48rem;
+  }
+}
+
+/* Tablets and small laptops */
+@media (max-width: 900px) {
+  .authLayout {
+    flex-direction: column;
+    gap: 24px;
+    padding: 28px 20px;
+    justify-content: flex-start;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .authLayout::-webkit-scrollbar {
+    display: none;
+  }
+
+  .brandPanel {
+    gap: 16px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+  }
+
+  .brandCluster {
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .brandLogo {
+    width: 130px;
+    max-height: 52px;
+  }
+
+  .brandTagline {
+    font-size: 0.55rem;
+    letter-spacing: 2px;
+  }
+
+  .vinylStage {
+    width: 110px;
+    height: 110px;
+    order: -1;
+  }
+
+  .vinylGlow {
+    width: 90px;
+    height: 90px;
+  }
+
+  .vinylOuter,
+  .vinylDisc {
+    width: 100px;
+    height: 100px;
+  }
+
+  .vinylCenterLabel {
+    width: 32px;
+    height: 32px;
+  }
+
+  .vinylFaviconMark {
+    width: 16px;
+    height: 14px;
+  }
+
+  .vinylLabelBrand {
+    display: none;
+  }
+
+  .brandQuote {
+    display: none;
+  }
+
+  .formPanel {
+    flex: 0 1 auto;
+    min-width: 0;
+    max-width: 430px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 32px 28px;
+    max-height: none;
+    overflow-y: visible;
+  }
+
+  .closeBtn {
+    top: 16px;
+    right: 16px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 520px) {
+  .authLayout {
+    padding: 16px 14px;
+    gap: 16px;
+  }
+
+  .brandPanel {
+    gap: 12px;
+  }
+
+  .brandLogo {
+    width: 110px;
+    max-height: 44px;
+  }
+
+  .vinylStage {
+    width: 75px;
+    height: 75px;
+  }
+
+  .vinylOuter,
+  .vinylDisc {
+    width: 70px;
+    height: 70px;
+  }
+
+  .vinylCenterLabel {
+    width: 24px;
+    height: 24px;
+  }
+
+  .vinylFaviconMark {
+    width: 12px;
+    height: 10px;
+  }
+
+  .vinylLabelBrand {
+    display: none;
+  }
+
+  .formPanel {
+    padding: 26px 18px;
+    border-radius: 16px;
+  }
+
+  .authTitle {
+    font-size: 1.4rem;
+  }
+
+  .authSubtitle {
+    margin-bottom: 22px;
+  }
+
+  .inputGroup {
+    margin-bottom: 14px;
+  }
+
+  .inputWrapper {
+    height: 46px;
+  }
+
+  .submitBtn {
+    height: 48px;
+  }
+
+  .closeBtn {
+    top: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+  }
+}
+
+/* Short viewports */
+@media (max-height: 700px) and (min-width: 901px) {
+  .authLayout {
+    padding: 20px 50px;
+    gap: 40px;
+  }
+
+  .vinylStage {
+    width: 280px;
+    height: 280px;
+  }
+
+  .vinylOuter,
+  .vinylDisc {
+    width: 270px;
+    height: 270px;
+  }
+
+  .vinylCenterBadge {
+    width: 76px;
+    height: 76px;
+  }
+
+  .vinylCenterLogo {
+    width: 22px;
+    height: 22px;
+  }
+
+  .formPanel {
+    padding: 30px 34px;
+  }
+
+  .authTitle {
+    font-size: 1.45rem;
+  }
+
+  .inputGroup {
+    margin-bottom: 14px;
+  }
+
+  .inputWrapper {
+    height: 44px;
+  }
+
+  .submitBtn {
+    height: 46px;
+    margin-bottom: 16px;
+  }
+
+  .authSubtitle {
+    margin-bottom: 20px;
+  }
+}

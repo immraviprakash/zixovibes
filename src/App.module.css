@@ -1,0 +1,532 @@
+/* ==========================================
+   APP LAYOUT - Optimized for 1920×1080
+   ========================================== */
+
+.app {
+  height: 100vh;
+  background-color: #08080a;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Dark overlay - 12% for readability, preserves wood grain */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(10, 6, 2, 0.12);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ==========================================
+   MAIN CONTENT
+   Two-column layout: left (vinyl) + right (playlists + mood)
+   ========================================== */
+
+.main {
+  display: flex;
+  flex: 1;
+  padding: 0 48px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* --- Left Column --- */
+.leftCol {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+  width: 480px;
+  overflow: visible;
+}
+
+.greeting {
+  padding: 10px 0 0 10px;
+}
+
+.greetingText {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.5rem; /* Enlarged by ~14% to become a stronger visual anchor */
+  font-weight: 700;
+  color: var(--text-primary);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  line-height: 1.2;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  max-width: 100%;
+}
+
+.username {
+  font-weight: 700; /* Bold highlighted identity element */
+  color: #dfbe66; /* Elegant warm gold */
+}
+
+/* Now Playing + Volume row */
+.bottomLeft {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 360px;
+  margin-left: 80px; /* Aligns perfectly with the vinyl disc offset */
+  margin-top: -10px;
+}
+
+/* --- Right Column --- */
+.rightCol {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px; /* Shift playlist grid slightly upward */
+  padding-bottom: 40px;
+  padding-left: 120px;
+  box-sizing: border-box;
+  overflow: hidden; /* Prevent column scroll */
+  height: 100%;
+  position: relative; /* Anchor absolute floating panels */
+}
+
+.playlistTransition {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 120px; /* Space so playlist rows don't get hidden behind collapsed widget */
+  box-sizing: border-box;
+}
+
+.moodArea {
+  position: absolute;
+  bottom: 40px; /* Anchor at the bottom of the right column */
+  right: 0;
+  left: 120px; /* Match rightCol padding-left */
+  z-index: 10;
+  display: flex;
+  justify-content: flex-end;
+  pointer-events: none; /* Clicks in empty space pass through to the scrollable playlist cards */
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media (max-width: 1440px) {
+  .leftCol {
+    width: 400px;
+  }
+  .greetingText {
+    font-size: 1.8rem;
+  }
+  .main {
+    padding: 0 32px;
+  }
+  .rightCol {
+    padding-left: 60px; /* reduce padding on mid-size screens */
+  }
+}
+
+@media (max-width: 1023px) {
+  .main {
+    flex-direction: column;
+    overflow: hidden; /* Capped viewport-height view */
+    padding: 0 24px;
+    height: calc(100vh - 100px);
+  }
+
+  .leftCol {
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(201, 168, 76, 0.08);
+  }
+
+  .greeting {
+    display: none; /* Hide greeting to optimize vertical space on smaller/taller screens */
+  }
+
+  .bottomLeft {
+    width: auto;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-left: 0;
+    margin-top: 0;
+  }
+
+  .rightCol {
+    width: 100%;
+    padding-left: 0;
+    padding-top: 10px;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .playlistTransition {
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
+    padding-bottom: 120px;
+    box-sizing: border-box;
+  }
+
+  .moodArea {
+    position: absolute;
+    bottom: 20px;
+    right: 0;
+    left: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: flex-end;
+    pointer-events: none;
+  }
+}
+
+@media (max-width: 500px) {
+  .main {
+    padding: 0 12px;
+  }
+
+  .leftCol {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .bottomLeft {
+    align-items: center;
+    text-align: center;
+  }
+}
+
+/* ==========================================
+   DEEP FOCUS MODE
+   ========================================== */
+
+.deepFocusApp {
+  background: var(--df-bg-primary) !important;
+  background-image: none !important;
+  transition: background 0.6s ease;
+  height: 100vh !important;
+  overflow: hidden !important;
+}
+
+.dfBackground {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+    145deg,
+    var(--df-bg-primary) 0%,
+    #111114 30%,
+    #141418 60%,
+    var(--df-bg-secondary) 100%
+  );
+  z-index: 0;
+  pointer-events: none;
+}
+
+.deepFocusContent {
+  display: flex;
+  flex: 1;
+  position: relative;
+  z-index: 1;
+  overflow-y: auto; /* Vertically scrollable */
+  margin-bottom: 90px; /* Leave space for the fixed footer */
+}
+
+/* Custom scrollbars inside Deep Focus workspace */
+.deepFocusContent::-webkit-scrollbar {
+  width: 6px;
+}
+
+.deepFocusContent::-webkit-scrollbar-track {
+  background: #0b0b0b;
+  border-radius: 999px;
+}
+
+.deepFocusContent::-webkit-scrollbar-thumb {
+  background: #404040;
+  border-radius: 999px;
+  border: 1px solid #0b0b0b;
+}
+
+.deepFocusContent::-webkit-scrollbar-thumb:hover {
+  background: #5a5a5a;
+}
+
+.deepFocusContent::-webkit-scrollbar-thumb:active {
+  background: #707070;
+}
+
+/* ==========================================
+   MODE TRANSITION ANIMATIONS
+   ========================================== */
+
+.contentLeaving {
+  animation: contentFadeOut 0.3s ease forwards;
+}
+
+.contentEntering {
+  animation: contentFadeIn 0.3s ease forwards;
+}
+
+@keyframes contentFadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+@keyframes contentFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.blurredBackground {
+  filter: blur(16px) brightness(0.2) !important;
+  pointer-events: none !important;
+  transition: filter 0.8s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+
+/* Individual component leaving/entering spatial animations */
+
+/* --- Vinyl --- */
+@keyframes vinylSlideDown {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(120px);
+    opacity: 0;
+  }
+}
+
+@keyframes vinylRiseUp {
+  0% {
+    transform: translateY(120px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.vinylLeaving {
+  animation: vinylSlideDown 0.3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.vinylEntering {
+  animation: vinylRiseUp 0.3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* --- Playlists --- */
+@keyframes playlistSlideRight {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(120px);
+    opacity: 0;
+  }
+}
+
+@keyframes playlistSlideInRight {
+  0% {
+    transform: translateX(120px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.playlistLeaving {
+  animation: playlistSlideRight 0.3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.playlistEntering {
+  animation: playlistSlideInRight 0.3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* --- Mood --- */
+@keyframes moodSlideDown {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(80px);
+    opacity: 0;
+  }
+}
+
+@keyframes moodRiseUp {
+  0% {
+    transform: translateY(80px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.moodLeaving {
+  animation: moodSlideDown 0.3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.moodEntering {
+  animation: moodRiseUp 0.3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* --- Greeting --- */
+@keyframes greetingSlideLeft {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-50px);
+    opacity: 0;
+  }
+}
+
+@keyframes greetingSlideInLeft {
+  0% {
+    transform: translateX(-50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.greetingLeaving {
+  animation: greetingSlideLeft 0.3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.greetingEntering {
+  animation: greetingSlideInLeft 0.3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* --- Bottom Left (Now Playing & Volume) --- */
+@keyframes bottomLeftSlideDown {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(80px);
+    opacity: 0;
+  }
+}
+
+@keyframes bottomLeftRiseUp {
+  0% {
+    transform: translateY(80px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.bottomLeftLeaving {
+  animation: bottomLeftSlideDown 0.3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.bottomLeftEntering {
+  animation: bottomLeftRiseUp 0.3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.transitionOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 8, 10, 0.5);
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 0.3s ease;
+}
+
+/* GPU promotion for active mode-switching animating elements */
+.vinylLeaving,
+.vinylEntering,
+.playlistLeaving,
+.playlistEntering,
+.moodLeaving,
+.moodEntering,
+.greetingLeaving,
+.greetingEntering,
+.bottomLeftLeaving,
+.bottomLeftEntering,
+.contentLeaving,
+.contentEntering {
+  will-change: transform, opacity;
+}
+
+/* Lazy Loading Suspense Fallback Loader */
+.loaderContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 3px solid rgba(223, 190, 102, 0.1);
+  border-radius: 50%;
+  border-top-color: #dfbe66; /* Elegant warm gold spinner */
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Hide scrollbar for rightCol while maintaining scroll functionality */
+.rightCol {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+.rightCol::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Webkit */
+}
+

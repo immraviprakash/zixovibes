@@ -1,0 +1,207 @@
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --gold: #c9a84c;
+  --gold-light: #e8d48b;
+  --gold-dark: #a08530;
+  --gold-glow: rgba(201, 168, 76, 0.4);
+  --gold-glow-soft: rgba(201, 168, 76, 0.15);
+  --dark-bg: #1a1207;
+  --dark-overlay: rgba(10, 6, 2, 0.12);
+  --text-primary: #ffffff;
+  --text-secondary: #bfae8e;
+  --text-muted: rgba(255, 255, 255, 0.5);
+  --vinyl-size: 320px;
+  --control-bg: rgba(30, 20, 10, 0.85);
+  --card-bg: rgba(20, 14, 6, 0.6);
+  --border-gold: rgba(201, 168, 76, 0.3);
+
+  /* Deep Focus Mode Variables */
+  --df-bg-primary: #0d0d0f;
+  --df-bg-secondary: #1a1a1e;
+  --df-bg-card: rgba(26, 26, 30, 0.8);
+  --df-bg-card-solid: #1e1e22;
+  --df-bg-glass: rgba(30, 30, 35, 0.65);
+  --df-accent: #c9a07c;
+  --df-accent-light: #e0c4a8;
+  --df-accent-dark: #8a6d52;
+  --df-accent-glow: rgba(201, 160, 124, 0.3);
+  --df-accent-glow-soft: rgba(201, 160, 124, 0.12);
+  --df-border: rgba(201, 160, 124, 0.15);
+  --df-border-hover: rgba(201, 160, 124, 0.35);
+  --df-text-primary: #f0ece4;
+  --df-text-secondary: #8a8580;
+  --df-text-muted: rgba(240, 236, 228, 0.4);
+  --df-surface-hover: rgba(201, 160, 124, 0.08);
+  --df-player-bg: rgba(18, 18, 22, 0.95);
+  --df-success: #6ec87a;
+  --df-timer-glow: rgba(201, 160, 124, 0.2);
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-primary);
+  background-color: #08080a;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+input {
+  font-family: inherit;
+  border: none;
+  outline: none;
+  background: none;
+  color: inherit;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+::selection {
+  background: var(--gold);
+  color: var(--dark-bg);
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--text-primary);
+  margin-top: -5px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+input[type="range"]::-moz-range-track {
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--text-primary);
+  border: none;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Global Focus Ring Standardization */
+*:focus-visible {
+  outline: 2px solid var(--df-accent, #c9a07c) !important;
+  outline-offset: 3px !important;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body.dragging-active * {
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none !important;
+}
+
+.hide-scrollbar {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+/* Playlist cover and logo asset copy & drag protection */
+img[src*="/playlist-covers/"],
+img[src*="zixovibes-logo"],
+[class*="logoImg"],
+[class*="vinylImage"],
+[class*="artworkImage"],
+.vinylPeekImg {
+  pointer-events: none !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  -webkit-user-drag: none !important;
+}
+
+/* Disable text selection on UI controls, playback timing, seek ring, greeting, and brand elements */
+button,
+[role="button"],
+[class*="vinylDisc"],
+[class*="vinylDisc"] *,
+[class*="controlBtn"],
+[class*="controlBtn"] *,
+[class*="volumeControl"],
+[class*="volumeControl"] *,
+[class*="timelineFixed"],
+[class*="timelineFixed"] *,
+[class*="timeCurrent"],
+[class*="timeTotal"],
+[class*="progressRing"],
+[class*="greeting"],
+[class*="greeting"] *,
+[class*="logoArea"],
+[class*="logoArea"] *,
+[class*="nowPlaying"],
+[class*="nowPlaying"] *,
+[class*="songDuration"],
+[class*="modeSwitch"],
+[class*="modeSwitch"] * {
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  -webkit-user-drag: none !important;
+}
+
+
+
+

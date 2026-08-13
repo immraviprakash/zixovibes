@@ -1,0 +1,38 @@
+.nowPlaying {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding-left: 5px;
+  width: 200px; /* Fixed width to prevent shifting */
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.songName {
+  font-size: 0.95rem;
+  color: var(--text-primary); /* White/ivory for the song name */
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+}
+
+.artistName {
+  font-size: 0.8rem;
+  color: var(--text-secondary); /* Golden/sand hue for the artist */
+  font-weight: 400;
+  opacity: 0.85;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 768px) {
+  .nowPlaying {
+    padding-left: 0;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+  }
+}
