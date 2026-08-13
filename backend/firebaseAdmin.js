@@ -17,11 +17,16 @@ const getExistingApp = (name) => {
 // 1. Try to initialize using dedicated environment secret keys (pure environment config)
 if (process.env.FIREBASE_PRIVATE_KEY && process.env.FIREBASE_CLIENT_EMAIL && process.env.FIREBASE_PROJECT_ID) {
   try {
+    const formattedKey = process.env.FIREBASE_PRIVATE_KEY
+      .replace(/^["']|["']$/g, '')       // Remove leading/trailing quotes if present
+      .replace(/\\n/g, '\n')              // Replace literal '\n' sequences
+      .replace(/\r\n/g, '\n');            // Normalize Windows line endings to Unix
+
     app = getExistingApp('zixovibes-admin') || initializeApp({
       credential: cert({
         projectId: process.env.FIREBASE_PROJECT_ID,
         clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-        privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+        privateKey: formattedKey,
       })
     }, 'zixovibes-admin');
     console.log("[Firebase Admin] Initialized via environment credentials.");
