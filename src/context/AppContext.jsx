@@ -1333,64 +1333,98 @@ export function AppProvider({ children }) {
     }
   }, [classicIsPlaying, dfIsPlaying]);
 
-  // 1. Sync Audio SOURCE when currentSong changes or mode switches (preloads only if playbackActivated is true)
+  // Unified Audio playback state synchronizer (controls src assignment, load, play, and pause)
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    if (currentSong) {
-      const isNewSong = loadedSongIdRef.current !== currentSong.id;
-      const isModeSwitch = prevModeRef.current !== mode;
+    if (!currentSong) {
+      audio.pause();
+      return;
+    }
 
-      if (isNewSong || isModeSwitch) {
-        loadedSongIdRef.current = currentSong.id;
-        prevModeRef.current = mode;
+    const songUrl = currentSong.filename;
+    // Resolve absolute URL for accurate comparison
+    const resolvedUrl = new URL(songUrl, window.location.href).href;
 
-        const songUrl = currentSong.filename;
+    if (playbackActivated || isPlaying) {
+      let isSourceChanged = false;
+      if (audio.src !== resolvedUrl) {
+        audio.src = songUrl;
+        isSourceChanged = true;
         
-        if (playbackActivated || isPlaying) {
-          audio.src = songUrl;
-          audio.load();
+        // Dispatch load() ONLY when the source path changes, avoiding duplicate load race conditions
+        audio.load();
 
-          if (!initialTimeRestoredRef.current && elapsed > 0) {
-            audio.currentTime = elapsed;
-            initialTimeRestoredRef.current = true;
-          } else if (isModeSwitch && elapsed > 0) {
-            audio.currentTime = elapsed;
-          } else {
-            audio.currentTime = 0;
-            setElapsed(0);
-          }
+        const isModeSwitch = prevModeRef.current !== mode;
+        prevModeRef.current = mode;
+        loadedSongIdRef.current = currentSong.id;
 
-          if (isPlaying) {
-            audio.play().catch(e => console.log("Playback failed to start:", e));
-          }
+        if (!initialTimeRestoredRef.current && elapsed > 0) {
+          audio.currentTime = elapsed;
+          initialTimeRestoredRef.current = true;
+        } else if (isModeSwitch && elapsed > 0) {
+          audio.currentTime = elapsed;
+        } else {
+          audio.currentTime = 0;
+          setElapsed(0);
         }
       }
-    } else {
-      audio.pause();
+
+      if (isPlaying) {
+        if (audio.paused || isSourceChanged) {
+          audio.play().catch(e => console.log("Playback failed to start:", e));
+        }
+      } else {
+        if (!audio.paused) {
+          audio.pause();
+        }
+      }
     }
   }, [currentSong, mode, playbackActivated, isPlaying]);
 
-  // 2. Control PLAY / PAUSE when isPlaying changes without resetting currentTime or reloading source
-  useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio || !currentSong) return;
+  // Next-track prefetching to cache next song in the background during playback
+  const [nextPrefetchSong, setNextPrefetchSong] = useState(null);
 
-    if (isPlaying) {
-      setPlaybackActivated(true);
-      if (!audio.src || audio.src === window.location.href) {
-        audio.src = currentSong.filename;
-        audio.load();
-        if (elapsed > 0) {
-          audio.currentTime = elapsed;
-        }
-      }
-      audio.play().catch(e => console.log("Playback failed to start:", e));
-    } else {
-      audio.pause();
+  useEffect(() => {
+    if (!playbackActivated || !isPlaying || !currentSong || currentPlaylistSongs.length <= 1) {
+      setNextPrefetchSong(null);
+      return;
     }
-  }, [isPlaying]);
+
+    let nextSong = null;
+    if (isShuffle) {
+      const unplayedSongs = currentPlaylistSongs.filter(s => !shufflePlayedSongIds.includes(s.id));
+      const eligible = unplayedSongs.filter(s => s.id !== currentSong.id);
+      const pool = eligible.length > 0 ? eligible : currentPlaylistSongs.filter(s => s.id !== currentSong.id);
+      if (pool.length > 0) {
+        nextSong = pool[Math.floor(Math.random() * pool.length)];
+      }
+    } else {
+      const currentIndex = currentPlaylistSongs.findIndex(s => s.id === currentSong.id);
+      if (currentIndex !== -1) {
+        const nextIndex = (currentIndex + 1) % currentPlaylistSongs.length;
+        nextSong = currentPlaylistSongs[nextIndex];
+      }
+    }
+
+    setNextPrefetchSong(nextSong);
+  }, [currentSong, currentPlaylistSongs, isShuffle, shufflePlayedSongIds, isPlaying, playbackActivated]);
+
+  useEffect(() => {
+    if (!nextPrefetchSong) return;
+
+    const link = document.createElement('link');
+    link.rel = 'prefetch';
+    link.href = nextPrefetchSong.filename;
+    link.as = 'audio';
+    
+    document.head.appendChild(link);
+    
+    return () => {
+      document.head.removeChild(link);
+    };
+  }, [nextPrefetchSong]);
 
   // Volume sync
   useEffect(() => {

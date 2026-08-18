@@ -1,0 +1,7 @@
+# Cache immutable hashed assets built by Vite
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Default fallback for dynamic/root pages to force validation check (ETags)
+/*
+  Cache-Control: public, max-age=0, must-revalidate
