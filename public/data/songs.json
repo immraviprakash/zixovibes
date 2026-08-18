@@ -60,17 +60,6 @@
     "cover": "/covers/lofi_006.jpg"
   },
   {
-    "id": "lofi_007",
-    "title": "Bedtime",
-    "artist": "Sleepy Cat",
-    "album": "Cozy Dreams",
-    "playlist": "lofi",
-    "duration": 1826,
-    "filename": "/music/lofi/Bedtime.mp3",
-    "cover": "/covers/lofi_007.jpg"
-  },
-
-  {
     "id": "lofi_009",
     "title": "Bliss",
     "artist": "lifeboat",
@@ -189,16 +178,6 @@
     "duration": 154,
     "filename": "/music/lofi/Daydreamer.mp3",
     "cover": "/covers/lofi_020.jpg"
-  },
-  {
-    "id": "lofi_021",
-    "title": "Dreamy",
-    "artist": "Sleepy Cat",
-    "album": "Cozy Dreams",
-    "playlist": "lofi",
-    "duration": 1837,
-    "filename": "/music/lofi/Dreamy.mp3",
-    "cover": "/covers/lofi_021.jpg"
   },
   {
     "id": "lofi_022",
@@ -441,16 +420,6 @@
     "cover": "/covers/lofi_045.jpg"
   },
   {
-    "id": "lofi_046",
-    "title": "Lost At Sea",
-    "artist": "Adrift",
-    "album": "Lost At Sea",
-    "playlist": "lofi",
-    "duration": 1249,
-    "filename": "/music/lofi/Lost At Sea.mp3",
-    "cover": "/covers/lofi_046.jpg"
-  },
-  {
     "id": "lofi_047",
     "title": "Lost In Thought",
     "artist": "Lonely Girl",
@@ -529,16 +498,6 @@
     "duration": 114,
     "filename": "/music/lofi/Mycorrhizal Synergy.mp3",
     "cover": "/covers/lofi_054.jpg"
-  },
-  {
-    "id": "lofi_055",
-    "title": "Nap Time",
-    "artist": "Sleepy Cat",
-    "album": "Nap Time",
-    "playlist": "lofi",
-    "duration": 1309,
-    "filename": "/music/lofi/Nap Time.mp3",
-    "cover": "/covers/lofi_055.jpg"
   },
   {
     "id": "lofi_056",
@@ -710,7 +669,6 @@
     "filename": "/music/lofi/Sleeping With The Nightlight On.mp3",
     "cover": "/covers/lofi_072.jpg"
   },
-
   {
     "id": "lofi_074",
     "title": "Sleepy Tale",
@@ -782,16 +740,6 @@
     "cover": "/covers/lofi_080.jpg"
   },
   {
-    "id": "lofi_081",
-    "title": "surf",
-    "artist": "ORANCHA",
-    "album": "surf",
-    "playlist": "lofi",
-    "duration": 480,
-    "filename": "/music/lofi/surf.mp3",
-    "cover": "/covers/lofi_081.jpg"
-  },
-  {
     "id": "lofi_082",
     "title": "The Empty",
     "artist": "Sleepy Cat",
@@ -810,16 +758,6 @@
     "duration": 180,
     "filename": "/music/lofi/Through.mp3",
     "cover": "/covers/lofi_083.jpg"
-  },
-  {
-    "id": "lofi_084",
-    "title": "Times",
-    "artist": "Sleepy Cat",
-    "album": "Sleep Time Vol.1",
-    "playlist": "lofi",
-    "duration": 559,
-    "filename": "/music/lofi/Times.mp3",
-    "cover": "/covers/lofi_084.jpg"
   },
   {
     "id": "lofi_085",
@@ -1212,16 +1150,6 @@
     "cover": "/covers/jazz_028.jpg"
   },
   {
-    "id": "jazz_029",
-    "title": "Urban Oasis",
-    "artist": "Nighthawks Revisited",
-    "album": "Urban Oasis",
-    "playlist": "jazz",
-    "duration": 1495,
-    "filename": "/music/jazz/Urban Oasis.mp3",
-    "cover": "/covers/jazz_029.jpg"
-  },
-  {
     "id": "jazz_030",
     "title": "Windowseat waltz",
     "artist": "Tanner King Trio",
@@ -1380,16 +1308,6 @@
     "duration": 133,
     "filename": "/music/sleep/Nocturne.mp3",
     "cover": "/covers/sleep_015.jpg"
-  },
-  {
-    "id": "sleep_016",
-    "title": "Opening",
-    "artist": "Sky Sailor",
-    "album": "Unknown Album",
-    "playlist": "sleep",
-    "duration": 365,
-    "filename": "/music/sleep/Opening.mp3",
-    "cover": "/covers/sleep_016.jpg"
   },
   {
     "id": "sleep_017",
@@ -2172,16 +2090,6 @@
     "cover": "/covers/relax_015.jpg"
   },
   {
-    "id": "relax_016",
-    "title": "Mellow",
-    "artist": "The Inner Room",
-    "album": "Unknown Album",
-    "playlist": "relax",
-    "duration": 391,
-    "filename": "/music/relax/Mellow.mp3",
-    "cover": "/covers/relax_016.jpg"
-  },
-  {
     "id": "relax_017",
     "title": "Memory Palace",
     "artist": "Lucent Fields",
@@ -2190,16 +2098,6 @@
     "duration": 154,
     "filename": "/music/relax/Memory Palace.mp3",
     "cover": "/covers/relax_017.jpg"
-  },
-  {
-    "id": "relax_018",
-    "title": "Meridian",
-    "artist": "Ziraphine",
-    "album": "Meridian",
-    "playlist": "relax",
-    "duration": 285,
-    "filename": "/music/relax/Meridian.mp3",
-    "cover": "/covers/relax_018.jpg"
   },
   {
     "id": "relax_019",
@@ -2550,16 +2448,6 @@
     "duration": 124,
     "filename": "/music/ambience/snowfall.mp3",
     "cover": "/covers/ambience_023.jpg"
-  },
-  {
-    "id": "ambience_024",
-    "title": "supernova",
-    "artist": "pandora.",
-    "album": "Unknown Album",
-    "playlist": "ambience",
-    "duration": 329,
-    "filename": "/music/ambience/supernova.mp3",
-    "cover": "/covers/ambience_024.jpg"
   },
   {
     "id": "ambience_025",
