@@ -37,7 +37,7 @@ function cleanMarkdownSyntax(text) {
   cleaned = cleaned.replace(/__([^_]+)__/g, '$1');
 
   // 6. Convert bullet asterisks or hyphens at start of lines (* item or - item -> • item)
-  cleaned = cleaned.replace(/^[\s]*[\*\-]\s+/gm, '• ');
+  cleaned = cleaned.replace(/^[\s]*[*-]\s+/gm, '• ');
 
   // 7. Strip leftover stray asterisks or pipe characters at start/end of lines
   cleaned = cleaned.replace(/^\s*\|+|\s*\|+$/gm, '');

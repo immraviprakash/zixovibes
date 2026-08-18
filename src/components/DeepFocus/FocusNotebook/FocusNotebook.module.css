@@ -1072,3 +1072,266 @@ div[class*="leftContentWrap"] {
   position: absolute !important;
   z-index: 150 !important;
 }
+
+/* Tab Navigation */
+.tabBar {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.tabBtn {
+  background: transparent;
+  border: 1px solid transparent;
+  color: rgba(255, 255, 255, 0.45);
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tabBtn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.tabBtnActive {
+  color: var(--df-accent);
+  background: rgba(201, 160, 124, 0.1);
+  border-color: rgba(201, 160, 124, 0.25);
+}
+
+/* Notes Container */
+.notesContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.addNoteHeaderBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px;
+  background: rgba(201, 160, 124, 0.06);
+  border: 1px dashed rgba(201, 160, 124, 0.25);
+  border-radius: 12px;
+  color: var(--df-accent);
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.addNoteHeaderBtn:hover {
+  background: rgba(201, 160, 124, 0.12);
+  border-color: rgba(201, 160, 124, 0.45);
+}
+
+.newNoteForm {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: #18181a;
+  border: 1px solid rgba(201, 160, 124, 0.25);
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.newNoteTitleInput {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 4px 0 8px 0;
+  color: #ffffff;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  outline: none;
+}
+
+.newNoteTitleInput:focus {
+  border-bottom-color: var(--df-accent);
+}
+
+.newNoteTextarea {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.85);
+  font-family: inherit;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  resize: vertical;
+  min-height: 70px;
+  outline: none;
+}
+
+.newNoteActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.cancelNoteBtn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.6);
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 0.76rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cancelNoteBtn:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+}
+
+.saveNoteBtn {
+  background: var(--df-accent);
+  border: none;
+  color: #0c0804;
+  font-weight: 600;
+  padding: 5px 14px;
+  border-radius: 6px;
+  font-size: 0.76rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.saveNoteBtn:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.saveNoteBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.emptyNotesState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 36px 16px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.emptyNotesIcon {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.emptyNotesTitle {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 0 4px 0;
+}
+
+.emptyNotesSubtitle {
+  font-size: 0.76rem;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0;
+}
+
+.notesList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.noteCard {
+  background: #18181a;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 14px;
+  transition: border-color 0.2s ease;
+}
+
+.noteCard:hover,
+.noteCard:focus-within {
+  border-color: rgba(201, 160, 124, 0.2);
+}
+
+.noteCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.noteCardTitle {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  outline: none;
+  padding: 2px 0;
+}
+
+.noteCardTitle:focus {
+  color: var(--df-accent);
+}
+
+.noteDeleteBtn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.noteDeleteBtn:hover {
+  color: #ff6b6b;
+  background: rgba(255, 107, 107, 0.1);
+}
+
+.noteCardBody {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.8);
+  font-family: inherit;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  resize: vertical;
+  min-height: 60px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.noteCardBody:focus {
+  color: #ffffff;
+}
+
+.noteCardFooter {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 4px;
+}
+
+.noteDate {
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.3);
+}

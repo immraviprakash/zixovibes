@@ -164,7 +164,7 @@ export default function AuthPage() {
       } else if (error.code === 'auth/user-not-found') {
         errs.identifier = error.customMessage || 'Account not found. Please check your email or username.';
       } else if (error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
-        errs.password = 'Incorrect password. Please try again.';
+        errs.password = 'That email, username, or password doesn\'t look right. Please check your details and try again.';
       } else if (error.code === 'auth/email-already-in-use') {
         errs.email = 'This email is already registered to another account.';
       } else if (error.code === 'auth/invalid-email') {
@@ -175,8 +175,19 @@ export default function AuthPage() {
         }
       } else if (error.code === 'auth/weak-password') {
         errs.password = 'Password must be at least 6 characters.';
+      } else if (error.code === 'auth/too-many-requests') {
+        errs.submit = 'Access to this account has been temporarily disabled due to many failed login attempts. Please try again later or reset your password.';
+      } else if (error.code === 'auth/network-request-failed') {
+        errs.submit = 'Network connection issue. Please check your internet connection and try again.';
+      } else if (error.code === 'auth/user-disabled') {
+        errs.submit = 'This account has been disabled. Please contact support.';
       } else {
-        errs.submit = error.customMessage || error.message || 'Authentication failed. Please check your credentials and try again.';
+        const rawMsg = error.customMessage || error.message || '';
+        if (rawMsg && !rawMsg.includes('Firebase') && !rawMsg.includes('auth/') && !rawMsg.includes('Error (')) {
+          errs.submit = rawMsg;
+        } else {
+          errs.submit = 'Authentication failed. Please check your credentials and try again.';
+        }
       }
       
       setErrors(errs);

@@ -20,6 +20,7 @@ export default function FocusTimer() {
     isBreakMode,
     timerDuration,
     showPomodoroOverlay,
+    setShowPomodoroOverlay,
     handleStartBreak,
     handleTake5MinBreak,
     handleContinuePomodoro,

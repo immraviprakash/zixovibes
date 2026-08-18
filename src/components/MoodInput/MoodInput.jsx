@@ -228,11 +228,10 @@ const MoodInput = memo(function MoodInput() {
       if (err.name === 'AbortError') {
         return;
       }
-      console.error('[Classic AI] Send error:', err);
       let message = "Bro is taking a quick moment to chill. Please try asking again in a second!";
-      if (err.message && (err.message.includes('Failed to fetch') || err.message.includes('Network failure'))) {
-        message = 'Connection error: Bro is temporarily offline. Please try again in a moment.';
-      } else if (err.message) {
+      if (err.message && (err.message.includes('Failed to fetch') || err.message.includes('Network failure') || err.message.includes('timed out') || err.message.includes('abort'))) {
+        message = 'Connection error: Bro is taking a moment to reconnect. Please try again.';
+      } else if (err.message && !err.message.includes('Server returned') && !err.message.includes('500') && !err.message.includes('502') && !err.message.includes('503') && !err.message.includes('404') && !err.message.includes('Error (')) {
         message = err.message;
       }
       setErrorMsg(message);
@@ -283,7 +282,7 @@ const MoodInput = memo(function MoodInput() {
     songs.forEach(song => {
       if (!song.title) return;
       if (song.playlist === 'playlist_for_you') return;
-      const titleEscaped = song.title.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+      const titleEscaped = song.title.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
       const regex = new RegExp(`\\b${titleEscaped}\\b`, 'i');
       if (regex.test(text)) {
         if (!recommendedSongs.some(s => s.id === song.id)) {
@@ -296,7 +295,7 @@ const MoodInput = memo(function MoodInput() {
     playlistsList.forEach(playlist => {
       if (!playlist.title) return;
       if (playlist.id === 'playlist_for_you') return;
-      const titleEscaped = playlist.title.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+      const titleEscaped = playlist.title.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
       const regex = new RegExp(`\\b${titleEscaped}\\b`, 'i');
       if (regex.test(text)) {
         if (!recommendedPlaylists.some(p => p.id === playlist.id)) {
@@ -333,7 +332,7 @@ const MoodInput = memo(function MoodInput() {
     cleaned = cleaned.replace(/\*\*([^*]+)\*\*/g, '$1');
     cleaned = cleaned.replace(/__([^_]+)__/g, '$1');
     // 6. Convert bullet asterisks or hyphens at start of lines (* item or - item -> • item)
-    cleaned = cleaned.replace(/^[\s]*[\*\-]\s+/gm, '• ');
+    cleaned = cleaned.replace(/^[\s]*[*-]\s+/gm, '• ');
     // 7. Strip leftover stray pipe characters at edges
     cleaned = cleaned.replace(/^\s*\|+|\s*\|+$/gm, '');
     // 8. Normalize multiple empty lines

@@ -2562,6 +2562,7 @@ export function AppProvider({ children }) {
     // 4. Load Firestore user document
     let fetchedUsername = '';
     let fetchedDisplayName = userCredential.user.displayName || '';
+    let fetchedCreatedAt = null;
 
     try {
       const userDoc = await getDoc(userDocRef);
@@ -2569,6 +2570,7 @@ export function AppProvider({ children }) {
         const data = userDoc.data();
         fetchedUsername = data.profile?.username || data.username || '';
         fetchedDisplayName = data.profile?.displayName || data.displayName || fetchedDisplayName;
+        fetchedCreatedAt = data.profile?.createdAt || data.createdAt || null;
       }
     } catch (e) {
       console.warn("[Firebase Auth] Failed to read user profile on login:", e);
@@ -2579,6 +2581,9 @@ export function AppProvider({ children }) {
     }
     if (!fetchedUsername) {
       fetchedUsername = targetEmail.split('@')[0] || 'user';
+    }
+    if (!fetchedCreatedAt) {
+      fetchedCreatedAt = userCredential.user.metadata?.creationTime || new Date().toISOString();
     }
 
     // Self-heal username index for legacy users if missing (run in background, non-blocking)
@@ -2603,11 +2608,6 @@ export function AppProvider({ children }) {
     setUsername(fetchedUsername);
     setDisplayName(fetchedDisplayName);
     setUserEmail(targetEmail);
-
-    let fetchedCreatedAt = data.profile?.createdAt || data.createdAt || userCredential.user.metadata?.creationTime || null;
-    if (!fetchedCreatedAt) {
-      fetchedCreatedAt = userCredential.user.metadata?.creationTime || new Date().toISOString();
-    }
     setCreatedAt(fetchedCreatedAt);
     
     localStorage.setItem('zixovibes_is_authenticated', 'true');

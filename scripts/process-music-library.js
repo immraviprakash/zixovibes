@@ -86,13 +86,13 @@ function cleanFilenameString(originalName) {
   name = name.replace(/\[?\(?\s*hd\s*\)?\]?/gi, '');
 
   // 3. Remove leading track numbering prefixes (e.g. "82. ", "01 - ", "1. ", "01_")
-  name = name.replace(/^\d{1,3}[\s._\-]+\s*/, '');
+  name = name.replace(/^\d{1,3}[\s._-]+\s*/, '');
 
   // 4. Clean up underscores and duplicate whitespace
   name = name.replace(/_/g, ' ');
   name = name.replace(/\s+/g, ' ');
   name = name.trim();
-  name = name.replace(/^[\-._\s]+|[\-._\s]+$/g, '');
+  name = name.replace(/^[-._\s]+|[-._\s]+$/g, '');
 
   if (!name) {
     name = path.basename(originalName, ext);
@@ -144,7 +144,7 @@ async function processMusicLibrary() {
 
     for (const file of files) {
       const currentFilePath = path.join(playlistFolderPath, file);
-      const cleanedName = cleanFilenameString(file);
+      let cleanedName = cleanFilenameString(file);
 
       let finalFilePath = currentFilePath;
       let finalFileName = file;

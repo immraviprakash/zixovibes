@@ -30,10 +30,19 @@ export default function FocusNotebook() {
     deleteTask,
     updateTaskDuration,
     reorderTasks,
-    generateAIPlaylistForTaskText
+    generateAIPlaylistForTaskText,
+    notes = [],
+    addFocusNote,
+    updateFocusNote,
+    deleteFocusNote,
   } = useApp();
 
   const { replanSession, timerRunning, isBreakMode } = useTimer();
+
+  const [activeTab, setActiveTab] = useState('tasks'); // 'tasks' | 'notes'
+  const [newNoteTitle, setNewNoteTitle] = useState('');
+  const [newNoteText, setNewNoteText] = useState('');
+  const [isAddingNote, setIsAddingNote] = useState(false);
 
   const [expandedTaskIndex, setExpandedTaskIndex] = useState(null);
   const [isReplanning, setIsReplanning] = useState(false);
@@ -211,6 +220,15 @@ export default function FocusNotebook() {
     setNewTaskText('');
   };
 
+  const handleCreateNote = async (e) => {
+    e.preventDefault();
+    if (!newNoteTitle.trim() && !newNoteText.trim()) return;
+    await addFocusNote(newNoteTitle.trim() || 'Focus Note', newNoteText.trim());
+    setNewNoteTitle('');
+    setNewNoteText('');
+    setIsAddingNote(false);
+  };
+
   return (
     <div 
       className={`${styles.panel} ${notebookOpen ? styles.open : ''}`}
@@ -221,12 +239,24 @@ export default function FocusNotebook() {
         {/* Header */}
         <div className={styles.header}>
           <div className={styles.headerLeft}>
-            <h3 className={styles.title}>Focus Planner</h3>
+            <div className={styles.tabBar}>
+              <button
+                type="button"
+                className={`${styles.tabBtn} ${activeTab === 'tasks' ? styles.tabBtnActive : ''}`}
+                onClick={() => setActiveTab('tasks')}
+              >
+                Tasks ({completedCount}/{tasks.length})
+              </button>
+              <button
+                type="button"
+                className={`${styles.tabBtn} ${activeTab === 'notes' ? styles.tabBtnActive : ''}`}
+                onClick={() => setActiveTab('notes')}
+              >
+                Notes ({notes.length})
+              </button>
+            </div>
           </div>
           <div className={styles.headerRight}>
-            <span className={styles.counter}>
-              {completedCount}/{tasks.length} Tasks
-            </span>
             <button
               className={styles.closeBtn}
               onClick={handleClose}
@@ -243,369 +273,447 @@ export default function FocusNotebook() {
 
         {/* Content Scroll Area */}
         <div className={styles.scrollArea}>
-          {/* Completion Banner */}
-          {allTasksDone && (
-            <div className={styles.completedBanner}>
-              <span className={styles.completedCheck}>✓</span>
-              <div className={styles.completedTexts}>
-                <span className={styles.completedTitle}>Focus Plan Completed</span>
-                <p className={styles.completedSubtitle}>
-                  You are free to continue working or create a new plan.
-                </p>
-              </div>
-            </div>
-          )}
-
-          {/* Tasks List */}
-          <div className={styles.taskList}>
-            {!Array.isArray(tasks) || tasks.length === 0 ? (
-              <div className={styles.emptyState}>No tasks in focus plan.</div>
-            ) : (
-              tasks.map((task, i) => {
-              const isExpanded = expandedTaskIndex === i;
-              
-              const getTaskStatus = () => {
-                if (task.completed || task.status === 'Completed') return 'Completed';
-                if (task.status === 'Deferred') return 'Deferred';
-                if (task.status === 'Skipped') return 'Skipped';
-                if (task.status === 'Cancelled') return 'Cancelled';
-
-                if (task.taskType && task.taskType !== 'focus') {
-                  return task.status || 'Planned';
-                }
-
-                const activePomodoro = flattenedPomodoros[currentPomodoroIndex];
-                if (activePomodoro && activePomodoro.taskIndex === i) {
-                  if (isBreakMode) {
-                    return 'Starting Soon';
-                  }
-                  return timerRunning ? 'In Progress' : 'Ready';
-                }
-                
-                if (activePomodoro && activePomodoro.taskIndex > i) {
-                  return 'Completed';
-                }
-                
-                return task.status || 'Planned';
-              };
-
-              const status = getTaskStatus();
-              
-              const totalPomos = task.pomodoros ? task.pomodoros.length : 1;
-              const taskPomos = flattenedPomodoros.filter(fp => fp.taskIndex === i);
-              const completedTaskPomos = taskPomos.filter(fp => fp.executionIndex < currentPomodoroIndex).length;
-              
-              let pomoProgressText = '';
-              const isFocusTask = !task.taskType || task.taskType === 'focus';
-              if (isFocusTask) {
-                if (task.completed || status === 'Completed') {
-                  pomoProgressText = `Pomodoro ${totalPomos} of ${totalPomos}`;
-                } else {
-                  const isActive = taskPomos.some(fp => fp.executionIndex === currentPomodoroIndex);
-                  if (isActive) {
-                    pomoProgressText = `Pomodoro ${Math.min(completedTaskPomos + 1, totalPomos)} of ${totalPomos}`;
-                  } else if (completedTaskPomos >= totalPomos) {
-                    pomoProgressText = `Pomodoro ${totalPomos} of ${totalPomos}`;
-                  } else {
-                    pomoProgressText = `Pomodoro ${Math.max(1, completedTaskPomos + 1)} of ${totalPomos}`;
-                  }
-                }
-              }
-
-              return (
-                <div 
-                  key={task.id || i} 
-                  className={`${styles.taskContainer} ${isExpanded ? styles.expanded : ''} ${task.completed || status === 'Completed' ? styles.taskCompleted : ''} ${status === 'In Progress' ? styles.taskInProgress : ''} ${status === 'Ready' ? styles.taskReady : ''} ${draggedIndex === i ? styles.dragging : ''} ${draggedOverIndex === i && dropPosition === 'above' ? styles.dragOverAbove : ''} ${draggedOverIndex === i && dropPosition === 'below' ? styles.dragOverBelow : ''}`}
-                  draggable={draggableIndex === i}
-                  onDragStart={(e) => handleDragStart(e, i)}
-                  onDragEnd={handleDragEnd}
-                  onDragOver={(e) => handleDragOver(e, i)}
-                  onDragLeave={handleDragLeave}
-                  onDrop={(e) => handleDrop(e, i)}
+          {activeTab === 'notes' ? (
+            <div className={styles.notesContainer}>
+              {!isAddingNote ? (
+                <button 
+                  type="button"
+                  className={styles.addNoteHeaderBtn} 
+                  onClick={() => setIsAddingNote(true)}
                 >
-                  <div
-                    className={`${styles.taskRow} ${task.completed ? styles.completed : ''}`}
-                    role="button"
-                    tabIndex={0}
-                    onClick={(e) => handleTaskClick(i, e)}
-                    onKeyDown={(e) => {
-                      if (e.key === ' ' || e.key === 'Enter') {
-                        e.preventDefault();
-                        handleTaskClick(i, e);
-                      }
-                    }}
-                    aria-expanded={isExpanded}
-                    aria-label={`${isExpanded ? 'Collapse' : 'Expand'} details for ${task.text}`}
-                  >
-                    {/* Subtle Drag Handle grid icon */}
-                    <div
-                      className={styles.dragHandle}
-                      draggable={false}
-                      onMouseDown={(e) => {
-                        e.stopPropagation();
-                        setDraggableIndex(i);
-                      }}
-                      onMouseUp={(e) => {
-                        e.stopPropagation();
-                        setDraggableIndex(null);
-                      }}
-                      title="Drag to reorder"
+                  <span>+ Add Session Note</span>
+                </button>
+              ) : (
+                <form onSubmit={handleCreateNote} className={styles.newNoteForm}>
+                  <input
+                    type="text"
+                    className={styles.newNoteTitleInput}
+                    placeholder="Note Title (e.g. Core formula, bug fix summary)..."
+                    value={newNoteTitle}
+                    onChange={(e) => setNewNoteTitle(e.target.value)}
+                    autoFocus
+                  />
+                  <textarea
+                    className={styles.newNoteTextarea}
+                    placeholder="Write your note details here..."
+                    value={newNoteText}
+                    onChange={(e) => setNewNoteText(e.target.value)}
+                    rows={3}
+                  />
+                  <div className={styles.newNoteActions}>
+                    <button 
+                      type="button" 
+                      className={styles.cancelNoteBtn} 
+                      onClick={() => { setIsAddingNote(false); setNewNoteTitle(''); setNewNoteText(''); }}
                     >
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                        <circle cx="9" cy="5" r="1.5" fill="currentColor"/>
-                        <circle cx="15" cy="5" r="1.5" fill="currentColor"/>
-                        <circle cx="9" cy="12" r="1.5" fill="currentColor"/>
-                        <circle cx="15" cy="12" r="1.5" fill="currentColor"/>
-                        <circle cx="9" cy="19" r="1.5" fill="currentColor"/>
-                        <circle cx="15" cy="19" r="1.5" fill="currentColor"/>
-                      </svg>
-                    </div>
+                      Cancel
+                    </button>
+                    <button 
+                      type="submit" 
+                      className={styles.saveNoteBtn}
+                      disabled={!newNoteTitle.trim() && !newNoteText.trim()}
+                    >
+                      Save Note
+                    </button>
+                  </div>
+                </form>
+              )}
 
-                    <div
-                      className={styles.checkbox}
-                      role="checkbox"
-                      aria-checked={task.completed}
-                      tabIndex={0}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        toggleTask(i);
-                      }}
-                      onKeyDown={(e) => {
-                        if (e.key === ' ' || e.key === 'Enter') {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          toggleTask(i);
-                        }
-                      }}
-                      aria-label={`Toggle task: ${task.text}`}
-                    >
-                      {task.completed && (
-                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4.5" strokeLinecap="round" strokeLinejoin="round">
-                          <polyline points="20 6 9 17 4 12" />
-                        </svg>
-                      )}
-                    </div>
-                    <div className={styles.taskContentCol}>
-                      <div className={styles.taskTextRow}>
-                        <span className={styles.taskText}>{task.text}</span>
+              {notes.length === 0 && !isAddingNote ? (
+                <div className={styles.emptyNotesState}>
+                  <span className={styles.emptyNotesIcon}>📝</span>
+                  <p className={styles.emptyNotesTitle}>No session notes yet</p>
+                  <p className={styles.emptyNotesSubtitle}>Jot down equations, reminders, or insights as you work.</p>
+                </div>
+              ) : (
+                <div className={styles.notesList}>
+                  {notes.map((note) => (
+                    <div key={note.noteId} className={styles.noteCard}>
+                      <div className={styles.noteCardHeader}>
+                        <input
+                          type="text"
+                          className={styles.noteCardTitle}
+                          value={note.title || ''}
+                          onChange={(e) => updateFocusNote(note.noteId, e.target.value, note.text || '')}
+                          placeholder="Untitled Note"
+                        />
+                        <button
+                          type="button"
+                          className={styles.noteDeleteBtn}
+                          onClick={() => deleteFocusNote(note.noteId)}
+                          title="Delete note"
+                          aria-label="Delete note"
+                        >
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="3 6 5 6 21 6" />
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                          </svg>
+                        </button>
                       </div>
-                      <span className={styles.taskDurationHint}>
-                        {isFocusTask ? (
-                          `${task.estimatedDuration || (totalPomos * 25)} min • ${pomoProgressText}`
-                        ) : task.taskType === 'scheduled' ? (
-                          `${task.estimatedDuration ? `${task.estimatedDuration} min • ` : ''}Scheduled Event`
-                        ) : task.taskType === 'quick' ? (
-                          `${task.estimatedDuration ? `${task.estimatedDuration} min • ` : ''}Quick Action`
-                        ) : (
-                          `${task.estimatedDuration ? `${task.estimatedDuration} min • ` : ''}Checklist Action`
-                        )}
-                      </span>
-                      <div className={styles.chipRow}>
-                        {task.category && (
-                          <span className={`${styles.badge} ${styles.categoryBadge}`}>
-                            {task.category}
-                          </span>
-                        )}
-                        {task.executionLabel && (
-                          <span className={`${styles.badge} ${styles.executionBadge}`}>
-                            {task.executionLabel}
-                          </span>
-                        )}
-                        <span className={`${styles.badge} ${styles.statusBadge} ${styles['status' + status.replace(/\s+/g, '')]}`}>
-                          {status}
+                      <textarea
+                        className={styles.noteCardBody}
+                        value={note.text || ''}
+                        onChange={(e) => updateFocusNote(note.noteId, note.title || '', e.target.value)}
+                        placeholder="Type your notes..."
+                        rows={3}
+                      />
+                      <div className={styles.noteCardFooter}>
+                        <span className={styles.noteDate}>
+                          {note.updatedAt ? new Date(note.updatedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ''}
                         </span>
                       </div>
                     </div>
-                      <button
-                        className={styles.deleteBtn}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          deleteTask(i);
-                        }}
-                        title="Delete Task"
-                        aria-label="Delete Task"
-                      >
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <polyline points="3 6 5 6 21 6" />
-                          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-                          <line x1="10" y1="11" x2="10" y2="17" />
-                          <line x1="14" y1="11" x2="14" y2="17" />
-                        </svg>
-                      </button>
-                      <span className={`${styles.toggleArrow} ${isExpanded ? styles.arrowUp : ''}`}>
-                        ▼
-                      </span>
-                    </div>
-
-                    {/* Inline Folder Expansion Details */}
-                    {isExpanded && (
-                      <div className={styles.folderDetails}>
-                        {/* Smart Duration Customization */}
-                        {isFocusTask && (
-                          <div className={styles.taskControlsRow}>
-                            <div className={styles.taskControlItem}>
-                              <label className={styles.controlLabel}>Estimated Duration</label>
-                              <div 
-                                className={`${styles.customSelectWrapper} ${openSelectIndex === i ? styles.customSelectWrapperOpen : ''}`}
-                                ref={openSelectIndex === i ? selectWrapperRef : null}
-                              >
-                                <button
-                                  type="button"
-                                  className={styles.customSelectTrigger}
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    setOpenSelectIndex(openSelectIndex === i ? null : i);
-                                  }}
-                                  aria-label="Select estimated duration"
-                                >
-                                  <span>
-                                    {task.pomodoros ? task.pomodoros.length : 3} Pomodoro{(task.pomodoros ? task.pomodoros.length : 3) > 1 ? 's' : ''} ({(task.pomodoros ? task.pomodoros.length : 3) * 25} min)
-                                  </span>
-                                  <span className={styles.customSelectArrow}>▼</span>
-                                </button>
-                                {openSelectIndex === i && (
-                                  <div className={styles.customSelectOptions}>
-                                    {[1, 2, 3, 4, 5, 6].map(num => (
-                                      <button
-                                        key={num}
-                                        type="button"
-                                        className={`${styles.customSelectOption} ${
-                                          (task.pomodoros ? task.pomodoros.length : 3) === num ? styles.activeOption : ''
-                                        }`}
-                                        onClick={(e) => {
-                                          e.stopPropagation();
-                                          updateTaskDuration(i, num);
-                                          setOpenSelectIndex(null);
-                                        }}
-                                      >
-                                        {num} Pomodoro{num > 1 ? 's' : ''} ({num * 25} min)
-                                      </button>
-                                    ))}
-                                  </div>
-                                )}
-                              </div>
-                            </div>
-                          </div>
-                        )}
-
-                        <div className={styles.detailsSection}>
-                          <span className={styles.detailsLabel}>Synopsis</span>
-                          <p className={styles.detailsValueText}>
-                            {task.synopsis || `This session will guide you through key learning milestones and focus exercises to successfully complete: ${task.text}.`}
-                          </p>
-                        </div>
-
-                        {isFocusTask && task.pomodoros && task.pomodoros.length > 0 && (
-                          <div className={styles.detailsSection}>
-                            <span className={styles.detailsLabel}>Breakdown</span>
-                            <div className={styles.breakdownList}>
-                              {task.pomodoros.map((stepName, stepIdx) => {
-                                const flatIdx = flattenedPomodoros.findIndex(
-                                  fp => fp.taskIndex === i && fp.index === stepIdx
-                                );
-                                const isStepCompleted = flatIdx !== -1 && flatIdx < currentPomodoroIndex;
-                                const isStepActive = flatIdx === currentPomodoroIndex;
-
-                                return (
-                                  <div
-                                    key={stepIdx}
-                                    className={`${styles.breakdownItem} ${isStepActive ? styles.stepActive : ''} ${isStepCompleted ? styles.stepCompleted : ''}`}
-                                  >
-                                    <span className={styles.stepNum}>Pomodoro {stepIdx + 1}:</span>
-                                    <span className={styles.stepName}>{stepName}</span>
-                                    {isStepCompleted && <span className={styles.stepBadgeCompleted}>✓</span>}
-                                    {isStepActive && <span className={styles.stepBadgeActive}>Active</span>}
-                                  </div>
-                                );
-                              })}
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                );
-              })
-            )}
-          </div>
-        </div>
-
-        {/* Optional Actions (Bottom of notebook) */}
-        <div className={styles.actionsArea}>
-          {/* Add Manual Task Form */}
-          <form onSubmit={handleAddTask} className={styles.addTaskForm}>
-            <input
-              type="text"
-              className={styles.addTaskInput}
-              value={newTaskText}
-              onChange={(e) => setNewTaskText(e.target.value)}
-              placeholder="+ Add a manual task..."
-              aria-label="New task text"
-            />
-            <button
-              type="submit"
-              className={styles.addTaskBtn}
-              disabled={!newTaskText.trim()}
-              title="Add task manually"
-              aria-label="Add manual task button"
-            >
-              Add
-            </button>
-          </form>
-          {addTaskError && (
-            <div style={{ color: '#ff6b6b', fontSize: '0.72rem', marginTop: '4px', paddingLeft: '8px', width: '100%', textAlign: 'left' }}>
-              ⚠️ {addTaskError}
-            </div>
-          )}
-
-          {/* AI Coach Replan Input */}
-          {!isReplanning ? (
-            <button
-              className={styles.replanTriggerBtn}
-              onClick={() => setIsReplanning(true)}
-              title="Tell AI Coach how your plans changed"
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={styles.coachIcon}>
-                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-              </svg>
-              <span>Update Focus Plan</span>
-            </button>
-          ) : (
-            <form onSubmit={handleReplanSubmit} className={styles.replanForm}>
-              <span className={styles.replanTitle}>Explain your schedule changes to AI Coach:</span>
-              <textarea
-                className={styles.replanTextarea}
-                value={replanInput}
-                onChange={(e) => setReplanInput(e.target.value)}
-                placeholder="e.g. Finished revision. Need to prepare notes now."
-                rows={2}
-                autoFocus
-              />
-              {replanError && (
-                <div style={{ color: '#ff6b6b', fontSize: '0.72rem', marginBottom: '8px', width: '100%', textAlign: 'left' }}>
-                  ⚠️ {replanError}
+                  ))}
                 </div>
               )}
-              <div className={styles.replanActions}>
-                <button
-                  type="button"
-                  className={styles.replanCancelBtn}
-                  onClick={() => setIsReplanning(false)}
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className={styles.replanConfirmBtn}
-                  disabled={!replanInput.trim() || isSubmittingReplan}
-                  aria-label="Replan schedule"
-                >
-                  {isSubmittingReplan ? "Replanning..." : "Replan"}
-                </button>
-              </div>
+            </div>
+          ) : (
+            <>
+              {/* Completion Banner */}
+              {allTasksDone && (
+                <div className={styles.completedBanner}>
+                  <span className={styles.completedCheck}>✓</span>
+                  <div className={styles.completedTexts}>
+                    <span className={styles.completedTitle}>Focus Plan Completed</span>
+                    <p className={styles.completedSubtitle}>
+                      You are free to continue working or create a new plan.
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {/* Tasks List */}
+              <div className={styles.taskList}>
+                {!Array.isArray(tasks) || tasks.length === 0 ? (
+                  <div className={styles.emptyState}>No tasks in focus plan.</div>
+                ) : (
+                  tasks.map((task, i) => {
+                  const isExpanded = expandedTaskIndex === i;
+                  
+                  const getTaskStatus = () => {
+                    if (task.completed || task.status === 'Completed') return 'Completed';
+                    if (task.status === 'Deferred') return 'Deferred';
+                    if (task.status === 'Skipped') return 'Skipped';
+                    if (task.status === 'Cancelled') return 'Cancelled';
+
+                    if (task.taskType && task.taskType !== 'focus') {
+                      return task.status || 'Planned';
+                    }
+
+                    const activePomodoro = flattenedPomodoros[currentPomodoroIndex];
+                    if (activePomodoro && activePomodoro.taskIndex === i) {
+                      if (isBreakMode) {
+                        return 'Starting Soon';
+                      }
+                      return timerRunning ? 'In Progress' : 'Ready';
+                    }
+                    
+                    if (activePomodoro && activePomodoro.taskIndex > i) {
+                      return 'Completed';
+                    }
+                    
+                    return task.status || 'Planned';
+                  };
+
+                  const status = getTaskStatus();
+                  
+                  const totalPomos = task.pomodoros ? task.pomodoros.length : 1;
+                  const taskPomos = flattenedPomodoros.filter(fp => fp.taskIndex === i);
+                  const completedTaskPomos = taskPomos.filter(fp => fp.executionIndex < currentPomodoroIndex).length;
+                  
+                  let pomoProgressText = '';
+                  const isFocusTask = !task.taskType || task.taskType === 'focus';
+                  if (isFocusTask) {
+                    if (task.completed || status === 'Completed') {
+                      pomoProgressText = `Pomodoro ${totalPomos} of ${totalPomos}`;
+                    } else {
+                      const isActive = taskPomos.some(fp => fp.executionIndex === currentPomodoroIndex);
+                      if (isActive) {
+                        pomoProgressText = `Pomodoro ${Math.min(completedTaskPomos + 1, totalPomos)} of ${totalPomos}`;
+                      } else if (completedTaskPomos >= totalPomos) {
+                        pomoProgressText = `Pomodoro ${totalPomos} of ${totalPomos}`;
+                      } else {
+                        pomoProgressText = `Pomodoro ${Math.max(1, completedTaskPomos + 1)} of ${totalPomos}`;
+                      }
+                    }
+                  }
+
+                  return (
+                    <div 
+                      key={task.id || i} 
+                      className={`${styles.taskContainer} ${isExpanded ? styles.expanded : ''} ${task.completed || status === 'Completed' ? styles.taskCompleted : ''} ${status === 'In Progress' ? styles.taskInProgress : ''} ${status === 'Ready' ? styles.taskReady : ''} ${draggedIndex === i ? styles.dragging : ''} ${draggedOverIndex === i && dropPosition === 'above' ? styles.dragOverAbove : ''} ${draggedOverIndex === i && dropPosition === 'below' ? styles.dragOverBelow : ''}`}
+                      draggable={draggableIndex === i}
+                      onDragStart={(e) => handleDragStart(e, i)}
+                      onDragEnd={handleDragEnd}
+                      onDragOver={(e) => handleDragOver(e, i)}
+                      onDragLeave={handleDragLeave}
+                      onDrop={(e) => handleDrop(e, i)}
+                    >
+                      {/* Top Row: Reorder Handle, Checkbox, Text, Meta, Status */}
+                      <div className={styles.taskHeaderRow}>
+                        {/* Drag Handle */}
+                        <div
+                          className={styles.dragHandle}
+                          onMouseEnter={() => setDraggableIndex(i)}
+                          onMouseLeave={() => setDraggableIndex(null)}
+                          title="Drag to reorder"
+                          aria-label="Drag handle"
+                        >
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                            <circle cx="9" cy="6" r="1.5" fill="currentColor" />
+                            <circle cx="15" cy="6" r="1.5" fill="currentColor" />
+                            <circle cx="9" cy="12" r="1.5" fill="currentColor" />
+                            <circle cx="15" cy="12" r="1.5" fill="currentColor" />
+                            <circle cx="9" cy="18" r="1.5" fill="currentColor" />
+                            <circle cx="15" cy="18" r="1.5" fill="currentColor" />
+                          </svg>
+                        </div>
+
+                        {/* Interactive Checkbox */}
+                        <button
+                          className={`${styles.taskCheckbox} ${task.completed ? styles.checked : ''}`}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleTask(i);
+                          }}
+                          aria-label={task.completed ? "Mark task incomplete" : "Mark task complete"}
+                          title={task.completed ? "Mark incomplete" : "Mark complete"}
+                        >
+                          {task.completed && <span className={styles.checkMarkIcon}>✓</span>}
+                        </button>
+
+                        {/* Task Main Area (Click to expand/collapse) */}
+                        <div 
+                          className={styles.taskMainContent}
+                          onClick={(e) => handleTaskClick(i, e)}
+                        >
+                          <span className={styles.taskText}>{task.text}</span>
+                          <div className={styles.taskMetaRow}>
+                            {pomoProgressText && (
+                              <span className={styles.pomoProgressBadge}>{pomoProgressText}</span>
+                            )}
+                            <span className={styles.categoryBadge}>{task.executionLabel || task.category || 'Deep Work'}</span>
+                            {task.executionPriority && (
+                              <span className={`${styles.priorityBadge} ${styles['prio' + task.executionPriority]}`}>
+                                {task.executionPriority}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Status Label & Chevron */}
+                        <div 
+                          className={styles.statusAndExpand}
+                          onClick={(e) => handleTaskClick(i, e)}
+                        >
+                          <span className={`${styles.statusLabel} ${styles['status' + status.replace(/\s+/g, '')]}`}>
+                            {status}
+                          </span>
+                          <button
+                            type="button"
+                            className={`${styles.expandChevronBtn} ${isExpanded ? styles.chevronOpen : ''}`}
+                            aria-label={isExpanded ? "Collapse task details" : "Expand task details"}
+                          >
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                              <polyline points="6 9 12 15 18 9" />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Expanded Details Pane */}
+                      {isExpanded && (
+                        <div className={styles.taskDetailsPane}>
+                          {/* Duration Selector for Focus tasks */}
+                          {isFocusTask && (
+                            <div className={styles.detailsSection}>
+                              <div className={styles.detailsHeaderRow}>
+                                <span className={styles.detailsLabel}>Duration</span>
+                                <button
+                                  type="button"
+                                  className={styles.deleteTaskBtn}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    deleteTask(i);
+                                  }}
+                                  title="Delete task from focus plan"
+                                  aria-label="Delete task"
+                                >
+                                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <polyline points="3 6 5 6 21 6" />
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                                    <line x1="10" y1="11" x2="10" y2="17" />
+                                    <line x1="14" y1="11" x2="14" y2="17" />
+                                  </svg>
+                                  <span>Delete Task</span>
+                                </button>
+                              </div>
+                              <div className={styles.durationSelectorWrap}>
+                                <div 
+                                  className={`${styles.customSelectWrapper} ${openSelectIndex === i ? styles.customSelectWrapperOpen : ''}`}
+                                  ref={openSelectIndex === i ? selectWrapperRef : null}
+                                >
+                                  <button
+                                    type="button"
+                                    className={styles.customSelectTrigger}
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      setOpenSelectIndex(openSelectIndex === i ? null : i);
+                                    }}
+                                    aria-label="Select estimated duration"
+                                  >
+                                    <span>
+                                      {task.pomodoros ? task.pomodoros.length : 3} Pomodoro{(task.pomodoros ? task.pomodoros.length : 3) > 1 ? 's' : ''} ({(task.pomodoros ? task.pomodoros.length : 3) * 25} min)
+                                    </span>
+                                    <span className={styles.customSelectArrow}>▼</span>
+                                  </button>
+                                  {openSelectIndex === i && (
+                                    <div className={styles.customSelectOptions}>
+                                      {[1, 2, 3, 4, 5, 6].map(num => (
+                                        <button
+                                          key={num}
+                                          type="button"
+                                          className={`${styles.customSelectOption} ${
+                                            (task.pomodoros ? task.pomodoros.length : 3) === num ? styles.activeOption : ''
+                                          }`}
+                                          onClick={(e) => {
+                                            e.stopPropagation();
+                                            updateTaskDuration(i, num);
+                                            setOpenSelectIndex(null);
+                                          }}
+                                        >
+                                          {num} Pomodoro{num > 1 ? 's' : ''} ({num * 25} min)
+                                        </button>
+                                      ))}
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          )}
+
+                          <div className={styles.detailsSection}>
+                            <span className={styles.detailsLabel}>Synopsis</span>
+                            <p className={styles.detailsValueText}>
+                              {task.synopsis || `This session will guide you through key learning milestones and focus exercises to successfully complete: ${task.text}.`}
+                            </p>
+                          </div>
+
+                          {isFocusTask && task.pomodoros && task.pomodoros.length > 0 && (
+                            <div className={styles.detailsSection}>
+                              <span className={styles.detailsLabel}>Breakdown</span>
+                              <div className={styles.breakdownList}>
+                                {task.pomodoros.map((stepName, stepIdx) => {
+                                  const flatIdx = flattenedPomodoros.findIndex(
+                                    fp => fp.taskIndex === i && fp.index === stepIdx
+                                  );
+                                  const isStepCompleted = flatIdx !== -1 && flatIdx < currentPomodoroIndex;
+                                  const isStepActive = flatIdx === currentPomodoroIndex;
+
+                                  return (
+                                    <div
+                                      key={stepIdx}
+                                      className={`${styles.breakdownItem} ${isStepActive ? styles.stepActive : ''} ${isStepCompleted ? styles.stepCompleted : ''}`}
+                                    >
+                                      <span className={styles.stepNum}>Pomodoro {stepIdx + 1}:</span>
+                                      <span className={styles.stepName}>{stepName}</span>
+                                      {isStepCompleted && <span className={styles.stepBadgeCompleted}>✓</span>}
+                                      {isStepActive && <span className={styles.stepBadgeActive}>Active</span>}
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })
+              )}
+            </div>
+          </>
+        )}
+      </div>
+
+        {/* Optional Actions (Bottom of notebook) - Only for Tasks tab */}
+        {activeTab === 'tasks' && (
+          <div className={styles.actionsArea}>
+            {/* Add Manual Task Form */}
+            <form onSubmit={handleAddTask} className={styles.addTaskForm}>
+              <input
+                type="text"
+                className={styles.addTaskInput}
+                value={newTaskText}
+                onChange={(e) => setNewTaskText(e.target.value)}
+                placeholder="+ Add a manual task..."
+                aria-label="New task text"
+              />
+              <button
+                type="submit"
+                className={styles.addTaskBtn}
+                disabled={!newTaskText.trim()}
+                title="Add task manually"
+                aria-label="Add manual task button"
+              >
+                Add
+              </button>
             </form>
-          )}
-        </div>
+            {addTaskError && (
+              <div style={{ color: '#ff6b6b', fontSize: '0.72rem', marginTop: '4px', paddingLeft: '8px', width: '100%', textAlign: 'left' }}>
+                ⚠️ {addTaskError}
+              </div>
+            )}
+
+            {/* AI Coach Replan Input */}
+            {!isReplanning ? (
+              <button
+                className={styles.replanTriggerBtn}
+                onClick={() => setIsReplanning(true)}
+                title="Tell AI Coach how your plans changed"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={styles.coachIcon}>
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                </svg>
+                <span>Update Focus Plan</span>
+              </button>
+            ) : (
+              <form onSubmit={handleReplanSubmit} className={styles.replanForm}>
+                <span className={styles.replanTitle}>Explain your schedule changes to AI Coach:</span>
+                <textarea
+                  className={styles.replanTextarea}
+                  value={replanInput}
+                  onChange={(e) => setReplanInput(e.target.value)}
+                  placeholder="e.g. Finished revision. Need to prepare notes now."
+                  rows={2}
+                  autoFocus
+                />
+                {replanError && (
+                  <div style={{ color: '#ff6b6b', fontSize: '0.72rem', marginBottom: '8px', width: '100%', textAlign: 'left' }}>
+                    ⚠️ {replanError}
+                  </div>
+                )}
+                <div className={styles.replanActions}>
+                  <button
+                    type="button"
+                    className={styles.replanCancelBtn}
+                    onClick={() => setIsReplanning(false)}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className={styles.replanConfirmBtn}
+                    disabled={!replanInput.trim() || isSubmittingReplan}
+                    aria-label="Replan schedule"
+                  >
+                    {isSubmittingReplan ? "Replanning..." : "Replan"}
+                  </button>
+                </div>
+              </form>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
