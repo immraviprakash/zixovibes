@@ -14,7 +14,7 @@ import CompletedConfirmModal from './components/CompletedConfirmModal/CompletedC
 import GuestFavoriteModal from './components/GuestFavoriteModal/GuestFavoriteModal';
 import UnfavoriteConfirmModal from './components/UnfavoriteConfirmModal/UnfavoriteConfirmModal';
 const AuthPage = lazy(() => import('./components/Auth/AuthPage'));
-import { getGreeting, currentUser } from './data/mockData';
+import { getGreeting } from './data/mockData';
 import woodBackground from './assets/wood-background.jpg';
 import styles from './App.module.css';
 
@@ -41,6 +41,7 @@ function AppContent() {
     setActivePlaylist,
     announcement,
     username,
+    displayName,
     showGuestModal,
     setShowGuestModal,
     previousMode,
@@ -250,7 +251,7 @@ function AppContent() {
             }`}>
               <h1 className={styles.greetingText}>
                 {getGreeting()},{' '}
-                <span className={styles.username}>{username}</span>
+                <span className={styles.username}>{displayName || username}</span>
               </h1>
             </div>
             

@@ -21,7 +21,8 @@ const MoodInput = memo(function MoodInput() {
     playPlaylist,
     setIsPlaying,
     displayName,
-    username
+    username,
+    userInitial
   } = useApp();
 
   const [isExpanded, setIsExpanded] = useState(false);
@@ -39,16 +40,13 @@ const MoodInput = memo(function MoodInput() {
   const currentUser = auth.currentUser;
   const userId = currentUser ? currentUser.uid : 'guest';
 
-  // Compute user avatar initial: displayName -> username -> 'U'
-  const userInitial = (() => {
-    if (displayName && typeof displayName === 'string' && displayName.trim()) {
-      return displayName.trim().charAt(0).toUpperCase();
-    }
-    if (username && typeof username === 'string' && username.trim() && username.trim() !== 'Guest User') {
-      return username.trim().charAt(0).toUpperCase();
-    }
-    if (currentUser?.displayName && currentUser.displayName.trim()) {
-      return currentUser.displayName.trim().charAt(0).toUpperCase();
+  // Compute user avatar initial: derived purely from username (NOT displayName)
+  const computedUserInitial = userInitial || (() => {
+    if (username && typeof username === 'string') {
+      const trimmed = username.trim();
+      if (trimmed && trimmed !== 'Guest User') {
+        return trimmed.charAt(0).toUpperCase();
+      }
     }
     return 'U';
   })();
@@ -352,7 +350,7 @@ const MoodInput = memo(function MoodInput() {
                       className={`${styles.messageBubbleRow} ${msg.sender === 'user' ? styles.userRow : styles.aiRow}`}
                     >
                       <div className={styles.avatar}>
-                        {msg.sender === 'user' ? userInitial : 'Z'}
+                        {msg.sender === 'user' ? computedUserInitial : 'Z'}
                       </div>
                       <div className={styles.messageContainer}>
                         <div className={styles.messageBubble}>

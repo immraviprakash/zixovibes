@@ -669,6 +669,14 @@ button.avatar.disabled {
   color: #ffffff;
 }
 
+.profileHandle {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--gold-light);
+  opacity: 0.85;
+  letter-spacing: 0.02em;
+}
+
 .editLinkBtn {
   font-size: 0.78rem;
   font-weight: 500;
@@ -1447,6 +1455,11 @@ button.avatar.disabled {
 
 .floatingCardDf .profileName {
   color: #F5F5F7 !important;
+}
+
+.floatingCardDf .profileHandle {
+  color: var(--df-accent) !important;
+  opacity: 0.85;
 }
 
 .floatingCardDf .editLinkBtn {

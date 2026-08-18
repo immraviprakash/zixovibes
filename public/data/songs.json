@@ -972,16 +972,6 @@
     "cover": "/covers/jazz_003.jpg"
   },
   {
-    "id": "jazz_004",
-    "title": "Bubbles",
-    "artist": "Galeazzo",
-    "album": "Bubbles",
-    "playlist": "jazz",
-    "duration": 90,
-    "filename": "/music/jazz/Bubbles.mp3",
-    "cover": "/covers/jazz_004.jpg"
-  },
-  {
     "id": "jazz_005",
     "title": "Fairness",
     "artist": "Fig and the Fam",

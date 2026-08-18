@@ -561,6 +561,17 @@ export function AppProvider({ children }) {
   });
   const [userEmail, setUserEmail] = useState('');
 
+  // Canonical user avatar initial derived purely from username (NOT displayName)
+  const userInitial = useMemo(() => {
+    if (username && typeof username === 'string') {
+      const trimmed = username.trim();
+      if (trimmed && trimmed !== 'Guest User') {
+        return trimmed.charAt(0).toUpperCase();
+      }
+    }
+    return 'U';
+  }, [username]);
+
   // Helpers to parse local storage safely
   const getStoredJSON = useCallback((key, fallback) => {
     try {
@@ -3032,6 +3043,7 @@ export function AppProvider({ children }) {
     // User profile dynamic additions
     username, updateUsername,
     displayName, updateDisplayName,
+    userInitial,
     userEmail,
     isAuthenticated, setIsAuthenticated,
     showGuestModal, setShowGuestModal,
@@ -3087,7 +3099,7 @@ export function AppProvider({ children }) {
     mode, switchMode, isTransitioning, transitionStage, pendingMode,
     isPlaying, classicIsPlaying, playbackActivated, volume, isShuffle, isLoop, isFavorited, activePlaylist, playbackSettings,
     playlistsList, songs, openedPlaylist, currentSong, elapsed, currentPlaylistSongs, seek, playNext, playPrev, playSong, playPlaylist,
-    username, updateUsername, displayName, updateDisplayName, userEmail, isAuthenticated, showGuestModal, previousMode, login, signUp, logout, resetPassword,
+    username, updateUsername, displayName, updateDisplayName, userInitial, userEmail, isAuthenticated, showGuestModal, previousMode, login, signUp, logout, resetPassword,
     hasOnboarded, sessionTitle, sessionSubtitle, tasks, toggleTask, deleteTask, allTasksDone,
     estimatedDuration, suggestedPomodoros, motivationalNote, totalFocusTime, selectedFocusPlaylist,
     sessionComplete, pomodorosCompleted, notebookOpen, resetSession,

@@ -9,7 +9,10 @@ const Header = memo(function Header({ mode = 'classic', onModeChange }) {
     hasOnboarded,
     resetSession,
     username,
-    updateUsername,
+    displayName,
+    updateDisplayName,
+    userInitial,
+    userEmail,
     setActivePlaylist,
     setClassicIsPlaying,
     isAuthenticated,
@@ -444,14 +447,14 @@ const Header = memo(function Header({ mode = 'classic', onModeChange }) {
   // Profile Card Renderer
   const renderProfileCard = () => {
     const handleEditClick = () => {
-      setTempName(username);
+      setTempName(displayName || username || '');
       setIsEditingName(true);
     };
 
     const handleSaveName = () => {
       const trimmed = tempName.trim();
       if (trimmed.length > 0) {
-        updateUsername(trimmed);
+        updateDisplayName(trimmed);
       }
       setIsEditingName(false);
     };
@@ -466,7 +469,7 @@ const Header = memo(function Header({ mode = 'classic', onModeChange }) {
           <span className={styles.cardTitle}>Profile</span>
         </div>
         <div className={styles.profileSection}>
-          <div className={styles.largeAvatar}>R</div>
+          <div className={styles.largeAvatar}>{userInitial}</div>
           
           {isEditingName ? (
             <div className={styles.nameEditBlock}>
@@ -488,7 +491,10 @@ const Header = memo(function Header({ mode = 'classic', onModeChange }) {
             </div>
           ) : (
             <div className={styles.nameDisplayBlock}>
-              <h4 className={styles.profileName}>{username}</h4>
+              <h4 className={styles.profileName}>{displayName || username}</h4>
+              {isAuthenticated && username && username !== 'Guest User' && (
+                <span className={styles.profileHandle}>@{username}</span>
+              )}
               <button className={styles.editLinkBtn} onClick={handleEditClick}>
                 Edit Name
               </button>
@@ -517,7 +523,7 @@ const Header = memo(function Header({ mode = 'classic', onModeChange }) {
             <div className={styles.expandedDetails}>
               <div className={styles.detailRow}>
                 <span className={styles.detailLabel}>Email Address</span>
-                <span className={styles.detailVal}>ravixxxxxx@gmail.com</span>
+                <span className={styles.detailVal}>{userEmail || 'ravixxxxxx@gmail.com'}</span>
               </div>
               <div className={styles.detailRow}>
                 <span className={styles.detailLabel}>Joined Date</span>
@@ -739,7 +745,7 @@ const Header = memo(function Header({ mode = 'classic', onModeChange }) {
             aria-haspopup="true"
             aria-expanded={dropdownOpen}
           >
-            <span>{isAuthenticated ? (username ? username[0].toUpperCase() : 'R') : 'U'}</span>
+            <span>{userInitial}</span>
           </button>
 
           {/* Profile Dropdown Menu Card */}
@@ -783,7 +789,7 @@ const Header = memo(function Header({ mode = 'classic', onModeChange }) {
                 ) : (
                   <>
                     <div className={styles.dropdownHeader}>
-                      <span className={styles.username}>{username}</span>
+                      <span className={styles.username}>{displayName || username}</span>
                     </div>
                     <div className={styles.divider} />
                     <button
