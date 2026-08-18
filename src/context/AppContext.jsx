@@ -5,6 +5,7 @@ import { playlists } from '../data/mockData';
 import { analyzeTask, generatePlaylistForTask } from '../data/musicBrain';
 import initialPlaylists from '../../public/data/playlists.json';
 import initialSongs from '../../public/data/songs.json';
+import { fetchWithTimeoutAndRetry } from '../config/api';
 import { 
   createUserWithEmailAndPassword, 
   signInWithEmailAndPassword, 
@@ -674,9 +675,33 @@ export function AppProvider({ children }) {
     return saved.current?.playbackSettings?.volume ?? 65;
   });
   const [playbackActivated, setPlaybackActivated] = useState(false);
-  const [playlistsList, setPlaylistsList] = useState(initialPlaylists);
+  const [playlistsList, setPlaylistsList] = useState(() => {
+    return initialPlaylists.map(p => ({
+      ...p,
+      songCount: initialSongs.filter(s => s.playlist === p.id).length
+    }));
+  });
   const [songs, setSongs] = useState(initialSongs);
   const [shufflePlayedSongIds, setShufflePlayedSongIds] = useState([]);
+  const [seekTrigger, setSeekTrigger] = useState(0);
+  const playbackStateRef = useRef(null);
+
+  playbackStateRef.current = {
+    mode,
+    classicActivePlaylist,
+    classicCurrentSong,
+    classicElapsed,
+    classicIsShuffle,
+    classicIsLoop,
+    classicIsPlaying,
+    dfActivePlaylist,
+    dfCurrentSong,
+    dfElapsed,
+    dfIsShuffle,
+    dfIsLoop,
+    dfIsPlaying,
+    volume
+  };
   const [aiPlaylistSongs, setAiPlaylistSongs] = useState(() => {
     try {
       let isFav = false;
@@ -919,8 +944,26 @@ export function AppProvider({ children }) {
           localStorage.setItem('zixovibes_username', fetchedUsername);
           localStorage.setItem('zixovibes_display_name', fetchedDisplayName);
 
-          // 1. Fetch Classic Favorites & Migrate legacy if not present
-          const classicFavsDoc = await getDoc(doc(db, 'users', user.uid, 'classic', 'favorites'));
+          // Fetch all subcollections in parallel to avoid sequential blocking round-trips
+          const [
+            classicFavsDoc,
+            dfFavsDoc,
+            classicPlaybackDoc,
+            dfPlaybackDoc,
+            classicHistoryDoc,
+            dfHistoryDoc,
+            aiSongsDoc
+          ] = await Promise.all([
+            getDoc(doc(db, 'users', user.uid, 'classic', 'favorites')),
+            getDoc(doc(db, 'users', user.uid, 'deepFocus', 'favorites')),
+            getDoc(doc(db, 'users', user.uid, 'classic', 'playback')),
+            getDoc(doc(db, 'users', user.uid, 'deepFocus', 'playback')),
+            getDoc(doc(db, 'users', user.uid, 'classic', 'history')),
+            getDoc(doc(db, 'users', user.uid, 'deepFocus', 'focusHistory')),
+            getDoc(doc(db, 'users', user.uid, 'deepFocus', 'playlist_for_you_songs'))
+          ]);
+
+          // 1. Process Classic Favorites & Migrate legacy if not present
           let classicFavPlaylists = [];
           let classicFavSongs = [];
           if (classicFavsDoc.exists()) {
@@ -929,8 +972,10 @@ export function AppProvider({ children }) {
             classicFavSongs = data.songs || [];
           } else {
             // Check legacy favorites
-            const legacyPlaylistsDoc = await getDoc(doc(db, 'users', user.uid, 'favorites', 'playlists'));
-            const legacySongsDoc = await getDoc(doc(db, 'users', user.uid, 'favorites', 'songs'));
+            const [legacyPlaylistsDoc, legacySongsDoc] = await Promise.all([
+              getDoc(doc(db, 'users', user.uid, 'favorites', 'playlists')),
+              getDoc(doc(db, 'users', user.uid, 'favorites', 'songs'))
+            ]);
             
             const rawPls = legacyPlaylistsDoc.exists() ? (legacyPlaylistsDoc.data().list || []) : [];
             const rawSongs = legacySongsDoc.exists() ? (legacySongsDoc.data().list || []) : [];
@@ -956,8 +1001,7 @@ export function AppProvider({ children }) {
           setClassicFavoriteSongs(classicFavSongs);
           localStorage.setItem('zixovibes_classic_favorites', JSON.stringify({ playlists: classicFavPlaylists, songs: classicFavSongs }));
 
-          // 2. Fetch Deep Focus Favorites
-          const dfFavsDoc = await getDoc(doc(db, 'users', user.uid, 'deepFocus', 'favorites'));
+          // 2. Process Deep Focus Favorites
           let dfFavPlaylists = [];
           let dfFavSongs = [];
           if (dfFavsDoc.exists()) {
@@ -970,11 +1014,10 @@ export function AppProvider({ children }) {
           localStorage.setItem('zixovibes_deepFocus_favorites', JSON.stringify({ playlists: dfFavPlaylists, songs: dfFavSongs }));
 
           const isAiFav = dfFavPlaylists.some(x => String(x.playlistId) === 'playlist_for_you');
-          if (isAiFav && songs && songs.length > 0) {
-            const aiSongsDoc = await getDoc(doc(db, 'users', user.uid, 'deepFocus', 'playlist_for_you_songs'));
+          if (isAiFav && initialSongs && initialSongs.length > 0) {
             if (aiSongsDoc.exists()) {
               const songIds = aiSongsDoc.data().songIds || [];
-              const resolvedSongs = songIds.map(id => songs.find(s => s.id === id)).filter(Boolean);
+              const resolvedSongs = songIds.map(id => initialSongs.find(s => s.id === id)).filter(Boolean);
               if (resolvedSongs.length > 0) {
                 const resolvedWithPlaylist = resolvedSongs.map(s => ({ ...s, playlist: 'playlist_for_you' }));
                 setAiPlaylistSongs(resolvedWithPlaylist);
@@ -983,65 +1026,66 @@ export function AppProvider({ children }) {
             }
           }
 
-          // 3. Fetch Classic Playback settings
-          const classicPlaybackDoc = await getDoc(doc(db, 'users', user.uid, 'classic', 'playback'));
-          if (classicPlaybackDoc.exists()) {
-            const pb = classicPlaybackDoc.data();
-            if (pb.activePlaylist && typeof pb.activePlaylist === 'object') setClassicActivePlaylist(pb.activePlaylist);
-            if (pb.currentSong && typeof pb.currentSong === 'object') setClassicCurrentSong(pb.currentSong);
-            if (typeof pb.isShuffle === 'boolean') setClassicIsShuffle(pb.isShuffle);
-            if (typeof pb.isLoop === 'boolean') setClassicIsLoop(pb.isLoop);
-            if (typeof pb.volume === 'number') setVolume(pb.volume);
-          } else {
-            // Check legacy preferences settings
-            const legacyPrefsDoc = await getDoc(doc(db, 'users', user.uid, 'preferences', 'settings'));
-            if (legacyPrefsDoc.exists()) {
-              const prefs = legacyPrefsDoc.data();
-              if (prefs.lastPlaylistId && playlistsList.length > 0) {
-                const pl = playlistsList.find(p => p.id === prefs.lastPlaylistId);
-                if (pl) setClassicActivePlaylist(pl);
+          // 3. Process Classic Playback settings (only if user has not already started playback locally)
+          if (!playbackActivated) {
+            if (classicPlaybackDoc.exists()) {
+              const pb = classicPlaybackDoc.data();
+              if (pb.activePlaylist && typeof pb.activePlaylist === 'object') setClassicActivePlaylist(pb.activePlaylist);
+              if (pb.currentSong && typeof pb.currentSong === 'object') setClassicCurrentSong(pb.currentSong);
+              if (typeof pb.isShuffle === 'boolean') setClassicIsShuffle(pb.isShuffle);
+              if (typeof pb.isLoop === 'boolean') setClassicIsLoop(pb.isLoop);
+              if (typeof pb.volume === 'number') setVolume(pb.volume);
+            } else {
+              // Check legacy preferences settings
+              const legacyPrefsDoc = await getDoc(doc(db, 'users', user.uid, 'preferences', 'settings'));
+              if (legacyPrefsDoc.exists()) {
+                const prefs = legacyPrefsDoc.data();
+                if (prefs.lastPlaylistId && initialPlaylists.length > 0) {
+                  const pl = initialPlaylists.find(p => p.id === prefs.lastPlaylistId);
+                  if (pl) setClassicActivePlaylist(pl);
+                }
+                if (prefs.lastSongId && initialSongs.length > 0) {
+                  const s = initialSongs.find(x => x.id === prefs.lastSongId);
+                  if (s) setClassicCurrentSong(s);
+                }
+                if (typeof prefs.shuffle === 'boolean') setClassicIsShuffle(prefs.shuffle);
+                if (typeof prefs.repeat === 'boolean') setClassicIsLoop(prefs.repeat);
+                if (typeof prefs.volume === 'number') setVolume(prefs.volume);
               }
-              if (prefs.lastSongId && songs.length > 0) {
-                const s = songs.find(x => x.id === prefs.lastSongId);
-                if (s) setClassicCurrentSong(s);
-              }
-              if (typeof prefs.shuffle === 'boolean') setClassicIsShuffle(prefs.shuffle);
-              if (typeof prefs.repeat === 'boolean') setClassicIsLoop(prefs.repeat);
-              if (typeof prefs.volume === 'number') setVolume(prefs.volume);
             }
           }
           setClassicElapsed(0);
           setClassicIsPlaying(false);
 
-          // 4. Fetch Deep Focus Playback settings
-          const dfPlaybackDoc = await getDoc(doc(db, 'users', user.uid, 'deepFocus', 'playback'));
-          if (dfPlaybackDoc.exists()) {
-            const pb = dfPlaybackDoc.data();
-            let restoredPlaylist = pb.activePlaylist;
-            let restoredSong = pb.currentSong;
-            
-            const isPlaylistValid = restoredPlaylist && restoredPlaylist.id && (
-              restoredPlaylist.id !== 'playlist_for_you' || 
-              (dfFavPlaylists.some(x => String(x.playlistId) === 'playlist_for_you') || (localStorage.getItem('zixovibes_playlist_for_you_songs') && JSON.parse(localStorage.getItem('zixovibes_playlist_for_you_songs')).length > 0))
-            );
-            
-            if (isPlaylistValid) {
-              if (restoredPlaylist && typeof restoredPlaylist === 'object') setDfActivePlaylist(restoredPlaylist);
-              if (restoredSong && typeof restoredSong === 'object') setDfCurrentSong(restoredSong);
-            } else {
-              const focusPlaylist = initialPlaylists.find(p => p.id === 'focus') || initialPlaylists[0];
-              const focusSongs = initialSongs.filter(s => s.playlist === 'focus');
-              setDfActivePlaylist(focusPlaylist);
-              setDfCurrentSong(focusSongs.length > 0 ? focusSongs[0] : null);
+          // 4. Process Deep Focus Playback settings (only if user has not already started playback locally)
+          if (!playbackActivated) {
+            if (dfPlaybackDoc.exists()) {
+              const pb = dfPlaybackDoc.data();
+              let restoredPlaylist = pb.activePlaylist;
+              let restoredSong = pb.currentSong;
+              
+              const isPlaylistValid = restoredPlaylist && restoredPlaylist.id && (
+                restoredPlaylist.id !== 'playlist_for_you' || 
+                (dfFavPlaylists.some(x => String(x.playlistId) === 'playlist_for_you') || (localStorage.getItem('zixovibes_playlist_for_you_songs') && JSON.parse(localStorage.getItem('zixovibes_playlist_for_you_songs')).length > 0))
+              );
+              
+              if (isPlaylistValid) {
+                if (restoredPlaylist && typeof restoredPlaylist === 'object') setDfActivePlaylist(restoredPlaylist);
+                if (restoredSong && typeof restoredSong === 'object') setDfCurrentSong(restoredSong);
+              } else {
+                const focusPlaylist = initialPlaylists.find(p => p.id === 'focus') || initialPlaylists[0];
+                const focusSongs = initialSongs.filter(s => s.playlist === 'focus');
+                setDfActivePlaylist(focusPlaylist);
+                setDfCurrentSong(focusSongs.length > 0 ? focusSongs[0] : null);
+              }
+              if (typeof pb.isShuffle === 'boolean') setDfIsShuffle(pb.isShuffle);
+              if (typeof pb.isLoop === 'boolean') setDfIsLoop(pb.isLoop);
             }
-            if (typeof pb.isShuffle === 'boolean') setDfIsShuffle(pb.isShuffle);
-            if (typeof pb.isLoop === 'boolean') setDfIsLoop(pb.isLoop);
           }
           setDfElapsed(0);
           setDfIsPlaying(false);
 
-          // 5. Fetch Classic Recently Played
-          const classicHistoryDoc = await getDoc(doc(db, 'users', user.uid, 'classic', 'history'));
+          // 5. Process Classic Recently Played
           let classHistoryList = [];
           if (classicHistoryDoc.exists()) {
             classHistoryList = classicHistoryDoc.data().history || [];
@@ -1056,8 +1100,7 @@ export function AppProvider({ children }) {
           setClassicHistory(classHistoryList);
           localStorage.setItem('zixovibes_classic_history', JSON.stringify(classHistoryList));
 
-          // 6. Fetch Deep Focus Completed Sessions History
-          const dfHistoryDoc = await getDoc(doc(db, 'users', user.uid, 'deepFocus', 'focusHistory'));
+          // 6. Process Deep Focus Completed Sessions History
           let focusHistoryList = [];
           if (dfHistoryDoc.exists()) {
             focusHistoryList = dfHistoryDoc.data().focusHistory || [];
@@ -1098,7 +1141,7 @@ export function AppProvider({ children }) {
       }
     });
     return () => unsubscribe();
-  }, [songs, playlistsList]);
+  }, []);
 
   const updateDisplayName = useCallback(async (newName) => {
     const trimmed = newName.trim();
@@ -1131,14 +1174,22 @@ export function AppProvider({ children }) {
             profile: { username: trimmed }
           }, { merge: true });
           
-          // Also update or index in usernames collection
-          const uDocRef = doc(db, 'usernames', trimmed.toLowerCase());
-          await setDoc(uDocRef, {
-            uid: auth.currentUser.uid,
-            email: auth.currentUser.email || userEmail,
-            username: trimmed,
-            updatedAt: new Date().toISOString()
-          }, { merge: true });
+          // Securely reserve username through backend endpoint instead of direct client write
+          const response = await fetchWithTimeoutAndRetry(`${API_BASE}/api/auth/reserve-username`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              username: trimmed,
+              email: auth.currentUser.email || userEmail,
+              uid: auth.currentUser.uid
+            }),
+          });
+          if (!response.ok) {
+            const data = await response.json().catch(() => ({}));
+            throw new Error(data.error || 'Failed to update username registry');
+          }
         } catch (error) {
           console.error("[Firebase Auth] Failed to save updated username to Firestore:", error);
         }
@@ -1148,29 +1199,7 @@ export function AppProvider({ children }) {
 
 
 
-  // Fetch dynamic library metadata
-  useEffect(() => {
-    const loadMetadata = async () => {
-      try {
-        const pRes = await fetch('/data/playlists.json');
-        const pData = await pRes.json();
-        const sRes = await fetch('/data/songs.json');
-        const sData = await sRes.json();
 
-        // Calculate dynamic song count
-        const loadedPlaylists = pData.map(p => ({
-          ...p,
-          songCount: sData.filter(s => s.playlist === p.id).length
-        }));
-
-        setPlaylistsList(loadedPlaylists);
-        setSongs(sData);
-      } catch (err) {
-        console.error("Failed to load Zix'Ovibes music library metadata:", err);
-      }
-    };
-    loadMetadata();
-  }, []);
 
   // Sync active playlists with loaded metadata
   useEffect(() => {
@@ -1297,7 +1326,14 @@ export function AppProvider({ children }) {
     }
   }, [currentSong?.id, isPlaying, mode, saveUserDoc]);
 
-  // 1. Sync Audio SOURCE when currentSong changes or mode switches
+  // Automatically set playbackActivated to true as soon as music playback starts
+  useEffect(() => {
+    if (classicIsPlaying || dfIsPlaying) {
+      setPlaybackActivated(true);
+    }
+  }, [classicIsPlaying, dfIsPlaying]);
+
+  // 1. Sync Audio SOURCE when currentSong changes or mode switches (preloads only if playbackActivated is true)
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
@@ -1311,27 +1347,30 @@ export function AppProvider({ children }) {
         prevModeRef.current = mode;
 
         const songUrl = currentSong.filename;
-        audio.src = songUrl;
-        audio.load();
+        
+        if (playbackActivated || isPlaying) {
+          audio.src = songUrl;
+          audio.load();
 
-        if (!initialTimeRestoredRef.current && elapsed > 0) {
-          audio.currentTime = elapsed;
-          initialTimeRestoredRef.current = true;
-        } else if (isModeSwitch && elapsed > 0) {
-          audio.currentTime = elapsed;
-        } else {
-          audio.currentTime = 0;
-          setElapsed(0);
-        }
+          if (!initialTimeRestoredRef.current && elapsed > 0) {
+            audio.currentTime = elapsed;
+            initialTimeRestoredRef.current = true;
+          } else if (isModeSwitch && elapsed > 0) {
+            audio.currentTime = elapsed;
+          } else {
+            audio.currentTime = 0;
+            setElapsed(0);
+          }
 
-        if (isPlaying) {
-          audio.play().catch(e => console.log("Playback failed to start:", e));
+          if (isPlaying) {
+            audio.play().catch(e => console.log("Playback failed to start:", e));
+          }
         }
       }
     } else {
       audio.pause();
     }
-  }, [currentSong, mode]);
+  }, [currentSong, mode, playbackActivated, isPlaying]);
 
   // 2. Control PLAY / PAUSE when isPlaying changes without resetting currentTime or reloading source
   useEffect(() => {
@@ -1339,6 +1378,7 @@ export function AppProvider({ children }) {
     if (!audio || !currentSong) return;
 
     if (isPlaying) {
+      setPlaybackActivated(true);
       if (!audio.src || audio.src === window.location.href) {
         audio.src = currentSong.filename;
         audio.load();
@@ -1409,6 +1449,7 @@ export function AppProvider({ children }) {
       isSeekingRef.current = true;
       audioRef.current.currentTime = time;
       setElapsed(time);
+      setSeekTrigger(prev => prev + 1);
     }
   }, [setElapsed]);
 
@@ -1760,7 +1801,7 @@ export function AppProvider({ children }) {
     saveUserDoc
   ]);
 
-  // Debounced playback settings sync to Firestore
+  // Debounced playback settings sync to Firestore (does not depend on ticking elapsed)
   useEffect(() => {
     if (!isAuthenticated) return;
     const timeout = setTimeout(() => {
@@ -1768,7 +1809,16 @@ export function AppProvider({ children }) {
     }, 4000); // 4s debounce
     return () => clearTimeout(timeout);
   }, [
-    mode, volume, isShuffle, isLoop, activePlaylist, currentSong, elapsed, isAuthenticated, syncPlaybackToFirestore
+    mode,
+    volume,
+    isShuffle,
+    isLoop,
+    isPlaying,
+    activePlaylist?.id,
+    currentSong?.id,
+    seekTrigger,
+    isAuthenticated,
+    syncPlaybackToFirestore
   ]);
 
   // Periodic playback checkpoint auto-save
@@ -2218,7 +2268,7 @@ export function AppProvider({ children }) {
     console.log("[AUTH TRACE] STEP 1: Pre-validating username uniqueness via backend for:", trimmedUsername);
     // 1. Pre-validate username availability via backend to avoid orphaned auth accounts
     try {
-      const checkRes = await fetch(`${API_BASE}/api/auth/check-username`, {
+      const checkRes = await fetchWithTimeoutAndRetry(`${API_BASE}/api/auth/check-username`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -2278,7 +2328,7 @@ export function AppProvider({ children }) {
       console.log("[AUTH TRACE] STEP 4: Calling backend reserve-username for:", trimmedUsername);
       // 5. Reserve username in 'usernames' collection securely via backend
       try {
-        const reserveRes = await fetch(`${API_BASE}/api/auth/reserve-username`, {
+        const reserveRes = await fetchWithTimeoutAndRetry(`${API_BASE}/api/auth/reserve-username`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -2387,7 +2437,7 @@ export function AppProvider({ children }) {
     if (!isEmail) {
       const usernameKey = trimmedIdentifier.toLowerCase();
       try {
-        const response = await fetch(`${API_BASE}/api/auth/resolve-username`, {
+        const response = await fetchWithTimeoutAndRetry(`${API_BASE}/api/auth/resolve-username`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -2472,20 +2522,21 @@ export function AppProvider({ children }) {
       fetchedUsername = targetEmail.split('@')[0] || 'user';
     }
 
-    // Self-heal username index for legacy users if missing
+    // Self-heal username index for legacy users if missing (run in background, non-blocking)
     if (fetchedUsername && fetchedUsername !== 'user') {
-      try {
-        const uRef = doc(db, 'usernames', fetchedUsername.toLowerCase());
-        const uSnap = await getDoc(uRef);
-        if (!uSnap.exists()) {
-          await setDoc(uRef, {
-            uid,
-            email: targetEmail,
-            username: fetchedUsername,
-            createdAt: nowIso
-          });
-        }
-      } catch (e) {}
+      fetchWithTimeoutAndRetry(`${API_BASE}/api/auth/reserve-username`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: fetchedUsername,
+          email: targetEmail,
+          uid: uid
+        }),
+      }).catch(e => {
+        console.warn("[Firebase Auth] Failed to self-heal username index:", e);
+      });
     }
 
     // 5. Update state
@@ -2517,7 +2568,7 @@ export function AppProvider({ children }) {
     if (!isEmail) {
       const usernameKey = trimmedIdentifier.toLowerCase();
       try {
-        const response = await fetch(`${API_BASE}/api/auth/resolve-username`, {
+        const response = await fetchWithTimeoutAndRetry(`${API_BASE}/api/auth/resolve-username`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -2997,7 +3048,7 @@ export function AppProvider({ children }) {
     recentlyPlayed, listeningHistory, focusHistory,
     notes, addFocusNote, updateFocusNote, deleteFocusNote, syncNotesImmediately,
     updateTaskDuration, reorderTasks,
-    playbackActivated,
+    playbackActivated, setPlaybackActivated,
   }), [
     mode, switchMode, isTransitioning, transitionStage, pendingMode,
     isPlaying, classicIsPlaying, playbackActivated, volume, isShuffle, isLoop, isFavorited, activePlaylist, playbackSettings,
@@ -3014,7 +3065,7 @@ export function AppProvider({ children }) {
     searchOpen, searchQuery, highlightedSongId, favoriteIds, favoriteSongs, favoritePlaylists,
     toggleFavoritePlaylist, toggleFavoriteSong, isPlaylistFavorited, isSongFavorited,
     recentlyPlayed, listeningHistory, focusHistory, notes, addFocusNote, updateFocusNote, deleteFocusNote, syncNotesImmediately,
-    updateTaskDuration, reorderTasks
+    updateTaskDuration, reorderTasks, seekTrigger, setPlaybackActivated
   ]);
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

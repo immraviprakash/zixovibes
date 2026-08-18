@@ -917,6 +917,7 @@ const Header = memo(function Header({ mode = 'classic', onModeChange }) {
                           className={styles.searchResultThumb}
                           onError={(e) => { e.target.src = '/playlist-covers/sleep.jpg'; }}
                           draggable="false"
+                          loading="lazy"
                         />
                         <div className={styles.searchResultMeta}>
                           <span className={styles.searchResultTitle} title={song.title}>
@@ -972,7 +973,7 @@ const Header = memo(function Header({ mode = 'classic', onModeChange }) {
                           className={`${styles.favItem} ${isDeepFocus ? styles.favItemDf : ''}`}
                           onClick={() => handlePlayFavorite(pl)}
                         >
-                          <img src={pl.artwork} className={styles.favThumb} alt="" draggable="false" />
+                          <img src={pl.artwork} className={styles.favThumb} alt="" draggable="false" loading="lazy" />
                           <span className={`${styles.favName} ${isDeepFocus ? styles.favNameDf : ''}`}>{pl.name}</span>
                         </button>
                       ))
@@ -993,7 +994,7 @@ const Header = memo(function Header({ mode = 'classic', onModeChange }) {
                             className={`${styles.favItem} ${isDeepFocus ? styles.favItemDf : ''}`}
                             onClick={() => handlePlayFavorite(song)}
                           >
-                            <img src={song.artwork} className={styles.favThumb} alt="" draggable="false" />
+                            <img src={song.artwork} className={styles.favThumb} alt="" draggable="false" loading="lazy" />
                             <div className={styles.favMeta}>
                               <span className={`${styles.favSongName} ${isDeepFocus ? styles.favSongNameDf : ''}`}>{song.songName}</span>
                               <span className={`${styles.favArtist} ${isDeepFocus ? styles.favArtistDf : ''}`}>{song.artist}</span>

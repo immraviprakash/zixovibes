@@ -59,6 +59,7 @@ const SongList = memo(function SongList({ playlist, songs, currentSong, isPlayin
           className={styles.bannerCover}
           onError={(e) => { e.target.src = '/playlist-covers/sleep.jpg'; }}
           draggable="false"
+          loading="lazy"
         />
         <div className={styles.bannerInfo}>
           <h2 className={styles.playlistTitle}>{playlist.title}</h2>

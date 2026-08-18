@@ -13,7 +13,7 @@ import ExitConfirmModal from './components/ExitConfirmModal/ExitConfirmModal';
 import CompletedConfirmModal from './components/CompletedConfirmModal/CompletedConfirmModal';
 import GuestFavoriteModal from './components/GuestFavoriteModal/GuestFavoriteModal';
 import UnfavoriteConfirmModal from './components/UnfavoriteConfirmModal/UnfavoriteConfirmModal';
-import AuthPage from './components/Auth/AuthPage';
+const AuthPage = lazy(() => import('./components/Auth/AuthPage'));
 import { getGreeting, currentUser } from './data/mockData';
 import woodBackground from './assets/wood-background.jpg';
 import styles from './App.module.css';
@@ -133,20 +133,7 @@ function AppContent() {
     playPlaylist(playlist);
   }, [setOpenedPlaylist, playPlaylist]);
 
-  // Cursor-following ambient light coordinates
-  const [glowCoords, setGlowCoords] = useState({ x: -1000, y: -1000, opacity: 0 });
 
-  const handleMouseMove = useCallback((e) => {
-    setGlowCoords({
-      x: e.clientX,
-      y: e.clientY,
-      opacity: 1
-    });
-  }, []);
-
-  const handleMouseLeave = useCallback(() => {
-    setGlowCoords(prev => ({ ...prev, opacity: 0 }));
-  }, []);
 
   const displayMode = mode === 'auth' ? previousMode : mode;
   const isDeepFocus = displayMode === 'deepfocus';
@@ -169,16 +156,7 @@ function AppContent() {
 
 
   return (
-    <div
-      className={`${styles.app} ${isTargetDf ? styles.deepFocusApp : ''}`}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{
-        '--glow-x': `${glowCoords.x}px`,
-        '--glow-y': `${glowCoords.y}px`,
-        '--glow-opacity': glowCoords.opacity
-      }}
-    >
+    <div className={`${styles.app} ${isTargetDf ? styles.deepFocusApp : ''}`}>
       {/* Screen Reader Live Announcements Region */}
       <div
         aria-live="polite"
@@ -215,18 +193,8 @@ function AppContent() {
         }}
       />
 
-      {/* Cursor-following ambient warm light over dark wood */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          background: `radial-gradient(550px circle at var(--glow-x, -1000px) var(--glow-y, -1000px), rgba(201, 168, 76, 0.08) 0%, rgba(160, 120, 60, 0.035) 40%, transparent 80%)`,
-          opacity: isTargetDf ? 0 : (mode === 'auth' ? 0 : 'var(--glow-opacity, 0)'),
-          transition: 'opacity 0.4s ease',
-          pointerEvents: 'none',
-          zIndex: 0
-        }}
-      />
+      {/* Cursor-following ambient warm light over dark wood (isolated re-renders) */}
+      {!isTargetDf && mode !== 'auth' && <AmbientGlow />}
 
       {/* Dark overlay - only for Classic Mode */}
       <div 
@@ -381,7 +349,13 @@ function AppContent() {
 
       {/* Authentication Screen */}
       {mode === 'auth' && (
-        <AuthPage />
+        <Suspense fallback={
+          <div className={styles.loaderContainer} aria-busy="true" aria-label="Loading Authentication">
+            <div className={styles.spinner} />
+          </div>
+        }>
+          <AuthPage />
+        </Suspense>
       )}
     </div>
   );
@@ -394,5 +368,43 @@ export default function App() {
         <AppContent />
       </TimerProvider>
     </AppProvider>
+  );
+}
+
+function AmbientGlow() {
+  const [coords, setCoords] = useState({ x: -1000, y: -1000, opacity: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setCoords({
+        x: e.clientX,
+        y: e.clientY,
+        opacity: 1
+      });
+    };
+    const handleMouseLeave = () => {
+      setCoords(prev => ({ ...prev, opacity: 0 }));
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseleave', handleMouseLeave);
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []);
+
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        inset: 0,
+        background: `radial-gradient(550px circle at ${coords.x}px ${coords.y}px, rgba(201, 168, 76, 0.08) 0%, rgba(160, 120, 60, 0.035) 40%, transparent 80%)`,
+        opacity: coords.opacity,
+        transition: 'opacity 0.4s ease',
+        pointerEvents: 'none',
+        zIndex: 0
+      }}
+    />
   );
 }

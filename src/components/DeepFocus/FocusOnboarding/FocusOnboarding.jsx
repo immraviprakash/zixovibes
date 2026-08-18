@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { API_BASE } from '../../../config/api';
+import { API_BASE, fetchWithTimeoutAndRetry } from '../../../config/api';
 import { useApp } from '../../../context/AppContext';
 import { useTimer } from '../../../context/TimerContext';
 import { focusPlaylists, getRandomSubtitle, sanitizePlan } from '../../../data/focusData';
@@ -29,6 +29,7 @@ export default function FocusOnboarding() {
   const [onboardingStage, setOnboardingStage] = useState('input'); // 'input' | 'preview'
   const [generatedPlan, setGeneratedPlan] = useState(null);
   const [validationError, setValidationError] = useState('');
+  const [loadingText, setLoadingText] = useState('Analyzing Goals');
   
   const [needsClarification, setNeedsClarification] = useState(false);
   const [clarificationQuestion, setClarificationQuestion] = useState('');
@@ -70,13 +71,24 @@ export default function FocusOnboarding() {
 
     setIsProcessing(true);
     setValidationError('');
+    setLoadingText('Analyzing Goals');
+
+    let secondsElapsed = 0;
+    const interval = setInterval(() => {
+      secondsElapsed += 1;
+      if (secondsElapsed >= 5 && secondsElapsed < 15) {
+        setLoadingText("Warming up Zix'Ovibes AI");
+      } else if (secondsElapsed >= 15) {
+        setLoadingText("Still connecting (Render free tier wakes in ~50s)");
+      }
+    }, 1000);
 
     try {
       const finalInput = needsClarification && clarificationResponse.trim()
         ? `${input}\nClarification: ${clarificationResponse.trim()}`
         : input;
 
-      const response = await fetch(`${API_BASE}/api/ai/df/plan`, {
+      const response = await fetchWithTimeoutAndRetry(`${API_BASE}/api/ai/df/plan`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -124,6 +136,7 @@ export default function FocusOnboarding() {
       }
       setValidationError(displayMsg || "Unable to generate your focus plan right now. Please try again in a moment.");
     } finally {
+      clearInterval(interval);
       setIsProcessing(false);
     }
   };
@@ -313,7 +326,7 @@ export default function FocusOnboarding() {
                 >
                   {isProcessing ? (
                     <span className={styles.loadingDots}>
-                      <span>Analyzing Goals</span>
+                      <span>{loadingText}</span>
                       <span className={styles.dot}>.</span>
                       <span className={styles.dot}>.</span>
                       <span className={styles.dot}>.</span>

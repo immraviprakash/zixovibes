@@ -167,6 +167,7 @@ export default function FocusPlaylistCards({ layout = 'horizontal' }) {
                   className={styles.artwork}
                   onError={(e) => { e.target.src = '/playlist-covers/sleep.jpg'; }}
                   draggable="false"
+                  loading="lazy"
                 />
               </div>
             </div>

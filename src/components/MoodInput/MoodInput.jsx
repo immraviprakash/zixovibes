@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, memo } from 'react';
-import { API_BASE } from '../../config/api';
+import { API_BASE, fetchWithTimeoutAndRetry } from '../../config/api';
 import { useApp } from '../../context/AppContext';
 import { auth, db } from '../../firebase/firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
@@ -26,6 +26,7 @@ const MoodInput = memo(function MoodInput() {
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [thinkingText, setThinkingText] = useState('Thinking...');
   const [errorMsg, setErrorMsg] = useState(null);
 
   const containerRef = useRef(null);
@@ -134,6 +135,17 @@ const MoodInput = memo(function MoodInput() {
     const historyBeforeRequest = [...messages, tempUserMsg];
     setMessages(historyBeforeRequest);
     setIsLoading(true);
+    setThinkingText('Thinking...');
+
+    let secondsElapsed = 0;
+    const interval = setInterval(() => {
+      secondsElapsed += 1;
+      if (secondsElapsed >= 5 && secondsElapsed < 15) {
+        setThinkingText("Warming up Zix'Ovibes AI...");
+      } else if (secondsElapsed >= 15) {
+        setThinkingText("Still connecting (Render free tier wakes in ~50s)...");
+      }
+    }, 1000);
 
     // Build structured state context payload (no server-side asset reading)
     const structuredPayload = {
@@ -160,7 +172,7 @@ const MoodInput = memo(function MoodInput() {
     };
 
     try {
-      const response = await fetch(`${API_BASE}/api/ai/chat`, {
+      const response = await fetchWithTimeoutAndRetry(`${API_BASE}/api/ai/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(structuredPayload),
@@ -208,6 +220,7 @@ const MoodInput = memo(function MoodInput() {
       }
       setErrorMsg(message);
     } finally {
+      clearInterval(interval);
       setIsLoading(false);
     }
   };
@@ -432,7 +445,7 @@ const MoodInput = memo(function MoodInput() {
                   <div className={styles.avatar}>Z</div>
                   <div className={styles.messageContainer}>
                     <div className={`${styles.messageBubble} ${styles.thinkingBubble}`}>
-                      <span className={styles.thinkingText}>Thinking...</span>
+                      <span className={styles.thinkingText}>{thinkingText}</span>
                     </div>
                   </div>
                 </div>
