@@ -12,6 +12,7 @@ const Header = memo(function Header({ mode = 'classic', onModeChange }) {
     displayName,
     updateDisplayName,
     userInitial,
+    createdAt,
     userEmail,
     setActivePlaylist,
     setClassicIsPlaying,
@@ -463,6 +464,24 @@ const Header = memo(function Header({ mode = 'classic', onModeChange }) {
       setIsEditingName(false);
     };
 
+    const parseDate = (val) => {
+      if (!val) return null;
+      const d = new Date(val);
+      return isNaN(d.getTime()) ? null : d;
+    };
+
+    const memberSinceText = (() => {
+      const d = parseDate(createdAt);
+      if (!d) return isAuthenticated ? 'August 2026' : 'Guest Session';
+      return d.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+    })();
+
+    const joinedDateText = (() => {
+      const d = parseDate(createdAt);
+      if (!d) return isAuthenticated ? 'August 18, 2026' : 'Not Registered';
+      return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    })();
+
     return (
       <div key="profile" className={styles.cardContentWrapper}>
         <div className={styles.cardHeader}>
@@ -504,7 +523,7 @@ const Header = memo(function Header({ mode = 'classic', onModeChange }) {
           <div className={styles.profileDetailsQuiet}>
             <div className={styles.detailRow}>
               <span className={styles.detailLabel}>Member Since</span>
-              <span className={styles.detailVal}>June 2026</span>
+              <span className={styles.detailVal}>{memberSinceText}</span>
             </div>
             <div className={styles.detailRow}>
               <span className={styles.detailLabel}>Current Mode</span>
@@ -523,15 +542,15 @@ const Header = memo(function Header({ mode = 'classic', onModeChange }) {
             <div className={styles.expandedDetails}>
               <div className={styles.detailRow}>
                 <span className={styles.detailLabel}>Email Address</span>
-                <span className={styles.detailVal}>{userEmail || 'ravixxxxxx@gmail.com'}</span>
+                <span className={styles.detailVal}>{userEmail || (isAuthenticated ? 'user@example.com' : 'Guest')}</span>
               </div>
               <div className={styles.detailRow}>
                 <span className={styles.detailLabel}>Joined Date</span>
-                <span className={styles.detailVal}>June 24, 2026</span>
+                <span className={styles.detailVal}>{joinedDateText}</span>
               </div>
               <div className={styles.detailRow}>
                 <span className={styles.detailLabel}>Account Info</span>
-                <span className={styles.detailVal}>Premium Listener</span>
+                <span className={styles.detailVal}>{isAuthenticated ? 'Premium Listener' : 'Guest Listener'}</span>
               </div>
             </div>
           )}

@@ -559,6 +559,9 @@ export function AppProvider({ children }) {
   const [displayName, setDisplayName] = useState(() => {
     return localStorage.getItem('zixovibes_display_name') || 'Guest User';
   });
+  const [createdAt, setCreatedAt] = useState(() => {
+    return localStorage.getItem('zixovibes_created_at') || null;
+  });
   const [userEmail, setUserEmail] = useState('');
 
   // Canonical user avatar initial derived purely from username (NOT displayName)
@@ -951,9 +954,16 @@ export function AppProvider({ children }) {
           setUsername(fetchedUsername);
           setDisplayName(fetchedDisplayName);
           
+          let fetchedCreatedAt = data.profile?.createdAt || data.createdAt || user.metadata?.creationTime || null;
+          if (!fetchedCreatedAt) {
+            fetchedCreatedAt = user.metadata?.creationTime || new Date().toISOString();
+          }
+          setCreatedAt(fetchedCreatedAt);
+          
           localStorage.setItem('zixovibes_is_authenticated', 'true');
           localStorage.setItem('zixovibes_username', fetchedUsername);
           localStorage.setItem('zixovibes_display_name', fetchedDisplayName);
+          localStorage.setItem('zixovibes_created_at', fetchedCreatedAt);
 
           // Fetch all subcollections in parallel to avoid sequential blocking round-trips
           const [
@@ -1135,6 +1145,7 @@ export function AppProvider({ children }) {
         setIsAuthenticated(false);
         setUsername('Guest User');
         setDisplayName('Guest User');
+        setCreatedAt(null);
         setUserEmail('');
         setClassicFavoritePlaylists([]);
         setClassicFavoriteSongs([]);
@@ -1149,6 +1160,7 @@ export function AppProvider({ children }) {
         localStorage.setItem('zixovibes_is_authenticated', 'false');
         localStorage.setItem('zixovibes_username', 'Guest User');
         localStorage.setItem('zixovibes_display_name', 'Guest User');
+        localStorage.removeItem('zixovibes_created_at');
       }
     });
     return () => unsubscribe();
@@ -2447,10 +2459,12 @@ export function AppProvider({ children }) {
       setIsAuthenticated(true);
       setUsername(trimmedUsername);
       setDisplayName(trimmedDisplayName);
+      setCreatedAt(nowIso);
       
       localStorage.setItem('zixovibes_is_authenticated', 'true');
       localStorage.setItem('zixovibes_username', trimmedUsername);
       localStorage.setItem('zixovibes_display_name', trimmedDisplayName);
+      localStorage.setItem('zixovibes_created_at', nowIso);
       setUserEmail(trimmedEmail);
 
       // 8. Redirect directly back to where the user left
@@ -2589,10 +2603,17 @@ export function AppProvider({ children }) {
     setUsername(fetchedUsername);
     setDisplayName(fetchedDisplayName);
     setUserEmail(targetEmail);
+
+    let fetchedCreatedAt = data.profile?.createdAt || data.createdAt || userCredential.user.metadata?.creationTime || null;
+    if (!fetchedCreatedAt) {
+      fetchedCreatedAt = userCredential.user.metadata?.creationTime || new Date().toISOString();
+    }
+    setCreatedAt(fetchedCreatedAt);
     
     localStorage.setItem('zixovibes_is_authenticated', 'true');
     localStorage.setItem('zixovibes_username', fetchedUsername);
     localStorage.setItem('zixovibes_display_name', fetchedDisplayName);
+    localStorage.setItem('zixovibes_created_at', fetchedCreatedAt);
 
     // 6. Redirect directly back to where the user left
     executeModeSwitch(previousMode || 'classic');
@@ -2670,6 +2691,7 @@ export function AppProvider({ children }) {
     setIsAuthenticated(false);
     setUsername('Guest User');
     setDisplayName('Guest User');
+    setCreatedAt(null);
     setUserEmail('');
     setClassicFavoritePlaylists([]);
     setClassicFavoriteSongs([]);
@@ -2684,6 +2706,7 @@ export function AppProvider({ children }) {
     localStorage.setItem('zixovibes_is_authenticated', 'false');
     localStorage.setItem('zixovibes_username', 'Guest User');
     localStorage.setItem('zixovibes_display_name', 'Guest User');
+    localStorage.removeItem('zixovibes_created_at');
     
     executeModeSwitch('classic');
   }, [executeModeSwitch, resetSession]);
@@ -3044,6 +3067,7 @@ export function AppProvider({ children }) {
     username, updateUsername,
     displayName, updateDisplayName,
     userInitial,
+    createdAt,
     userEmail,
     isAuthenticated, setIsAuthenticated,
     showGuestModal, setShowGuestModal,
@@ -3099,7 +3123,7 @@ export function AppProvider({ children }) {
     mode, switchMode, isTransitioning, transitionStage, pendingMode,
     isPlaying, classicIsPlaying, playbackActivated, volume, isShuffle, isLoop, isFavorited, activePlaylist, playbackSettings,
     playlistsList, songs, openedPlaylist, currentSong, elapsed, currentPlaylistSongs, seek, playNext, playPrev, playSong, playPlaylist,
-    username, updateUsername, displayName, updateDisplayName, userInitial, userEmail, isAuthenticated, showGuestModal, previousMode, login, signUp, logout, resetPassword,
+    username, updateUsername, displayName, updateDisplayName, userInitial, createdAt, userEmail, isAuthenticated, showGuestModal, previousMode, login, signUp, logout, resetPassword,
     hasOnboarded, sessionTitle, sessionSubtitle, tasks, toggleTask, deleteTask, allTasksDone,
     estimatedDuration, suggestedPomodoros, motivationalNote, totalFocusTime, selectedFocusPlaylist,
     sessionComplete, pomodorosCompleted, notebookOpen, resetSession,

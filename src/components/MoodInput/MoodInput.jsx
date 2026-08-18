@@ -308,6 +308,39 @@ const MoodInput = memo(function MoodInput() {
     return { songs: recommendedSongs, playlists: recommendedPlaylists };
   };
 
+  // Sanitizes any raw markdown artifacts to ensure clean, conversational UI presentation
+  const cleanMessageText = (text) => {
+    if (!text || typeof text !== 'string') return '';
+    let cleaned = text;
+    // 1. Remove markdown code fences and backticks
+    cleaned = cleaned.replace(/```[\s\S]*?```/g, (match) => {
+      return match.replace(/^```[a-zA-Z]*\n?/, '').replace(/```$/, '');
+    });
+    cleaned = cleaned.replace(/`([^`]+)`/g, '$1');
+    // 2. Remove markdown table separator lines (|---|---| or ||---||)
+    cleaned = cleaned.replace(/^\s*\|?[\s\-:|]+\|?\s*$/gm, '');
+    // 3. Convert table rows to readable bullet lines
+    cleaned = cleaned.replace(/^\s*\|\s*([^|\n]+?)\s*\|\s*([^|\n]+?)\s*\|\s*$/gm, '• $1: $2');
+    cleaned = cleaned.replace(/^\s*\|(.*)\|\s*$/gm, (match, inner) => {
+      const cells = inner.split('|').map(c => c.trim()).filter(Boolean);
+      if (cells.length === 0) return '';
+      if (cells.length === 1) return `• ${cells[0]}`;
+      return `• ${cells[0]}: ${cells.slice(1).join(' - ')}`;
+    });
+    // 4. Strip header hashes (# Header -> Header)
+    cleaned = cleaned.replace(/^#{1,6}\s+(.*)$/gm, '$1');
+    // 5. Convert bold/italic syntax (**text**, *text*, __text__, _text_)
+    cleaned = cleaned.replace(/\*\*([^*]+)\*\*/g, '$1');
+    cleaned = cleaned.replace(/__([^_]+)__/g, '$1');
+    // 6. Convert bullet asterisks or hyphens at start of lines (* item or - item -> • item)
+    cleaned = cleaned.replace(/^[\s]*[\*\-]\s+/gm, '• ');
+    // 7. Strip leftover stray pipe characters at edges
+    cleaned = cleaned.replace(/^\s*\|+|\s*\|+$/gm, '');
+    // 8. Normalize multiple empty lines
+    cleaned = cleaned.replace(/\n{3,}/g, '\n\n');
+    return cleaned.trim();
+  };
+
   const playSongAndActivate = (song) => {
     // Leverage the global audio player playSong from AppContext
     playSong(song);
@@ -354,7 +387,7 @@ const MoodInput = memo(function MoodInput() {
                       </div>
                       <div className={styles.messageContainer}>
                         <div className={styles.messageBubble}>
-                          <p className={styles.messageText}>{msg.message}</p>
+                          <p className={styles.messageText}>{cleanMessageText(msg.message)}</p>
                         </div>
 
                         {/* Renders interactive preview cards for recommended items */}
