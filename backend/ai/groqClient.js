@@ -32,7 +32,7 @@ export async function getGroqCompletion(messages, options = {}) {
   }
 
   const { stream = false, temperature = 0.7, response_format, max_completion_tokens = 1500, model, timeoutMs = 4500, globalTimeoutMs = 4500 } = options;
-  const modelName = model || process.env.GROQ_MODEL || 'llama-3.1-8b-instant';
+  const modelName = model || process.env.GROQ_MODEL || 'openai/gpt-oss-20b';
   const globalDeadline = Date.now() + globalTimeoutMs;
 
   // Order keys: try non-cooldowned keys first, keeping their relative order
@@ -66,7 +66,7 @@ export async function getGroqCompletion(messages, options = {}) {
         model: targetModel,
         messages,
         temperature,
-        max_completion_tokens,
+        max_tokens: max_completion_tokens,
         stream
       };
       if (response_format) {
@@ -117,12 +117,13 @@ export async function getGroqCompletion(messages, options = {}) {
 
         const errMsg = err.message || '';
         const isRateLimit = errMsg.includes('429') || errMsg.includes('rate_limit') || errMsg.includes('limit reached') || err.status === 429;
+        const isNotFound = err.status === 404 || errMsg.includes('model_not_found');
         const isTimeout = err.name === 'AbortError' || errMsg.includes('aborted');
 
-        if (isRateLimit || isTimeout) {
-          const fallbackModel = modelName === 'llama-3.1-8b-instant' ? 'gemma2-9b-it' : 'llama-3.1-8b-instant';
+        if (isRateLimit || isNotFound || isTimeout) {
+          const fallbackModel = modelName === 'openai/gpt-oss-20b' ? 'openai/gpt-oss-120b' : 'openai/gpt-oss-20b';
           if (modelName !== fallbackModel) {
-            console.warn(`[Groq Client] [Key Slot ${originalIndex}] Primary model ${modelName} ${isTimeout ? 'timed out' : 'rate limited'}. Retrying with fast fallback: ${fallbackModel}`);
+            console.warn(`[Groq Client] [Key Slot ${originalIndex}] Primary model ${modelName} ${isNotFound ? 'not found (404)' : isTimeout ? 'timed out' : 'rate limited'}. Retrying with fast fallback: ${fallbackModel}`);
             try {
               return await makeRequest(fallbackModel);
             } catch (fallbackErr) {
@@ -131,9 +132,9 @@ export async function getGroqCompletion(messages, options = {}) {
                 throw fallbackErr;
               }
               const fallbackMsg = fallbackErr.message || '';
-              if (fallbackMsg.includes('429') || fallbackMsg.includes('rate_limit') || fallbackErr.status === 429) {
-                const secondFallback = 'llama-3.3-70b-versatile';
-                console.warn(`[Groq Client] [Key Slot ${originalIndex}] Fallback model ${fallbackModel} rate limited. Retrying with second fallback: ${secondFallback}`);
+              if (fallbackMsg.includes('429') || fallbackMsg.includes('rate_limit') || fallbackErr.status === 429 || fallbackErr.status === 404) {
+                const secondFallback = 'groq/compound-mini';
+                console.warn(`[Groq Client] [Key Slot ${originalIndex}] Fallback model ${fallbackModel} unavailable. Retrying with third fallback: ${secondFallback}`);
                 try {
                   return await makeRequest(secondFallback);
                 } catch (_) {}
@@ -157,7 +158,7 @@ export async function getGroqCompletion(messages, options = {}) {
       lastError = err;
 
       // Determine if error is retryable
-      const isRetryableStatus = err.status === 401 || err.status === 403 || err.status === 429 || (err.status >= 500 && err.status <= 599);
+      const isRetryableStatus = err.status === 401 || err.status === 403 || err.status === 404 || err.status === 429 || (err.status >= 500 && err.status <= 599);
       const isTimeout = err.name === 'AbortError' || (err.message && err.message.includes('aborted'));
       const isRetryable = isTimeout || err.isNetworkError || (err.isProviderError && isRetryableStatus);
 
