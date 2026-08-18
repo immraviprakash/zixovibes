@@ -76,10 +76,10 @@ export default function FocusOnboarding() {
     let secondsElapsed = 0;
     const interval = setInterval(() => {
       secondsElapsed += 1;
-      if (secondsElapsed >= 5 && secondsElapsed < 15) {
-        setLoadingText("Warming up Zix'Ovibes AI");
-      } else if (secondsElapsed >= 15) {
-        setLoadingText("Still connecting (Render free tier wakes in ~50s)");
+      if (secondsElapsed >= 3 && secondsElapsed < 7) {
+        setLoadingText("Warming up AI...");
+      } else if (secondsElapsed >= 7) {
+        setLoadingText("Still connecting...");
       }
     }, 1000);
 
@@ -88,15 +88,20 @@ export default function FocusOnboarding() {
         ? `${input}\nClarification: ${clarificationResponse.trim()}`
         : input;
 
-      const response = await fetchWithTimeoutAndRetry(`${API_BASE}/api/ai/df/plan`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          action: 'plan',
-          rawInput: finalInput,
-          availableTime: 120
-        })
-      });
+      const response = await fetchWithTimeoutAndRetry(
+        `${API_BASE}/api/ai/df/plan`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            action: 'plan',
+            rawInput: finalInput,
+            availableTime: 120
+          })
+        },
+        15000,
+        1
+      );
 
       if (!response.ok) {
         let errMsg = "Unable to generate your focus plan right now. Please try again in a moment.";

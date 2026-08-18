@@ -31,8 +31,9 @@ export async function getGroqCompletion(messages, options = {}) {
     throw new Error('No valid Groq API Key is configured in backend/.env');
   }
 
-  const { stream = false, temperature = 0.7, response_format, max_completion_tokens = 1500 } = options;
-  const modelName = process.env.GROQ_MODEL || 'llama-3.3-70b-versatile';
+  const { stream = false, temperature = 0.7, response_format, max_completion_tokens = 1500, model, timeoutMs = 4500, globalTimeoutMs = 4500 } = options;
+  const modelName = model || process.env.GROQ_MODEL || 'llama-3.1-8b-instant';
+  const globalDeadline = Date.now() + globalTimeoutMs;
 
   // Order keys: try non-cooldowned keys first, keeping their relative order
   const now = Date.now();
@@ -51,11 +52,18 @@ export async function getGroqCompletion(messages, options = {}) {
   let lastError = null;
 
   for (let attempt = 0; attempt < orderedKeysInfo.length; attempt++) {
+    const remainingTime = globalDeadline - Date.now();
+    if (remainingTime <= 300) {
+      console.warn('[Groq Client] Global request budget exceeded. Terminating fallback sequence.');
+      break;
+    }
+
     const { key, originalIndex } = orderedKeysInfo[attempt];
 
-    const makeRequest = async (model) => {
+    const makeRequest = async (targetModel) => {
+      const remainingForAttempt = Math.min(timeoutMs, Math.max(300, globalDeadline - Date.now()));
       const payloadBody = {
-        model,
+        model: targetModel,
         messages,
         temperature,
         max_completion_tokens,
@@ -65,6 +73,9 @@ export async function getGroqCompletion(messages, options = {}) {
         payloadBody.response_format = response_format;
       }
 
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), remainingForAttempt);
+
       let response;
       try {
         response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
@@ -73,11 +84,14 @@ export async function getGroqCompletion(messages, options = {}) {
             'Authorization': `Bearer ${key}`,
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify(payloadBody)
+          body: JSON.stringify(payloadBody),
+          signal: controller.signal
         });
       } catch (fetchErr) {
         fetchErr.isNetworkError = true;
         throw fetchErr;
+      } finally {
+        clearTimeout(timer);
       }
 
       if (!response.ok) {
@@ -96,17 +110,29 @@ export async function getGroqCompletion(messages, options = {}) {
       try {
         return await makeRequest(modelName);
       } catch (err) {
+        const remainingAfterPrimary = globalDeadline - Date.now();
+        if (remainingAfterPrimary <= 400) {
+          throw err;
+        }
+
         const errMsg = err.message || '';
-        if (errMsg.includes('429') || errMsg.includes('rate_limit') || errMsg.includes('limit reached') || err.status === 429) {
-          const fallbackModel = 'llama-3.1-8b-instant';
+        const isRateLimit = errMsg.includes('429') || errMsg.includes('rate_limit') || errMsg.includes('limit reached') || err.status === 429;
+        const isTimeout = err.name === 'AbortError' || errMsg.includes('aborted');
+
+        if (isRateLimit || isTimeout) {
+          const fallbackModel = modelName === 'llama-3.1-8b-instant' ? 'gemma2-9b-it' : 'llama-3.1-8b-instant';
           if (modelName !== fallbackModel) {
-            console.warn(`[Groq Client] [Key Slot ${originalIndex}] Primary model ${modelName} rate limited. Retrying with fallback: ${fallbackModel}`);
+            console.warn(`[Groq Client] [Key Slot ${originalIndex}] Primary model ${modelName} ${isTimeout ? 'timed out' : 'rate limited'}. Retrying with fast fallback: ${fallbackModel}`);
             try {
               return await makeRequest(fallbackModel);
             } catch (fallbackErr) {
+              const remainingAfterFallback = globalDeadline - Date.now();
+              if (remainingAfterFallback <= 400) {
+                throw fallbackErr;
+              }
               const fallbackMsg = fallbackErr.message || '';
-              if (fallbackMsg.includes('429') || fallbackMsg.includes('rate_limit') || fallbackMsg.includes('limit reached') || fallbackErr.status === 429) {
-                const secondFallback = 'gemma2-9b-it';
+              if (fallbackMsg.includes('429') || fallbackMsg.includes('rate_limit') || fallbackErr.status === 429) {
+                const secondFallback = 'llama-3.3-70b-versatile';
                 console.warn(`[Groq Client] [Key Slot ${originalIndex}] Fallback model ${fallbackModel} rate limited. Retrying with second fallback: ${secondFallback}`);
                 try {
                   return await makeRequest(secondFallback);
@@ -132,23 +158,23 @@ export async function getGroqCompletion(messages, options = {}) {
 
       // Determine if error is retryable
       const isRetryableStatus = err.status === 401 || err.status === 403 || err.status === 429 || (err.status >= 500 && err.status <= 599);
-      const isRetryable = err.isNetworkError || err.isProviderError && isRetryableStatus;
+      const isTimeout = err.name === 'AbortError' || (err.message && err.message.includes('aborted'));
+      const isRetryable = isTimeout || err.isNetworkError || (err.isProviderError && isRetryableStatus);
 
       if (isRetryable) {
         // Apply cooldown to this key (1 minute)
         keyCooldowns.set(key, Date.now() + 60000);
 
-        console.warn(`[Groq Client] AI request failed for configured key slot ${originalIndex} (Status: ${err.status || 'Network Error'}). Attempting fallback...`);
+        console.warn(`[Groq Client] AI request failed for configured key slot ${originalIndex} (Status: ${err.status || err.name || 'Network Error'}). Attempting next key...`);
       } else {
-        // Non-retryable application-level or request error (e.g. 400 Bad Request, TypeError, etc.)
-        // Stop sequential failover immediately and throw
+        // Non-retryable application-level or request error
         console.error(`[Groq Client] Non-retryable request/application error encountered on key slot ${originalIndex}. Terminating fallback sequence.`);
         throw err;
       }
     }
   }
 
-  // All keys exhausted
-  console.error('[Groq Client] All configured API keys have been exhausted or failed.');
-  throw new Error("The AI service is temporarily unavailable. Please try again shortly.");
+  // All keys exhausted or deadline hit
+  console.error('[Groq Client] All configured API keys have been exhausted, failed, or exceeded deadline.');
+  throw new Error("The AI service is temporarily busy. Please try again in a moment.");
 }

@@ -10,14 +10,14 @@
 export const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 
 /**
- * Custom fetch wrapper that supports abort-based timeout and automatic retry on server-side errors.
+ * Custom fetch wrapper that supports abort-based timeout and fast automatic retry on transient server-side errors.
  *
  * @param {string} url - Target endpoint
  * @param {object} options - Fetch options (method, headers, body, signal)
- * @param {number} timeoutMs - Timeout duration in ms (default 60s)
+ * @param {number} timeoutMs - Timeout duration in ms (default 15s)
  * @param {number} maxRetries - Maximum number of retries (default 1)
  */
-export async function fetchWithTimeoutAndRetry(url, options = {}, timeoutMs = 60000, maxRetries = 1) {
+export async function fetchWithTimeoutAndRetry(url, options = {}, timeoutMs = 15000, maxRetries = 1) {
   let attempt = 0;
   
   while (attempt <= maxRetries) {
@@ -40,11 +40,11 @@ export async function fetchWithTimeoutAndRetry(url, options = {}, timeoutMs = 60
       const response = await fetch(url, { ...options, signal });
       clearTimeout(timer);
       
-      // Retry for transient server errors (5xx)
+      // Fast retry for transient server cold starts (502 / 503 / 504)
       if (response.status >= 500 && attempt < maxRetries) {
         attempt++;
         console.warn(`[API Client] Transient server error (${response.status}). Retrying... (Attempt ${attempt}/${maxRetries})`);
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        await new Promise(resolve => setTimeout(resolve, 800));
         continue;
       }
       
@@ -57,11 +57,11 @@ export async function fetchWithTimeoutAndRetry(url, options = {}, timeoutMs = 60
         throw err;
       }
       
-      // Retry once on timeout/network failures
+      // Fast retry once on network disconnect / Render cold-start connection failure
       if (attempt < maxRetries) {
         attempt++;
         console.warn(`[API Client] Network failure or timeout. Retrying... (Attempt ${attempt}/${maxRetries})`, err);
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        await new Promise(resolve => setTimeout(resolve, 800));
         continue;
       }
       

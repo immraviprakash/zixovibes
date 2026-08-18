@@ -140,10 +140,8 @@ const MoodInput = memo(function MoodInput() {
     let secondsElapsed = 0;
     const interval = setInterval(() => {
       secondsElapsed += 1;
-      if (secondsElapsed >= 5 && secondsElapsed < 15) {
-        setThinkingText("Warming up Zix'Ovibes AI...");
-      } else if (secondsElapsed >= 15) {
-        setThinkingText("Still connecting (Render free tier wakes in ~50s)...");
+      if (secondsElapsed >= 2) {
+        setThinkingText("Warming up Bro...");
       }
     }, 1000);
 
@@ -172,12 +170,17 @@ const MoodInput = memo(function MoodInput() {
     };
 
     try {
-      const response = await fetchWithTimeoutAndRetry(`${API_BASE}/api/ai/chat`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(structuredPayload),
-        signal: abortControllerRef.current.signal
-      });
+      const response = await fetchWithTimeoutAndRetry(
+        `${API_BASE}/api/ai/chat`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(structuredPayload),
+          signal: abortControllerRef.current.signal
+        },
+        5000,
+        0
+      );
       if (!response.ok) {
         let errMsg = `Server returned ${response.status}`;
         try {
@@ -212,8 +215,8 @@ const MoodInput = memo(function MoodInput() {
         return;
       }
       console.error('[Classic AI] Send error:', err);
-      let message = "Something went wrong on my side. Please try again shortly.";
-      if (err.message && err.message.includes('Failed to fetch')) {
+      let message = "Bro is taking a quick moment to chill. Please try asking again in a second!";
+      if (err.message && (err.message.includes('Failed to fetch') || err.message.includes('Network failure'))) {
         message = 'Connection error: Bro is temporarily offline. Please try again in a moment.';
       } else if (err.message) {
         message = err.message;

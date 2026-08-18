@@ -18,8 +18,13 @@ export async function processUserMessage(payload) {
   const appContext = { mode, context, library };
   const messages = buildPrompt(conversationHistory, userMessage, appContext);
 
-  // Request completion from GroqCloud
-  const aiResponse = await getGroqCompletion(messages, { stream: false });
+  // Request completion from GroqCloud using fast 8B model and 5s timeout budget
+  const aiResponse = await getGroqCompletion(messages, {
+    stream: false,
+    model: 'llama-3.1-8b-instant',
+    max_completion_tokens: 350,
+    timeoutMs: 5000
+  });
 
   // Append new exchange to history
   const updatedHistory = [
